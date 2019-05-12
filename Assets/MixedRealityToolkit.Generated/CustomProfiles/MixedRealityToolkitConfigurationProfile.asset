@@ -14,25 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCustomProfile: 1
   targetExperienceScale: 3
-  enableCameraProfile: 0
-  cameraProfile: {fileID: 0}
-  enableInputSystem: 0
-  inputSystemProfile: {fileID: 0}
+  enableCameraProfile: 1
+  cameraProfile: {fileID: 11400000, guid: 8089ccfdd4494cd38f676f9fc1f46a04, type: 2}
+  enableInputSystem: 1
+  inputSystemProfile: {fileID: 11400000, guid: ad2080e8e71c35f4e8bcde94fa68f098, type: 2}
   inputSystemType:
-    reference: 
-  enableBoundarySystem: 0
+    reference: Microsoft.MixedReality.Toolkit.Input.MixedRealityInputSystem, Microsoft.MixedReality.Toolkit.Services.InputSystem
+  enableBoundarySystem: 1
   boundarySystemType:
-    reference: 
-  boundaryVisualizationProfile: {fileID: 0}
-  enableTeleportSystem: 0
+    reference: Microsoft.MixedReality.Toolkit.Boundary.MixedRealityBoundarySystem,
+      Microsoft.MixedReality.Toolkit.Services.BoundarySystem
+  boundaryVisualizationProfile: {fileID: 11400000, guid: 6d28cce596b44bd3897ca86f8b24e076,
+    type: 2}
+  enableTeleportSystem: 1
   teleportSystemType:
-    reference: 
-  enableSpatialAwarenessSystem: 0
+    reference: Microsoft.MixedReality.Toolkit.Teleport.MixedRealityTeleportSystem,
+      Microsoft.MixedReality.Toolkit.Services.TeleportSystem
+  enableSpatialAwarenessSystem: 1
   spatialAwarenessSystemType:
-    reference: 
-  spatialAwarenessSystemProfile: {fileID: 0}
-  diagnosticsSystemProfile: {fileID: 0}
+    reference: Microsoft.MixedReality.Toolkit.SpatialAwareness.MixedRealitySpatialAwarenessSystem,
+      Microsoft.MixedReality.Toolkit.Services.SpatialAwarenessSystem
+  spatialAwarenessSystemProfile: {fileID: 11400000, guid: 97da727944a3d7b4caf42d2273271a24,
+    type: 2}
+  diagnosticsSystemProfile: {fileID: 11400000, guid: 478436bd1083882479a52d067e98e537,
+    type: 2}
   enableDiagnosticsSystem: 0
   diagnosticsSystemType:
-    reference: 
-  registeredServiceProvidersProfile: {fileID: 0}
+    reference: Microsoft.MixedReality.Toolkit.Diagnostics.MixedRealityDiagnosticsSystem,
+      Microsoft.MixedReality.Toolkit.Services.DiagnosticsSystem
+  registeredServiceProvidersProfile: {fileID: 11400000, guid: efbaf6ea540c69f4fb75415a5d145a53,
+    type: 2}
