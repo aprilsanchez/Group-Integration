@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/scene_navigation.unity
+    guid: 56c3ee2724a9dac40ba77ee38ac2489a
+  - enabled: 1
+    path: Assets/Scenes/Rattlesnake.unity
+    guid: 88f585e53b8bc764eaf9ee52ad547da9
   m_configObjects: {}
