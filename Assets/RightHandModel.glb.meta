@@ -1,0 +1,203 @@
+fileFormatVersion: 2
+guid: e48754c6ecbc3cc468eaf66582bd7166
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: main/glTF Scene RightHandModel
+    100002: main/glTF Scene RightHandModel/glTF Node 52
+    100004: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0
+    100006: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 1
+    100008: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2
+    100010: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3
+    100012: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3/glTF Node 5
+    100014: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3/glTF Node 5/glTF Node 4
+    100016: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 49
+    100018: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 50
+    100020: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP
+    100022: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/PRESSED
+    100024: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/UNPRESSED
+    100026: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/VALUE
+    100028: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/VALUE/glTF
+      Node 7
+    100030: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME
+    100032: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/PRESSED
+    100034: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/UNPRESSED
+    100036: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/VALUE
+    100038: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/VALUE/glTF
+      Node 12
+    100040: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU
+    100042: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/PRESSED
+    100044: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/UNPRESSED
+    100046: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/VALUE
+    100048: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/VALUE/glTF
+      Node 17
+    100050: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/POINTING_POSE
+    100052: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT
+    100054: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/PRESSED
+    100056: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/UNPRESSED
+    100058: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/VALUE
+    100060: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/VALUE/glTF
+      Node 22
+    100062: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS
+    100064: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/PRESSED
+    100066: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/UNPRESSED
+    100068: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE
+    100070: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X
+    100072: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/MAX
+    100074: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/MIN
+    100076: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE
+    100078: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y
+    100080: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/MAX
+    100082: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/MIN
+    100084: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/VALUE
+    100086: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/VALUE/glTF
+      Node 36
+    100088: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS
+    100090: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/PRESSED
+    100092: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/UNPRESSED
+    100094: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE
+    100096: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X
+    100098: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/MAX
+    100100: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/MIN
+    100102: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE
+    100104: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y
+    100106: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/MAX
+    100108: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/MIN
+    100110: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE
+    100112: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X
+    100114: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/glTF
+      Node 38
+    100116: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/MAX
+    100118: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/MIN
+    100120: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE
+    100122: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y
+    100124: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/MAX
+    100126: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/MIN
+    100128: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/VALUE
+    100130: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/VALUE/TOUCH
+    400000: main/glTF Scene RightHandModel/Transform
+    400002: main/glTF Scene RightHandModel/glTF Node 52/Transform
+    400004: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/Transform
+    400006: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 1/Transform
+    400008: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/Transform
+    400010: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3/Transform
+    400012: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3/glTF Node 5/Transform
+    400014: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3/glTF Node 5/glTF Node 4/Transform
+    400016: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 49/Transform
+    400018: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 50/Transform
+    400020: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/Transform
+    400022: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/PRESSED/Transform
+    400024: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/UNPRESSED/Transform
+    400026: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/VALUE/Transform
+    400028: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/VALUE/glTF
+      Node 7/Transform
+    400030: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/Transform
+    400032: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/PRESSED/Transform
+    400034: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/UNPRESSED/Transform
+    400036: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/VALUE/Transform
+    400038: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/VALUE/glTF
+      Node 12/Transform
+    400040: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/Transform
+    400042: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/PRESSED/Transform
+    400044: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/UNPRESSED/Transform
+    400046: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/VALUE/Transform
+    400048: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/VALUE/glTF
+      Node 17/Transform
+    400050: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/POINTING_POSE/Transform
+    400052: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/Transform
+    400054: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/PRESSED/Transform
+    400056: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/UNPRESSED/Transform
+    400058: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/VALUE/Transform
+    400060: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/VALUE/glTF
+      Node 22/Transform
+    400062: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/Transform
+    400064: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/PRESSED/Transform
+    400066: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/UNPRESSED/Transform
+    400068: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/Transform
+    400070: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/Transform
+    400072: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/MAX/Transform
+    400074: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/MIN/Transform
+    400076: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/Transform
+    400078: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/Transform
+    400080: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/MAX/Transform
+    400082: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/MIN/Transform
+    400084: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/VALUE/Transform
+    400086: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/VALUE/glTF
+      Node 36/Transform
+    400088: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/Transform
+    400090: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/PRESSED/Transform
+    400092: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/UNPRESSED/Transform
+    400094: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/Transform
+    400096: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/Transform
+    400098: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/MAX/Transform
+    400100: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/MIN/Transform
+    400102: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/Transform
+    400104: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/Transform
+    400106: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/MAX/Transform
+    400108: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/MIN/Transform
+    400110: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/Transform
+    400112: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/Transform
+    400114: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/glTF
+      Node 38/Transform
+    400116: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/MAX/Transform
+    400118: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/MIN/Transform
+    400120: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/Transform
+    400122: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/Transform
+    400124: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/MAX/Transform
+    400126: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/MIN/Transform
+    400128: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/VALUE/Transform
+    400130: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/VALUE/TOUCHPAD_TOUCH_Y/VALUE/TOUCH/Transform
+    2300000: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 1/MeshRenderer
+    2300002: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3/glTF Node 5/glTF Node 4/MeshRenderer
+    2300004: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/VALUE/glTF
+      Node 7/MeshRenderer
+    2300006: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/VALUE/glTF
+      Node 12/MeshRenderer
+    2300008: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/VALUE/glTF
+      Node 17/MeshRenderer
+    2300010: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/VALUE/glTF
+      Node 22/MeshRenderer
+    2300012: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/VALUE/glTF
+      Node 36/MeshRenderer
+    2300014: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/glTF
+      Node 38/MeshRenderer
+    2800000: Texture_0
+    2800002: Texture_1
+    2800004: Texture_2
+    2800006: Texture_3
+    3300000: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 1/MeshFilter
+    3300002: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/glTF Node 2/glTF
+      Node 3/glTF Node 5/glTF Node 4/MeshFilter
+    3300004: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/GRASP/VALUE/glTF
+      Node 7/MeshFilter
+    3300006: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/HOME/VALUE/glTF
+      Node 12/MeshFilter
+    3300008: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/MENU/VALUE/glTF
+      Node 17/MeshFilter
+    3300010: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/SELECT/VALUE/glTF
+      Node 22/MeshFilter
+    3300012: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/THUMBSTICK_PRESS/VALUE/THUMBSTICK_X/VALUE/THUMBSTICK_Y/VALUE/glTF
+      Node 36/MeshFilter
+    3300014: main/glTF Scene RightHandModel/glTF Node 52/glTF Node 0/TOUCHPAD_PRESS/VALUE/TOUCHPAD_PRESS_X/VALUE/TOUCHPAD_PRESS_Y/VALUE/TOUCHPAD_TOUCH_X/glTF
+      Node 38/MeshFilter
+    4300000: Mesh_0
+    4300002: Mesh_1
+    4300004: Mesh_2
+    4300006: Mesh_3
+    4300008: Mesh_4
+    4300010: Mesh_5
+    4300012: Mesh_6
+    4300014: Mesh_7
+    11400000: glTF data
+    100100000: main
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 75911c45f303c8f45927f5efeaa50cc4, type: 3}
