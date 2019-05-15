@@ -376,7 +376,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5424762629955988294}
-  - component: {fileID: 1231459969258566053}
+  - component: {fileID: 6351083142545069149}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -399,7 +399,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1231459969258566053
+--- !u!114 &6351083142545069149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,9 +415,9 @@ MonoBehaviour:
   destroyOnSourceLost: 1
   useSourcePoseData: 1
   poseAction:
-    id: 0
-    description: None
-    axisConstraint: 0
+    id: 4
+    description: Pointer Pose
+    axisConstraint: 7
 --- !u!1 &1378953743890896685
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +608,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1388556914104126981}
-  - component: {fileID: 582097812867615943}
   m_Layer: 0
   m_Name: glTF Node 0
   m_TagString: Untagged
@@ -641,25 +640,6 @@ Transform:
   m_Father: {fileID: 2972724876340113139}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 180}
---- !u!114 &582097812867615943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114538425767465946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef91a627a11b4a22b41dd9109dfd8703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handedness: 1
-  destroyOnSourceLost: 1
-  useSourcePoseData: 1
-  poseAction:
-    id: 0
-    description: None
-    axisConstraint: 0
 --- !u!1 &2137049853836776430
 GameObject:
   m_ObjectHideFlags: 0

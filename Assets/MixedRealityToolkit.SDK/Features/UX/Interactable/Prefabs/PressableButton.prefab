@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 7440800412470431853}
   - component: {fileID: 316800719}
   - component: {fileID: 2034987663884019302}
+  - component: {fileID: 114063543585732534}
   m_Layer: 0
   m_Name: PressableButton
   m_TagString: Untagged
@@ -146,6 +147,7 @@ MonoBehaviour:
   pressDistance: 0.006
   releaseDistanceDelta: 0.001
   returnRate: 25
+  enforceFrontPush: 1
   TouchBegin:
     m_PersistentCalls:
       m_Calls:
@@ -416,6 +418,25 @@ MonoBehaviour:
   touchableSurface: 0
   bounds: {x: 0.032, y: 0.032}
   touchableCollider: {fileID: 316800722}
+--- !u!114 &114063543585732534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316800718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef91a627a11b4a22b41dd9109dfd8703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handedness: 1
+  destroyOnSourceLost: 1
+  useSourcePoseData: 1
+  poseAction:
+    id: 0
+    description: None
+    axisConstraint: 0
 --- !u!1 &937783100
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +855,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
