@@ -700,6 +700,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
         type: 3}
+      propertyPath: Events.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
+        type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -722,6 +727,32 @@ PrefabInstance:
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
+        type: 3}
+      propertyPath: Events.Array.data[0].Event.m_TypeName
+      value: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
+        type: 3}
+      propertyPath: Events.Array.data[0].Name
+      value: CustomEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
+        type: 3}
+      propertyPath: Events.Array.data[0].ClassName
+      value: CustomInteractablesReceiver
+      objectReference: {fileID: 0}
+    - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
+        type: 3}
+      propertyPath: Events.Array.data[0].AssemblyQualifiedName
+      value: Microsoft.MixedReality.Toolkit.UI.CustomInteractablesReceiver, MixedRealityToolkit.Examples.Demos.UX.Interactables
+      objectReference: {fileID: 0}
+    - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
+        type: 3}
+      propertyPath: Events.Array.data[0].HideUnityEvents
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 102859053046776500, guid: 51cc6641d88b49d46bd38572540efe6c,
         type: 3}

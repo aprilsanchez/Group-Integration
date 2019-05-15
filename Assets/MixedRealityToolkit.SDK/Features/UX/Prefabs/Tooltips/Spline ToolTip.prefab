@@ -108,6 +108,7 @@ MonoBehaviour:
   - {x: 0, y: 1, z: 0}
   velocitySearchRange: 0.02
   distorters: []
+  distortionEnabled: 1
   distortionMode: 0
   distortionStrength:
     serializedVersion: 2
@@ -625,6 +626,7 @@ GameObject:
   - component: {fileID: 114469678959493348}
   - component: {fileID: 114815262729593704}
   - component: {fileID: 120134443969394850}
+  - component: {fileID: 114127609431701872}
   m_Layer: 0
   m_Name: Spline ToolTip
   m_TagString: Untagged
@@ -676,6 +678,7 @@ MonoBehaviour:
   contentScale: 2
   fontSize: 30
   attachPointType: 9
+  attachPointOffset: {x: 0, y: 0, z: 0}
   toolTipLine: {fileID: 114469678959493348}
 --- !u!114 &114791554859771234
 MonoBehaviour:
@@ -752,6 +755,7 @@ MonoBehaviour:
   - {x: 0, y: 1, z: 0}
   velocitySearchRange: 0.02
   distorters: []
+  distortionEnabled: 1
   distortionMode: 0
   distortionStrength:
     serializedVersion: 2
@@ -1007,6 +1011,25 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &114127609431701872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379707608131922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef91a627a11b4a22b41dd9109dfd8703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handedness: 1
+  destroyOnSourceLost: 1
+  useSourcePoseData: 1
+  poseAction:
+    id: 0
+    description: None
+    axisConstraint: 0
 --- !u!1 &1582682964526084
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,26 +11,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PressableButtonPlated
       objectReference: {fileID: 0}
-    - target: {fileID: 316800720, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: routingTarget
-      value: 
-      objectReference: {fileID: 8779034279059886464}
-    - target: {fileID: 316800720, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: source
-      value: 
-      objectReference: {fileID: 2204069621426241314}
-    - target: {fileID: 316800721, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: handlerTarget
-      value: 
-      objectReference: {fileID: 2204069621426241315}
-    - target: {fileID: 316800721, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: visualsCollider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 316800721, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: movingButtonVisuals
-      value: 
-      objectReference: {fileID: 2204069621797983326}
     - target: {fileID: 937783102, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
       propertyPath: m_renderer
       value: 
@@ -57,15 +37,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 937783105, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce,
-        type: 2}
-    - target: {fileID: 1456178463, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: m_renderer
-      value: 
-      objectReference: {fileID: 2204069622435366095}
     - target: {fileID: 1944713263, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -110,25 +81,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2096017744, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
-      propertyPath: buttonCollider
-      value: 
-      objectReference: {fileID: 2204069621426241343}
-    - target: {fileID: 2403385908099678459, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2406973081839446391, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 2448481695624442821, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e676303390b2ee941b658c1d04ccdc57, type: 2}
     - target: {fileID: 7440800412470431853, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9,
         type: 3}
       propertyPath: Profiles.Array.data[0].Target
@@ -159,6 +116,49 @@ PrefabInstance:
       propertyPath: Profiles.Array.data[0].Target
       value: 
       objectReference: {fileID: 1874729665501627384}
+    - target: {fileID: 316800721, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: handlerTarget
+      value: 
+      objectReference: {fileID: 2204069621426241315}
+    - target: {fileID: 316800721, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: visualsCollider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 316800721, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: movingButtonVisuals
+      value: 
+      objectReference: {fileID: 2204069621797983326}
+    - target: {fileID: 316800720, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: routingTarget
+      value: 
+      objectReference: {fileID: 8779034279059886464}
+    - target: {fileID: 316800720, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 2204069621426241314}
+    - target: {fileID: 937783105, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce,
+        type: 2}
+    - target: {fileID: 1456178463, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: m_renderer
+      value: 
+      objectReference: {fileID: 2204069622435366095}
+    - target: {fileID: 2096017744, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
+      propertyPath: buttonCollider
+      value: 
+      objectReference: {fileID: 2204069621426241343}
+    - target: {fileID: 2403385908099678459, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2448481695624442821, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45fd0ad89d6d17b4fbe68eb48dbe9de9, type: 3}
 --- !u!1 &2204069621426241315 stripped
