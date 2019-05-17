@@ -111,10 +111,11 @@ public class Size : MonoBehaviour
         index++;
         
         //read until there are no more Biomasses to read
-        if (index >= ResprouterSizes.Count - 1)
+        if (index >= (15*365))//ResprouterSizes.Count - 1)
         {
             Debug.Log("maxDiff is: " + maxDiff);
-            Debug.Break();
+            myTerrain.GetComponent<TestGenerator>().destroyBushes();
+            //Debug.Break();
         }
        
         StartCoroutine(WaitThenChangeSize(growthTime, Fire));
