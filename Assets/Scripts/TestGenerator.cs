@@ -118,7 +118,7 @@ public class TestGenerator : MonoBehaviour
         myTerrain.AddTreeInstance(tree);
     }
 
-    private void destroyBushes()
+    public void destroyBushes()
     {
         TreeInstance[] tmpArray = new TreeInstance[0];
         Terrain.activeTerrain.terrainData.treeInstances = tmpArray;
@@ -134,7 +134,7 @@ public class TestGenerator : MonoBehaviour
         placeBushes(resprouterXZ, 0);
         placeBushes(reseederXZ, 1);
         //findLocation(34.462989f, -119.687829f);
-        myTerrain.GetComponent<Size>().Biomass();
+        //myTerrain.GetComponent<Size>().Biomass();
     }
 
     private void OnApplicationQuit()
