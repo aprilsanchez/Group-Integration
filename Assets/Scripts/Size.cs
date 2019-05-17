@@ -10,10 +10,12 @@ public class Size : MonoBehaviour
     [SerializeField] private float growthTime = 1;    // how long to pause before reading the next value in sizes
     public string ReseederFile;
     public string ResprouterFile;
-    public ParticleSystem ps;
+    public ParticleSystem fire;
+    public ParticleSystem rain;
     //public string fileName;
     public List<float> ResprouterSizes = new List<float>();
     public List<float> ReseederSizes = new List<float>();
+    private Vector3 rainPos = new Vector3(0, 50, 0);
 
     Terrain myTerrain;
     
@@ -23,6 +25,7 @@ public class Size : MonoBehaviour
         //store biomass data from file
         ReseederSizes = GameFunctions.Read(ReseederFile, "biomass");
         ResprouterSizes = GameFunctions.Read(ResprouterFile, "biomass");
+
     }
    
 
@@ -77,18 +80,20 @@ public class Size : MonoBehaviour
             if ( x < 0.65f && !Fire)
             {
                 Fire = true;
-
+                ParticleSystem r = Instantiate(rain, rainPos, rain.transform.rotation);
+                //Destroy(r.gameObject, 15);
                 foreach (TreeInstance tree in myTerrain.terrainData.treeInstances)
                 {
                     Vector3 pos = Vector3.Scale(tree.position, myTerrain.terrainData.size) + myTerrain.transform.position;
-                    ParticleSystem p = Instantiate(ps, pos, ps.transform.rotation);
+                    ParticleSystem p = Instantiate(fire, pos, fire.transform.rotation);
                     Destroy(p.gameObject, 5);
                 }
 
                 yield return new WaitForSeconds(5);
                 
-                
             }
+            
+            
 
             //reset Fire Occured status to be false
             if (Fire && (x > 1f))

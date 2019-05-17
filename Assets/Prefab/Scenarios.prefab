@@ -267,7 +267,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151195597}
-  m_Text: RadialButton 2
+  m_Text: '"Wet" Climate'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -551,12 +551,12 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454724593}
-  m_Text: RadialButton 3
+  m_Text: '      Start'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 3
-  m_Alignment: 0
+  m_Alignment: 2
   m_TabSize: 4
   m_FontSize: 42
   m_FontStyle: 0
@@ -1250,7 +1250,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954689220}
-  m_Text: RadialButton 3
+  m_Text: '"Dry" Climate'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
