@@ -7,7 +7,7 @@ using System.IO;
 public class Size : MonoBehaviour
 {
     private int index = 1;   // use to index my sizes list
-    [SerializeField] private float growthTime = 1;    // how long to pause before reading the next value in sizes
+    public float growthTime = 1;    // how long to pause before reading the next value in sizes
     public string ReseederFile;
     public string ResprouterFile;
     public ParticleSystem fire;
