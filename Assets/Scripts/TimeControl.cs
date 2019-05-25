@@ -7,17 +7,17 @@ public class TimeControl : MonoBehaviour
 {
     System.DateTime myTime;
     private float distance = 3f; private float yOffset = 1f;
-    float g;
     string month, year;
     TextMeshPro tmp;
     float timePerRealDay; //10s in unity is 1 day in real life
     private float timePassed = 0f; //since object first enabled
-    void Start()
+    public void Start()
     {
         myTime = new System.DateTime(1980, 12, 5);
         timePerRealDay = Terrain.FindObjectOfType<Size>().growthTime;
-        tmp = GetComponent<TextMeshPro>();   
+        tmp = GetComponent<TextMeshPro>();
     }
+
 
     void FixedUpdate()
     {
