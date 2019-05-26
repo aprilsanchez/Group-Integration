@@ -11,134 +11,266 @@ using System.Linq;
 public class TestGenerator : MonoBehaviour
 {
 
-    public Texture2D myTexture;
-    private Terrain myTerrain;
-    private TerrainData myTerrainData;
-    private Vector2 terrainLocation = new Vector2(34.462646f, -119.695119f);  // real latitude and longitude of lower leftt hand corner of Rattlesnake
-    private Vector2 terrainLocation2 = new Vector2(34.462265f, -119.694976f);
-    //private Vector2 reseederXZ = new Vector2(831, 1641);
-    //private Vector2 resprouterXZ = new Vector2(862, 1641);
-    private Vector2 reseederXZ = new Vector2(841, 1631);
-    private Vector2 resprouterXZ = new Vector2(872, 1631);
-    private int degreeToMeters = 111139; // each degree the radius of the Earth sweeps out corresponds to this many meters
-    
-    private void findLocation(float lat, float lon)
-    {
-        //difference in degrees, need to convert to meters to find its location on the terrain
-        float z = Mathf.Abs(Mathf.Abs(lat) - Mathf.Abs(terrainLocation2.x))*degreeToMeters;
-        float x = Mathf.Abs(Mathf.Abs(lon) - Mathf.Abs(terrainLocation2.y))*degreeToMeters; 
-        Vector2 location = new Vector2( (int) x, (int) z);
-        //return location;
-        Debug.Log("location is: " + "(" + x + "," + z + ") on the terrain");
-
-        ///////
-
-        Vector3 p = new Vector3( x / 2460f, 0, z / 2460f);
-        Debug.Log("marker location: " + p);
-        TreeInstance tree = new TreeInstance();
-        tree.prototypeIndex = 0;
-        tree.position = p;
-        tree.heightScale = 20;
-        tree.widthScale = 20;
-        tree.color = Color.white;
-        tree.lightmapColor = Color.white;
-        tree.rotation = Random.Range(0f, 6f);  //not really working
-
-        myTerrain.AddTreeInstance(tree);
-        myTerrain.Flush();
-
-    }
-
-    //function to instantiate bushes 
-    private void placeBushes(Vector2 startPt, int PrototypeIndex)
-    {
-        //Texture2D bound = new Texture2D(myTerrainData.height);
-        Debug.Log("in placeBushes function");
-        myTerrain = Terrain.activeTerrain;
-        myTerrainData = Terrain.activeTerrain.terrainData;
-
-        //if pixel is green, instantiate a bush
-        // note: the index corresponds to the piposition of the pixel in the texture
+    //public Texture2D myTexture;
+    //private Terrain myTerrain;
+    //private TerrainData myTerrainData;
+    //private Vector2 reseederXZ = new Vector2(841, 1631);
+    ////OR new Vector2(872, 1631);
 
 
-        //float width = myTerrainData.size.x;
-        //float height = myTerrainData.size.z;
+    //public bool IsSameColor(Color c1, Color c2)
+    //{   // if a color's h(hue) value has the same number in the position to the right of decimal point
+    //    // ex: color 1's hue:0.2, color2's hue:0.27. Function return true
+    //    // color3's hue : 0.3, color 4's hue: 0.5. Function return false
+    //    float H1, S1, V1;
+    //    float H2, S2, V2;
+    //    Color.RGBToHSV(c1, out H1, out S1, out V1);
+    //    Color.RGBToHSV(c2, out H2, out S2, out V2);
 
-        Color green = new Color(0, 1, 0, 1);
-        
-        for (int y = (int) startPt.y ; y < (int) startPt.y + 30; y = y + 2)
-        {
-            for (int x = (int) startPt.x; x < (int) startPt.x + 30; x = x + 2)
-            {
-                Color c = myTexture.GetPixel(x, y);
+    //    if (Math.Floor(H1 * 10) != Math.Floor(H2 * 10))
+    //    {
+    //        return false;
+    //    }
+    //    return true;
+    //}
 
-                if (myTerrain.GetComponent<color>().IsSameColor(c, green))
-                {
-                    Debug.Log("pixel was GREEN");
-                    addBushToTerrain(x, y, PrototypeIndex);                   
-                }
-                else
-                {
-                    Debug.Log("pixel was WHITE");
-                }
-                
-            }
-        }
-        myTerrain.Flush();
-    }
+    //public void placeBushes(string species, float startBiomass, ref float[] intervals)
+    //{
+    //    int PrototypeIndex;
+    //    if (species == "reseeder")
+    //    {
+    //        if (startBiomass >= intervals[0] && startBiomass <= intervals[1])
+    //        {
+    //            PrototypeIndex = 9;
+    //        }
+    //        else if (startBiomass > intervals[1] && startBiomass <= intervals[2])
+    //        {
+    //            PrototypeIndex = 10;
+    //        }
+    //        else if (startBiomass > intervals[2] && startBiomass <= intervals[3])
+    //        {
+    //            PrototypeIndex = 11;
+    //        }
+    //        else if (startBiomass > intervals[3] && startBiomass <= intervals[4])
+    //        {
+    //            PrototypeIndex = 12;
+    //        }
+    //        else if (startBiomass > intervals[4] && startBiomass <= intervals[5])
+    //        {
+    //            PrototypeIndex = 13;
+    //        }
+    //        else if (startBiomass > intervals[5] && startBiomass <= intervals[6])
+    //        {
+    //            PrototypeIndex = 14;
+    //        }
+    //        else if (startBiomass > intervals[6] && startBiomass <= intervals[7])
+    //        {
+    //            index = 15;
+    //        }
+    //        else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
+    //        {
+    //            index = 16;
+    //        }
+    //        else if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+    //        {
+    //            index = 17;
+    //        }
+    //    }
+    //    //if pixel is green, instantiate a bush
+    //    // note: the index corresponds to the piposition of the pixel in the texture
 
-    //helper function for placeBushes, adds a single bush to the terrain
-    private void addBushToTerrain(int j, int k, int Prototype)
-    {
-        Vector3 p = ( new Vector3( (j + Random.Range(0f, 0.75f)) / (float) myTexture.height, 0, (k + Random.Range(0f, 0.75f)) /(float) myTexture.width));
-        Debug.Log(p);
-        TreeInstance tree = new TreeInstance();
-        tree.prototypeIndex = Prototype;
-        tree.position = p;
-        float x;
-        float max;
+    //    Color green = new Color(0, 1, 0, 1);
+    //    Color[] pixels = myTexture.GetPixels();
 
-        if (Prototype == 0) {
-            x = gameObject.GetComponent<Size>().ResprouterSizes[0];
-            max = gameObject.GetComponent<Size>().ResprouterSizes.Max();
-        }
-        else
-        {
-            x = gameObject.GetComponent<Size>().ReseederSizes[0];
-            max = gameObject.GetComponent<Size>().ReseederSizes.Max();
-        }
+    //    for (int y = (int)startPt.y; y < (int)startPt.y + 30; y = y + 2)
+    //    {
+    //        for (int x = (int)startPt.x; x < (int)startPt.x + 30; x = x + 2)
+    //        {
+    //            Color c = pixels[30 * y + x];
+
+    //            if (IsSameColor(c, green))
+    //            {
+    //                addBushToTerrain(x, y, PrototypeIndex);
+    //            }
+    //        }
+    //    }
+
+    //    myTerrain.Flush();
+    //}
+
+    ////function to instantiate bushes 
+    ////PrototypeIndex must be between 0 and 8 (inclusive) because there's only 9 prototypes for each species
+    //public void placeBushes(Vector2 startPt, Vector2 dimensions, int PrototypeIndex)
+    //{
+    //    //if pixel is green, instantiate a bush
+    //    // note: the index corresponds to the piposition of the pixel in the texture
+
+    //    Color green = new Color(0, 1, 0, 1);
+    //    Color[] pixels = myTexture.GetPixels();
+
+    //    for (int y = (int) startPt.y ; y < (int) startPt.y + 30; y = y + 2)
+    //    {
+    //        for (int x = (int) startPt.x; x < (int) startPt.x + 30; x = x + 2)
+    //        {
+    //            Color c = pixels[30*y + x];
+
+    //            if (IsSameColor(c, green))
+    //            {
+    //                addBushToTerrain(x, y, PrototypeIndex);                   
+    //            }         
+    //        }
+    //    }
+
+    //    myTerrain.Flush();
+    //}
+
+    ////this function will place both reseeders and resprouters (given that you pass it a reseeder AND resprouter prefab index)
+    ////speciesOne and SpeciesTwo = PrototypeIndex for the tree you want to instantiate for each species
+    //private void placeBushes(Vector2 startPt, int speciesOne, int speciesTwo, ref List<GameFunctions.data> Resprouter)
+    //{
+    //    //if pixel is green, instantiate a bush
+    //    // note: the index corresponds to the piposition of the pixel in the texture
+       
+    //    Color green = new Color(0, 1, 0, 1);
+    //    Color[] pixels = myTexture.GetPixels();
+
+    //    //variable that will help us alternate between reseeder and resprouter prefabs
+    //    //Note: Tree prefabs 0-8 will be reserved for resprouters, prefabs 9-17 will be
+    //    // reserved for reseeders
+    //    bool swap = true;
+
+    //    for (int y = (int)startPt.y; y < (int)startPt.y + 30; y = y + 2)
+    //    {
+    //        for (int x = (int)startPt.x; x < (int)startPt.x + 30; x = x + 2)
+    //        {
+    //            Color c = pixels[30 * y + x];
+
+    //            if (IsSameColor(c, green))
+    //            {
+    //                if (swap)
+    //                {
+    //                    addBushToTerrain(x, y, speciesOne);
+    //                    swap = false;
+    //                }
+    //                else {
+    //                    addBushToTerrain(x, y, speciesTwo);
+    //                    swap = true;
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //    myTerrain.Flush();
+    //}
+
+
+    ////helper function for placeBushes, adds a single bush to the terrain
+    //private void addBushToTerrain(int j, int k, int Prototype)
+    //{
+    //    //GameFunctions.data
+    //    if (Prototype < 0 || Prototype > 17)
+    //    {
+    //        //print error message
+    //    }
+
+    //    Vector3 p = ( new Vector3( (j + Random.Range(0f, 0.75f)) / (float) myTexture.height, 0, (k + Random.Range(0f, 0.75f)) /(float) myTexture.width));
+    //    Debug.Log(p);
+    //    TreeInstance tree = new TreeInstance();
+    //    tree.prototypeIndex = Prototype;
+    //    tree.position = p;
+    //    float x;
+    //    float max;
+
+    //    if ( (Prototype >= 0) && (Prototype <=8) ) {
+    //        x = gameObject.GetComponent<Size>().ResprouterSizes[0];
+    //        max = gameObject.GetComponent<Size>().ResprouterSizes.Max();
+    //    }
+    //    else
+    //    {
+    //        x = gameObject.GetComponent<Size>().ReseederSizes[0];
+    //        max = gameObject.GetComponent<Size>().ReseederSizes.Max();
+    //    }
          
-        x = x * 2.25f / max; //x is heightScale for first tree
-        tree.heightScale = x;
-        tree.widthScale = x;
-        tree.color = Color.white;
-        tree.lightmapColor = Color.white;
-        tree.rotation = Random.Range(0f, 6f);  //not really working
+    //    x = x * 2.25f / max; //x is heightScale for first tree
+    //    tree.heightScale = x;
+    //    tree.widthScale = x;
+    //    tree.color = Color.white;
+    //    tree.lightmapColor = Color.white;
+    //    tree.rotation = Random.Range(0f, 2*Mathf.PI);  //not really working, maybe this will??
 
-        myTerrain.AddTreeInstance(tree);
-    }
+    //    myTerrain.AddTreeInstance(tree);
+    //}
 
-    public void destroyBushes()
-    {
-        TreeInstance[] tmpArray = new TreeInstance[0];
-        Terrain.activeTerrain.terrainData.treeInstances = tmpArray;
+    //private void addBushToTerrain(int j, int k, int Prototype)
+    //{
+
+    //    if (Prototype < 0 || Prototype > 17)
+    //    {
+    //        //print error message
+    //        return;
+    //    }
+
+    //    Vector3 p = (new Vector3((j + Random.Range(0f, 0.75f)) / (float)myTexture.height, 0, (k + Random.Range(0f, 0.75f)) / (float)myTexture.width));
+    //    Debug.Log(p);
+    //    TreeInstance tree = new TreeInstance();
+    //    tree.prototypeIndex = Prototype;
+    //    tree.position = p;
+    //    float x;
+    //    float max;
+
+    //    if ((Prototype >= 0) && (Prototype <= 8))
+    //    {
+    //        x = gameObject.GetComponent<Size>().ResprouterSizes[0];
+    //        max = gameObject.GetComponent<Size>().ResprouterSizes.Max();
+    //    }
+    //    else
+    //    {
+    //        x = gameObject.GetComponent<Size>().ReseederSizes[0];
+    //        max = gameObject.GetComponent<Size>().ReseederSizes.Max();
+    //    }
+
+    //    x = x * 2.25f / max; //x is heightScale for first tree
+    //    tree.heightScale = x;
+    //    tree.widthScale = x;
+    //    tree.color = Color.white;
+    //    tree.lightmapColor = Color.white;
+    //    tree.rotation = Random.Range(0f, 2 * Mathf.PI);  //not really working, maybe this will??
+
+    //    myTerrain.AddTreeInstance(tree);
+    //}
+
+    //public void destroyBushes()
+    //{
+    //    TreeInstance[] tmpArray = new TreeInstance[0];
+    //    Terrain.activeTerrain.terrainData.treeInstances = tmpArray;
         
-        // Refresh terrain
-        float[,] heights = Terrain.activeTerrain.terrainData.GetHeights(0, 0, 0, 0);
-        Terrain.activeTerrain.terrainData.SetHeights(0, 0, heights);
-    }
+    //    // Refresh terrain
+    //    float[,] heights = Terrain.activeTerrain.terrainData.GetHeights(0, 0, 0, 0);
+    //    Terrain.activeTerrain.terrainData.SetHeights(0, 0, heights);
+    //}
 
-    private void Start()
-    {
-        Debug.Log("T height: " + myTexture.height + ", T width: " + myTexture.width);
-        placeBushes(resprouterXZ, 0);
-        placeBushes(reseederXZ, 1);
-        //findLocation(34.462989f, -119.687829f);
-        //myTerrain.GetComponent<Size>().Biomass();
-    }
+    //private void Start()
+    //{
+    //    //will this cause a problem? is it a static copy or a reference of the actual terrain? 
+    //    //Will changes to the actual terrain be reflected in myTerrain?
+    //    myTerrain = Terrain.activeTerrain;
+    //    myTerrainData = Terrain.activeTerrain.terrainData;
 
-    private void OnApplicationQuit()
-    {
-        destroyBushes();
-    }
+    //    placeBushes(reseederXZ, "parallell" );   //overload this function so the function determines which prefab to call
+    //    myTerrain.GetComponent<Size>().BeginScene("dry");  // starts bush growth immediately, comment out for VR
+
+    //}
+
+    //private void OnApplicationQuit()
+    //{
+    //    destroyBushes();
+    //}
+
+    //// Update is called once per frame
+    //void Update()
+    //{
+
+    //}
+
 }
+

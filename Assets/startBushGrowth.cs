@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class startBushGrowth : MonoBehaviour
 {
-    Terrain myTerrain;
+    //Terrain myTerrain;
 
-    public void startGrowth()
-    {
-        myTerrain = Terrain.activeTerrain;
-        myTerrain.GetComponent<Size>().Biomass();
-    }
+    //public void startGrowth()
+    //{
+    //    myTerrain = Terrain.activeTerrain;
+    //    myTerrain.GetComponent<Size>().BeginScene("dry");  // starts bush growth immediately, comment out for VR
+    //}
 }
