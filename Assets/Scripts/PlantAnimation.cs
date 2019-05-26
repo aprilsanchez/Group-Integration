@@ -122,6 +122,7 @@ public class PlantAnimation : MonoBehaviour
         Debug.Log("stop reading pixels");
     }
 
+    //ProtypeIndex will always be 0 for resprouter and 1 for reseeder
     //function to instantiate one type of bush , returns how many bushes were added, which is important for when we implement BothInParallel
     private int PlaceBushes(Vector2 startPt, Vector2 dim,  int PrototypeIndex, float scale)
     {
@@ -205,7 +206,9 @@ public class PlantAnimation : MonoBehaviour
 
     }
 
-
+    
+    //PrototypeIndex1 will always be 0, PrototypeIndex2 will always be 1
+    //***********************************************************************************
     //function to instantiate both types of bushes 
     private int PlaceBushes(Vector2 startPt, Vector2 dim, int PrototypeIndex1, int PrototypeIndex2, float scale1, float scale2)
     {
@@ -242,12 +245,12 @@ public class PlantAnimation : MonoBehaviour
                     //Debug.Log("FOUND GREEN PIXEL AT (" + x + ", " + y + ")");
                     if (swap)
                     {
-                        addBushToTerrain(x, y, PrototypeIndex1, scale1);
+                        addBushToTerrain(x, y, 0, scale1);
                         swap = false;
                     }
                     else
                     {
-                        addBushToTerrain(x, y, PrototypeIndex2, scale2);
+                        addBushToTerrain(x, y, 1, scale2);
                         swap = true;
                     }
                     count++;
@@ -331,33 +334,35 @@ public class PlantAnimation : MonoBehaviour
     public void ClimateInParallel(string species)   //plants in series, climate in parallel
     {
         //myTerrain = Terrain.activeTerrain;
-        //climate = Climate;
+
         type = "ClimateInParallel";
         speciesInSeries = species;
 
-        int wetIndex;
         float wetScale;
-        int dryIndex;
         float dryScale;
+
+        
 
         if (species == "reseeder")
         {
             wetScale = manager.ReseederWet[0].bushScale;
-            wetIndex = getIndex(wetScale, species, "wet");
+            updatePrefab(wetScale, species, "wet");
             dryScale = manager.ReseederWet[0].bushScale;
-            dryIndex = getIndex(dryScale, species, "dry");
+            updatePrefab(dryScale, species, "dry");
         }
         else
         {
             wetScale = manager.ResprouterWet[0].bushScale;
-            wetIndex = getIndex(wetScale, species, "wet");
+            updatePrefab(wetScale, species, "wet");
             dryScale = manager.ResprouterWet[0].bushScale;
-            dryIndex = getIndex(dryScale, species, "dry");
+            updatePrefab(dryScale, species, "dry");
         }
 
+
         //left side of the patch will be dry, right side will be wet
-        PlaceBushes(location, new Vector2(15,30) , dryIndex, dryScale);
-        PlaceBushes(new Vector2(location.x + 15, location.y), new Vector2(15, 30), wetIndex, wetScale);
+        // dryPrototypeIndex = 0, wetPrototypeIndex = 1;
+        parallelIndex = PlaceBushes(location, new Vector2(15,30) , 0, dryScale);
+        PlaceBushes(new Vector2(location.x + 15, location.y), new Vector2(15, 30), 1, wetScale);
         StartGrowth();
     }
 
@@ -366,30 +371,26 @@ public class PlantAnimation : MonoBehaviour
         climate = Climate;
         type = "PlantsInParallel";
 
-        int PrototypeIndex1;
         float initialScale1;
-        int PrototypeIndex2;
         float initialScale2;
 
         if (climate == "dry")
         {
             initialScale1 = manager.ResprouterDry[0].bushScale;
-            PrototypeIndex1 = getIndex(initialScale1, "resprouter", "dry");
+            updatePrefab(initialScale1, "resprouter", "dry");
             initialScale2 = manager.ReseederDry[0].bushScale;
-            PrototypeIndex2 = getIndex(initialScale2, "reseeder", "dry");
+            updatePrefab(initialScale2, "reseeder", "dry");
         }
         else
         {
             initialScale1 = manager.ResprouterWet[0].bushScale;
-            PrototypeIndex1 = getIndex(initialScale1, "resprouter", "wet");
+            updatePrefab(initialScale1, "resprouter", "wet");
             initialScale2 = manager.ReseederWet[0].bushScale;
-            PrototypeIndex2 = getIndex(initialScale2, "reseeder", "wet");
+            updatePrefab(initialScale2, "reseeder", "wet");
         }
 
-        Debug.Log("PrototypeIndex1 = " + PrototypeIndex1);
-        Debug.Log("PrototypeIndex2 = " + PrototypeIndex2);
         //left side of the patch will be dry, right side will be wet
-        PlaceBushes(location, new Vector2(30, 30), PrototypeIndex1, PrototypeIndex2, initialScale1, initialScale2);
+        PlaceBushes(location, new Vector2(30, 30), 0, 1, initialScale1, initialScale2);
         StartGrowth();
     }
 
@@ -398,17 +399,17 @@ public class PlantAnimation : MonoBehaviour
         type = "BothInParallel";
 
         float reseederWetScale = manager.ReseederWet[0].bushScale;
-        int reseederWetIndex = getIndex(reseederWetScale, "reseeder", "wet");
+        updatePrefab(reseederWetScale, "reseeder", "wet");
         float reseederDryScale = manager.ReseederDry[0].bushScale;
-        int reseederDryIndex = getIndex(reseederDryScale, "reseeder", "dry");
+        updatePrefab(reseederDryScale, "reseeder", "dry");
         float resprouterWetScale = manager.ResprouterWet[0].bushScale;
-        int resprouterWetIndex = getIndex(resprouterWetScale, "resprouter", "wet");
+        updatePrefab(resprouterWetScale, "resprouter", "wet");
         float resprouterDryScale = manager.ResprouterDry[0].bushScale;
-        int resprouterDryIndex = getIndex(resprouterDryScale, "resprouter", "dry");
+        updatePrefab(resprouterDryScale, "resprouter", "dry");
 
         //left side of the patch will be dry, right side will be wet
-        parallelIndex = PlaceBushes(location, new Vector2(15, 30), resprouterDryIndex, reseederDryIndex, resprouterDryScale, reseederDryIndex);
-        PlaceBushes(new Vector2(location.x + 15, location.y), new Vector2(15, 30), resprouterWetIndex, reseederWetIndex, resprouterWetScale, reseederWetScale);
+        parallelIndex = PlaceBushes(location, new Vector2(15, 30), 0, 1, resprouterDryScale, reseederDryScale);
+        PlaceBushes(new Vector2(location.x + 15, location.y), new Vector2(15, 30), 2, 3, resprouterWetScale, reseederWetScale);
         StartGrowth();
 
     } 
@@ -465,32 +466,32 @@ public class PlantAnimation : MonoBehaviour
         ResprouterDryIntervals = makeIntervals(manager.RMinBioDry, manager.RMaxBioWet);
         ResprouterWetIntervals = makeIntervals(manager.RMinBioWet, manager.RMaxBioWet);
 
-        Debug.Log("ReseederDryIntervals: ");
-        for (int i = 0; i < ReseederDryIntervals.Length; i++)
-        {
-            Debug.Log(ReseederDryIntervals[i]);
-        }
+        //Debug.Log("ReseederDryIntervals: ");
+        //for (int i = 0; i < ReseederDryIntervals.Length; i++)
+        //{
+        //    Debug.Log(ReseederDryIntervals[i]);
+        //}
         
-        Debug.Log("ReseederWetIntervals: ");
-        for (int i = 0; i < ReseederWetIntervals.Length; i++)
-        {
-            Debug.Log(ReseederWetIntervals[i]);
-        }
-        Debug.Log("ResprouterDryIntervals: ");
-        for (int i = 0; i < ResprouterDryIntervals.Length; i++)
-        {
-            Debug.Log(ResprouterDryIntervals[i]);
-        }
-        Debug.Log("ResporuterWetIntervals: ");
-        for (int i = 0; i < ResprouterWetIntervals.Length; i++)
-        {
-            Debug.Log(ResprouterDryIntervals[i]);
-        }
+        //Debug.Log("ReseederWetIntervals: ");
+        //for (int i = 0; i < ReseederWetIntervals.Length; i++)
+        //{
+        //    Debug.Log(ReseederWetIntervals[i]);
+        //}
+        //Debug.Log("ResprouterDryIntervals: ");
+        //for (int i = 0; i < ResprouterDryIntervals.Length; i++)
+        //{
+        //    Debug.Log(ResprouterDryIntervals[i]);
+        //}
+        //Debug.Log("ResporuterWetIntervals: ");
+        //for (int i = 0; i < ResprouterWetIntervals.Length; i++)
+        //{
+        //    Debug.Log(ResprouterDryIntervals[i]);
+        //}
 
         makeCurve(ref ReseederDryCurve, ref manager.ReseederDry);
         makeCurve(ref ReseederWetCurve, ref manager.ReseederWet);
         makeCurve(ref ResprouterDryCurve, ref manager.ResprouterDry);
-        makeCurve(ref ResprouterDryCurve, ref manager.ResprouterWet);
+        makeCurve(ref ResprouterWetCurve, ref manager.ResprouterWet);
 
 
     }
@@ -506,25 +507,21 @@ public class PlantAnimation : MonoBehaviour
             float currScale1 = myTerrain.terrainData.GetTreeInstance(0).heightScale;
             float currScale2 = myTerrain.terrainData.GetTreeInstance(1).heightScale;
 
-            int newIndex1;
-            int newIndex2;
-
             if (climate == "dry")
             {
                 scale1 = ResprouterDryCurve.Evaluate(index);
                 scale2 = ReseederDryCurve.Evaluate(index);
 
-                newIndex1 = getIndex(scale1, "resprouter", "dry");
-                newIndex2 = getIndex(scale2, "reseeder", "dry");
+                updatePrefab(scale1, "resprouter", "dry");
+                updatePrefab(scale2, "reseeder", "dry");
             }
             else //climate will be wet
             {
                 scale1 = ResprouterWetCurve.Evaluate(index);
                 scale2 = ReseederWetCurve.Evaluate(index);
 
-
-                newIndex1 = getIndex(scale1, "resprouter", "wet");
-                newIndex2 = getIndex(scale2, "reseeder", "wet");
+                updatePrefab(scale1, "resprouter", "wet");
+                updatePrefab(scale2, "reseeder", "wet");
             }
             //check if biomass is increasing or decreasing
             //if decreasing, don't scale the bush down? (also, if decreasing check if fire occurs)
@@ -538,20 +535,20 @@ public class PlantAnimation : MonoBehaviour
             TreeInstance t0 = myTerrain.terrainData.GetTreeInstance(0);
             TreeInstance t1 = myTerrain.terrainData.GetTreeInstance(1);
 
-            bool swap1 = false;
-            bool swap2 = false;
+            //bool swap1 = false;
+            //bool swap2 = false;
 
-            if (t0.prototypeIndex != newIndex1)
-            {
-                t0.prototypeIndex = newIndex1;
-                swap1 = true;
-            }
+            //if (t0.prototypeIndex != newIndex1)
+            //{
+            //    t0.prototypeIndex = newIndex1;
+            //    swap1 = true;
+            //}
 
-            if(t1.prototypeIndex != newIndex2)
-            {
-                t1.prototypeIndex = newIndex2;
-                swap2 = true;
-            }
+            //if(t1.prototypeIndex != newIndex2)
+            //{
+            //    t1.prototypeIndex = newIndex2;
+            //    swap2 = true;
+            //}
 
             bool reseedersDecrease = false;
             bool resproutersDecrease = false;
@@ -579,13 +576,9 @@ public class PlantAnimation : MonoBehaviour
             }
 
 
-            //nothing needs to swap?
-            //bool canSkipResprouters = false;
-            //bool canSkipReseeders = false;
-
             for (int i = 0; i < myTerrain.terrainData.treeInstances.Length; i++)
             {
-                
+                TreeInstance temp = myTerrain.terrainData.GetTreeInstance(i);
 
                 //working with reseeder or resprouter?  resprouters are evens, reseeders are odd
                 if (i % 2 == 0)    //resprouter
@@ -597,23 +590,19 @@ public class PlantAnimation : MonoBehaviour
                         {
                             /////////////////////////////////////////////////// add code here
                         }
+                        t0.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t0);
-
+                        Debug.Log("UPDATED A BUSH");
 
                     }
                     else          //biomass decreasing
                     {
-                        //swap?
-                        if (swap1)
-                        {
-                            myTerrain.terrainData.SetTreeInstance(i, t0);
-                        }
-                        else   //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                        {
-                            //if leaves not already falling, make them fall
-                            //////////////////////////////////////////////////////////// add code here
-                            continue;
-                        }
+
+                        //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+                       
+                        //if leaves not already falling, make them fall
+                        //////////////////////////////////////////////////////////// add code here
+                        continue;
 
                     }
                 }
@@ -626,6 +615,7 @@ public class PlantAnimation : MonoBehaviour
                         {
                             //////////////////////////////////////////////////////// add code here
                         }
+                        t1.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t1);
 
 
@@ -633,16 +623,11 @@ public class PlantAnimation : MonoBehaviour
                     else          //biomass decreasing
                     {
                         //swap?
-                        if (swap2)
-                        {
-                            myTerrain.terrainData.SetTreeInstance(i, t1);
-                        }
-                        else   //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                        {
-                            //if leaves not already falling, make them fall
-                            //////////////////////////////////////////////////////////// add code here
-                            continue;
-                        }
+                        //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+
+                        //if leaves not already falling, make them fall
+                        //////////////////////////////////////////////////////////// add code here
+                        continue;
 
                     }
                 }          
@@ -665,96 +650,111 @@ public class PlantAnimation : MonoBehaviour
         /////////////////////////////////////////////////////////////////////////////////////
         else if (climateInParallel)
         {
-            float scale;
+            float dryScale;
+            float wetScale;
 
-            float currScale = myTerrain.terrainData.GetTreeInstance(0).heightScale;
+            if (speciesInSeries == "reseeder")
+            {
+                dryScale = ReseederDryCurve.Evaluate(index);
+                wetScale = ReseederWetCurve.Evaluate(index);
+            }
+            else
+            {
+                dryScale = ResprouterDryCurve.Evaluate(index);
+                wetScale = ResprouterWetCurve.Evaluate(index);
+            }
+            
 
-            if (climate == "dry")
-            {
-                if (speciesInSeries == "reseeder")
-                {
-                    scale = ReseederDryCurve.Evaluate(index);
-                }
-                else
-                {
-                    scale = ResprouterDryCurve.Evaluate(index);
-                }
-                
-            }
-            else //climate will be wet
-            {
-                if (speciesInSeries == "reseeder")
-                {
-                    scale = ReseederWetCurve.Evaluate(index);
-                }
-                else
-                {
-                    scale = ResprouterWetCurve.Evaluate(index);
-                }
-            }
+            float currDryScale = myTerrain.terrainData.GetTreeInstance(0).heightScale;
+            float currWetScale = myTerrain.terrainData.GetTreeInstance(1).heightScale;
+
             //check if biomass is increasing or decreasing
             //if decreasing, don't scale the bush down? (also, if decreasing check if fire occurs)
             //if increasing, scale the bush up
 
 
             //check if need to swap prototype
-            int newIndex = getIndex(scale, speciesInSeries, climate);
+            updatePrefab(dryScale, speciesInSeries, "dry");
+            updatePrefab(wetScale, speciesInSeries, "wet");
 
-            TreeInstance t = myTerrain.terrainData.GetTreeInstance(0);
+            TreeInstance t0 = myTerrain.terrainData.GetTreeInstance(0); //dry bush
+            TreeInstance t1 = myTerrain.terrainData.GetTreeInstance(1); //wet bush
 
-            bool swap = false;
+
+            bool biomassDecreaseDry = false;
+            bool biomassDecreaseWet = false;
 
 
-            if (t.prototypeIndex != newIndex)
+            if (currDryScale - dryScale > 0) //new scale is smaller than currScale, so biomass decreased, but dont need to change actual scale of bushes, just make leaves fall
             {
-                t.prototypeIndex = newIndex;
-                swap = true;
-            }
-
-            bool biomassDecrease = false;
-
-
-            if (currScale - scale > 0) //new scale is smaller than currScale, so biomass decreased, but dont need to change actual scale of bushes, just make leaves fall
-            {
-                biomassDecrease = true;
+                biomassDecreaseDry = true;
             }
             else
             {
                 //biomass increased, so scale up
-                t.heightScale = scale;
-                t.widthScale = scale;
+                t0.heightScale = dryScale;
+                t0.widthScale = dryScale;
             }
 
-            for (int i = 0; i < myTerrain.terrainData.treeInstances.Length; i++)
+            if (currWetScale - wetScale > 0)
             {
-                    if (!biomassDecrease)          //biomass increasing
+                biomassDecreaseWet = true;
+            }
+            else
+            {
+                t1.heightScale = wetScale;
+                t1.heightScale = wetScale;
+            }
+
+            for (int i = 0; i < parallelIndex; i++)
+            {
+                TreeInstance temp = myTerrain.terrainData.GetTreeInstance(i);
+                if (!biomassDecreaseDry)          //biomass increasing
+                {
+                    //if leaves are falling, make them stop
+                    if (leavesFalling)
                     {
-                        //if leaves are falling, make them stop
-                        if (leavesFalling)
-                        {
-                            /////////////////////////////////////////////////// add code here
-                        }
-                        myTerrain.terrainData.SetTreeInstance(i, t);
-
-
+                        /////////////////////////////////////////////////// add code here
                     }
-                    else          //biomass decreasing
+                    t0.position = temp.position;
+                    myTerrain.terrainData.SetTreeInstance(i, t0);
+                                                          }
+                else          //biomass decreasing
+                {
+                    //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+                      
+                    //if leaves not already falling, make them fall, if they are break???
+                    //////////////////////////////////////////////////////////// add code here
+                    continue;
+                }               
+                
+            }
+
+            for (int i = parallelIndex; i < myTerrain.terrainData.treeInstances.Length; i++)
+            {
+                TreeInstance temp = myTerrain.terrainData.GetTreeInstance(i);
+                if (!biomassDecreaseWet)          //biomass increasing
+                {
+                    //if leaves are falling, make them stop
+                    if (leavesFalling)
                     {
-                        //swap?
-                        if (swap)
-                        {
-                            myTerrain.terrainData.SetTreeInstance(i, t);
-                        }
-                        else   //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                        {
-                            //if leaves not already falling, make them fall, if they are break???
-                            //////////////////////////////////////////////////////////// add code here
-                            continue;
-                        }
-
+                        /////////////////////////////////////////////////// add code here
                     }
-                
-                
+                    t1.position = temp.position;
+                    myTerrain.terrainData.SetTreeInstance(i, t1);
+
+
+                }
+                else          //biomass decreasing
+                {
+                    //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+
+                    //if leaves not already falling, make them fall, if they are break???
+                    //////////////////////////////////////////////////////////// add code here
+                    continue;
+
+
+                }
             }
             index++;
 
@@ -780,14 +780,16 @@ public class PlantAnimation : MonoBehaviour
             float RDryScale = ResprouterDryCurve.Evaluate(index);
             float RWetScale = ResprouterWetCurve.Evaluate(index);
 
-            int ODryIndex = getIndex(ODryScale, "reseeder", "dry");
-            int OWetIndex = getIndex(OWetScale, "reseeder", "wet");
-            int RDryIndex = getIndex(RDryScale, "resprouter", "dry");
-            int RWetIndex = getIndex(RWetScale, "resprouter", "wet");
+            updatePrefab(ODryScale, "reseeder", "dry");
+            updatePrefab(OWetScale, "reseeder", "wet");
+            updatePrefab(RDryScale, "resprouter", "dry");
+            updatePrefab(RWetScale, "resprouter", "wet");
 
             //int treeInstanceIndex = 0;
             TreeInstance t0 = myTerrain.terrainData.GetTreeInstance(0);
             TreeInstance t1 = myTerrain.terrainData.GetTreeInstance(1);
+            TreeInstance t2 = myTerrain.terrainData.GetTreeInstance(parallelIndex);
+            TreeInstance t3 = myTerrain.terrainData.GetTreeInstance(parallelIndex + 1);
 
             //Tricky part: we know treeInstance(0) will be a resprouter and treeInstance(1) will be a reseeder, both of them on the dry side of the patch
             // but we don't know at which index the resprouter and reseeder are on the wet half of the patch
@@ -796,27 +798,30 @@ public class PlantAnimation : MonoBehaviour
 
             //first do the dry side
 
-            bool swap1 = false;
-            bool swap2 = false;
+            //bool swap1 = false;
+            //bool swap2 = false;
 
-            if (t0.prototypeIndex != RDryIndex)
-            {
-                t0.prototypeIndex = RDryIndex;
-                swap1 = true;
-            }
+            //if (t0.prototypeIndex != RDryIndex)
+            //{
+            //    t0.prototypeIndex = RDryIndex;
+            //    swap1 = true;
+            //}
 
-            if (t1.prototypeIndex != ODryIndex)
-            {
-                t1.prototypeIndex = ODryIndex;
-                swap2 = true;
-            }
+            //if (t1.prototypeIndex != ODryIndex)
+            //{
+            //    t1.prototypeIndex = ODryIndex;
+            //    swap2 = true;
+            //}
 
-            bool reseedersDecrease = false;
-            bool resproutersDecrease = false;
+            bool ODecreaseDry = false;
+            bool ODecreaseWet = false;
+            bool RDecreaseDry = false;
+            bool RDecreaseWet = false;
 
+            //dry resprouter
             if (t0.heightScale - RDryScale > 0) //new scale is smaller than currScale, so biomass decreased, but dont need to change actual scale of bushes, just make leaves fall
             {
-                resproutersDecrease = true;
+                RDecreaseDry = true;
             }
             else
             {
@@ -825,10 +830,10 @@ public class PlantAnimation : MonoBehaviour
                 t0.widthScale = RDryScale;
             }
 
-            //now again for reseeders 
+            //dry reseeders 
             if (t1.heightScale - ODryScale > 0)
             {
-                reseedersDecrease = true;
+                ODecreaseDry = true;
             }
             else
             {
@@ -836,127 +841,36 @@ public class PlantAnimation : MonoBehaviour
                 t1.widthScale = ODryScale;
             }
 
-
-            for (int i = 0; i < parallelIndex; i++)
+            //wet resprouter
+            if (t2.heightScale - RWetScale > 0)
             {
-
-
-                //working with reseeder or resprouter?  resprouters are evens, reseeders are odd
-                if (i % 2 == 0)    //resprouter
-                {
-                    if (!resproutersDecrease)          //biomass increasing
-                    {
-                        //if leaves are falling, make them stop
-                        if (resprouterLeavesFalling)
-                        {
-                            /////////////////////////////////////////////////// add code here
-                        }
-                        myTerrain.terrainData.SetTreeInstance(i, t0);
-
-
-                    }
-                    else          //biomass decreasing
-                    {
-                        //swap?
-                        if (swap1)
-                        {
-                            myTerrain.terrainData.SetTreeInstance(i, t0);
-                        }
-                        else   //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                        {
-                            //if leaves not already falling, make them fall
-                            //////////////////////////////////////////////////////////// add code here
-                            continue;
-                        }
-
-                    }
-                }
-                else         //working with resprouters (same work as above but for reseeders
-                {
-                    if (!reseedersDecrease)          //biomass increasing
-                    {
-                        //if leaves are falling, make them stop
-                        if (reseederLeavesFalling)
-                        {
-                            //////////////////////////////////////////////////////// add code here
-                        }
-                        myTerrain.terrainData.SetTreeInstance(i, t1);
-
-
-                    }
-                    else          //biomass decreasing
-                    {
-                        //swap?
-                        if (swap2)
-                        {
-                            myTerrain.terrainData.SetTreeInstance(i, t1);
-                        }
-                        else   //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                        {
-                            //if leaves not already falling, make them fall
-                            //////////////////////////////////////////////////////////// add code here
-                            continue;
-                        }
-
-                    }
-                }
-            }
-
-
-            //now do the wet side
-            t0 = myTerrain.terrainData.GetTreeInstance(parallelIndex);
-            t1 = myTerrain.terrainData.GetTreeInstance(parallelIndex);
-
-            swap1 = false;
-            swap2 = false;
-
-            if (t0.prototypeIndex != RWetIndex)
-            {
-                t0.prototypeIndex = RWetIndex;
-                swap1 = true;
-            }
-
-            if (t1.prototypeIndex != OWetIndex)
-            {
-                t1.prototypeIndex = OWetIndex;
-                swap2 = true;
-            }
-
-            reseedersDecrease = false;
-            resproutersDecrease = false;
-
-            if (t0.heightScale - RWetScale > 0) //new scale is smaller than currScale, so biomass decreased, but dont need to change actual scale of bushes, just make leaves fall
-            {
-                resproutersDecrease = true;
+                RDecreaseWet = true;
             }
             else
             {
                 //biomass increased, so scale up
-                t0.heightScale = RWetScale;
-                t0.widthScale = RWetScale;
+                t2.heightScale = RWetScale;
+                t2.widthScale = RWetScale;
             }
 
-            //now again for reseeders 
-            if (t1.heightScale - OWetScale > 0)
+            //wet reseeders 
+            if (t3.heightScale - OWetScale > 0)
             {
-                reseedersDecrease = true;
+                ODecreaseWet = true;
             }
             else
             {
-                t1.heightScale = OWetScale;
-                t1.widthScale = OWetScale;
+                t3.heightScale = OWetScale;
+                t3.widthScale = OWetScale;
             }
 
-            bool change = true;
-            for (int i = parallelIndex; i < myTerrain.terrainData.treeInstances.Length; i++)
+            //change dry side
+            for (int i = 0; i < parallelIndex; i++)
             {
-
-
                 //working with reseeder or resprouter?  resprouters are evens, reseeders are odd
-                if (change)    //resprouter
+                if (i % 2 == 0)    //resprouter
                 {
-                    change = false;
-                    if (!resproutersDecrease)          //biomass increasing
+                    if (!RDecreaseDry)          //biomass increasing
                     {
                         //if leaves are falling, make them stop
                         if (resprouterLeavesFalling)
@@ -969,25 +883,17 @@ public class PlantAnimation : MonoBehaviour
                     }
                     else          //biomass decreasing
                     {
-                        //swap?
-                        if (swap1)
-                        {
-                            myTerrain.terrainData.SetTreeInstance(i, t0);
-                        }
-                        else   //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                        {
-                            //if leaves not already falling, make them fall
-                            //////////////////////////////////////////////////////////// add code here
-                            continue;
-                        }
-
+                        
+                        //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+                        
+                        //if leaves not already falling, make them fall
+                        //////////////////////////////////////////////////////////// add code here
+                        continue;
                     }
-
                 }
                 else         //working with resprouters (same work as above but for reseeders
                 {
-                    change = true;
-                    if (!reseedersDecrease)          //biomass increasing
+                    if (!ODecreaseDry)          //biomass increasing
                     {
                         //if leaves are falling, make them stop
                         if (reseederLeavesFalling)
@@ -995,28 +901,79 @@ public class PlantAnimation : MonoBehaviour
                             //////////////////////////////////////////////////////// add code here
                         }
                         myTerrain.terrainData.SetTreeInstance(i, t1);
-
-
                     }
                     else          //biomass decreasing
                     {
-                        //swap?
-                        if (swap2)
-                        {
-                            myTerrain.terrainData.SetTreeInstance(i, t1);
-                        }
-                        else   //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                        {
-                            //if leaves not already falling, make them fall
-                            //////////////////////////////////////////////////////////// add code here
-                            continue;
-                        }
-
+                        //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+                        
+                        //if leaves not already falling, make them fall
+                        //////////////////////////////////////////////////////////// add code here
+                        continue;
                     }
                 }
             }
 
 
+            //now do wet side
+            for (int i = parallelIndex; i < myTerrain.terrainData.treeInstances.Length; i++)
+            {
+                //working with reseeder or resprouter?  resprouters are evens, reseeders are odd
+                if (i % 2 == 0)    //resprouter
+                {
+                    if (!RDecreaseWet)          //biomass increasing
+                    {
+                        //if leaves are falling, make them stop
+                        if (resprouterLeavesFalling)
+                        {
+                            /////////////////////////////////////////////////// add code here
+                        }
+                        myTerrain.terrainData.SetTreeInstance(i, t2);
+
+
+                    }
+                    else          //biomass decreasing
+                    {
+
+                        //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+
+                        //if leaves not already falling, make them fall
+                        //////////////////////////////////////////////////////////// add code here
+                        continue;
+                    }
+                }
+                else         //working with resprouters (same work as above but for reseeders
+                {
+                    if (!ODecreaseWet)          //biomass increasing
+                    {
+                        //if leaves are falling, make them stop
+                        if (reseederLeavesFalling)
+                        {
+                            //////////////////////////////////////////////////////// add code here
+                        }
+                        myTerrain.terrainData.SetTreeInstance(i, t3);
+                    }
+                    else          //biomass decreasing
+                    {
+                        //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
+
+                        //if leaves not already falling, make them fall
+                        //////////////////////////////////////////////////////////// add code here
+                        continue;
+                    }
+                }
+            }
+
+            index++;
+
+            //stop when there are no more Biomasses to read
+            if (index >= (15 * 365))//ResprouterSizes.Count - 1)
+            {
+
+                DestroyBushes();
+                bothInParallel = false;
+                index = 1;
+
+            }
 
 
 
@@ -1026,176 +983,518 @@ public class PlantAnimation : MonoBehaviour
 
         
     }
+
+
 
 
     //helper function to get the prototype index that corresponds to a specific scale
     private void updatePrefab(float scale, string species, string Climate)
     {
         TreePrototype[] tps = myTerrain.terrainData.treePrototypes;
-        
-        if (Climate == "dry")
+
+        if (climateInParallel)
         {
-            if (species == "reseeder")    //reseeder + dry
+            //in this case, the dry prefab will always be at index 0, and the wet prefab will always be at index 1
+            if (Climate == "dry")
             {
-                if (scale >= ReseederDryIntervals[0] && scale <= ReseederDryIntervals[1])
+                if (species == "reseeder")    //reseeder + dry
                 {
-                    //i = 9;
-                    tps[1].prefab = manager.reseeders[0];
+                    if (scale >= ReseederDryIntervals[0] && scale <= ReseederDryIntervals[1])
+                    {
+                        //i = 9;
+                        tps[0].prefab = manager.reseeders[0];
+                    }
+                    else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
+                    {
+                        tps[0].prefab = manager.reseeders[1];
+                    }
+                    else if (scale > ReseederDryIntervals[2] && scale <= ReseederDryIntervals[3])
+                    {
+                        tps[0].prefab = manager.reseeders[2];
+                    }
+                    else if (scale > ReseederDryIntervals[3] && scale <= ReseederDryIntervals[4])
+                    {
+                        tps[0].prefab = manager.reseeders[3];
+                    }
+                    else if (scale > ReseederDryIntervals[4] && scale <= ReseederDryIntervals[5])
+                    {
+                        tps[0].prefab = manager.reseeders[4];
+                    }
+                    else if (scale > ReseederDryIntervals[5] && scale <= ReseederDryIntervals[6])
+                    {
+                        tps[0].prefab = manager.reseeders[5];
+                    }
+                    else if (scale > ReseederDryIntervals[6] && scale <= ReseederDryIntervals[7])
+                    {
+                        tps[0].prefab = manager.reseeders[6];
+                    }
+                    else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
+                    {
+                        tps[0].prefab = manager.reseeders[7];
+                    }
+                    else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+                    {
+                        tps[0].prefab = manager.reseeders[8];
+                    }
                 }
-                else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
+                else    //species = resprouter  (resprouter + dry)
                 {
-                    tps[1].prefab = manager.reseeders[1];
-                }
-                else if (scale > ReseederDryIntervals[2] && scale <= ReseederDryIntervals[3])
-                {
-                    tps[1].prefab = manager.reseeders[2];
-                }
-                else if (scale > ReseederDryIntervals[3] && scale <= ReseederDryIntervals[4])
-                {
-                    tps[1].prefab = manager.reseeders[3];
-                }
-                else if (scale > ReseederDryIntervals[4] && scale <= ReseederDryIntervals[5])
-                {
-                    tps[1].prefab = manager.reseeders[4];
-                }
-                else if (scale > ReseederDryIntervals[5] && scale <= ReseederDryIntervals[6])
-                {
-                    tps[1].prefab = manager.reseeders[5];
-                }
-                else if (scale > ReseederDryIntervals[6] && scale <= ReseederDryIntervals[7])
-                {
-                    tps[1].prefab = manager.reseeders[6];
-                }
-                else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
-                {
-                    tps[1].prefab = manager.reseeders[7];
-                }
-                else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
-                {
-                    tps[1].prefab = manager.reseeders[8];
+                    if (scale >= ResprouterDryIntervals[0] && scale <= ResprouterDryIntervals[1])
+                    {
+                        tps[0].prefab = manager.resprouters[0];
+                    }
+                    else if (scale > ResprouterDryIntervals[1] && scale <= ResprouterDryIntervals[2])
+                    {
+                        tps[0].prefab = manager.resprouters[1];
+                    }
+                    else if (scale > ResprouterDryIntervals[2] && scale <= ResprouterDryIntervals[3])
+                    {
+                        tps[0].prefab = manager.resprouters[2];
+                    }
+                    else if (scale > ResprouterDryIntervals[3] && scale <= ResprouterDryIntervals[4])
+                    {
+                        tps[0].prefab = manager.resprouters[3];
+                    }
+                    else if (scale > ResprouterDryIntervals[4] && scale <= ResprouterDryIntervals[5])
+                    {
+                        tps[0].prefab = manager.resprouters[4];
+                    }
+                    else if (scale > ResprouterDryIntervals[5] && scale <= ResprouterDryIntervals[6])
+                    {
+                        tps[0].prefab = manager.resprouters[5];
+                    }
+                    else if (scale > ResprouterDryIntervals[6] && scale <= ResprouterDryIntervals[7])
+                    {
+                        tps[0].prefab = manager.resprouters[6];
+                    }
+                    else if (scale > ResprouterDryIntervals[7] && scale <= ResprouterDryIntervals[8])
+                    {
+                        tps[0].prefab = manager.resprouters[7];
+                    }
+                    else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
+                    {
+                        tps[0].prefab = manager.resprouters[8];
+                    }
                 }
             }
-            else    //species = resprouter  (resprouter + dry)
+            else         //climate = wet
             {
-                if (scale >= ResprouterDryIntervals[0] && scale <= ResprouterDryIntervals[1])
+                if (species == "reseeder")              // reseeder + wet
                 {
-                    tps[0].prefab = manager.resprouters[0];
+                    if (scale >= ReseederWetIntervals[0] && scale <= ReseederWetIntervals[1])
+                    {
+                        tps[1].prefab = manager.reseeders[0];
+                    }
+                    else if (scale > ReseederWetIntervals[1] && scale <= ReseederWetIntervals[2])
+                    {
+                        tps[1].prefab = manager.reseeders[1];
+                    }
+                    else if (scale > ReseederWetIntervals[2] && scale <= ReseederWetIntervals[3])
+                    {
+                        tps[1].prefab = manager.reseeders[2];
+                    }
+                    else if (scale > ReseederWetIntervals[3] && scale <= ReseederWetIntervals[4])
+                    {
+                        tps[1].prefab = manager.reseeders[3];
+                    }
+                    else if (scale > ReseederWetIntervals[4] && scale <= ReseederWetIntervals[5])
+                    {
+                        tps[1].prefab = manager.reseeders[4];
+                    }
+                    else if (scale > ReseederWetIntervals[5] && scale <= ReseederWetIntervals[6])
+                    {
+                        tps[1].prefab = manager.reseeders[5];
+                    }
+                    else if (scale > ReseederWetIntervals[6] && scale <= ReseederWetIntervals[7])
+                    {
+                        tps[1].prefab = manager.reseeders[6];
+                    }
+                    else if (scale > ReseederWetIntervals[7] && scale <= ReseederWetIntervals[8])
+                    {
+                        tps[1].prefab = manager.reseeders[7];
+                    }
+                    else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
+                    {
+                        tps[1].prefab = manager.reseeders[8];
+                    }
                 }
-                else if (scale > ResprouterDryIntervals[1] && scale <= ResprouterDryIntervals[2])
+                else       //species = resprouter (resprouter + wet)
                 {
-                    tps[0].prefab = manager.resprouters[1];
-                }
-                else if (scale > ResprouterDryIntervals[2] && scale <= ResprouterDryIntervals[3])
-                {
-                    tps[0].prefab = manager.resprouters[2];
-                }
-                else if (scale > ResprouterDryIntervals[3] && scale <= ResprouterDryIntervals[4])
-                {
-                    tps[0].prefab = manager.resprouters[3];
-                }
-                else if (scale > ResprouterDryIntervals[4] && scale <= ResprouterDryIntervals[5])
-                {
-                    tps[0].prefab = manager.resprouters[4];
-                }
-                else if (scale > ResprouterDryIntervals[5] && scale <= ResprouterDryIntervals[6])
-                {
-                    tps[0].prefab = manager.resprouters[5];
-                }
-                else if (scale > ResprouterDryIntervals[6] && scale <= ResprouterDryIntervals[7])
-                {
-                    tps[0].prefab = manager.resprouters[6];
-                }
-                else if (scale > ResprouterDryIntervals[7] && scale <= ResprouterDryIntervals[8])
-                {
-                    tps[0].prefab = manager.resprouters[7];
-                }
-                else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
-                {
-                    tps[0].prefab = manager.resprouters[8];
+                    if (scale >= ResprouterWetIntervals[0] && scale <= ResprouterWetIntervals[1])
+                    {
+                        tps[1].prefab = manager.resprouters[0];
+                    }
+                    else if (scale > ResprouterWetIntervals[1] && scale <= ResprouterWetIntervals[2])
+                    {
+                        tps[1].prefab = manager.resprouters[1];
+                    }
+                    else if (scale > ResprouterWetIntervals[2] && scale <= ResprouterWetIntervals[3])
+                    {
+                        tps[1].prefab = manager.resprouters[2];
+                    }
+                    else if (scale > ResprouterWetIntervals[3] && scale <= ResprouterWetIntervals[4])
+                    {
+                        tps[1].prefab = manager.resprouters[3];
+                    }
+                    else if (scale > ResprouterWetIntervals[4] && scale <= ResprouterWetIntervals[5])
+                    {
+                        tps[1].prefab = manager.resprouters[4];
+                    }
+                    else if (scale > ResprouterWetIntervals[5] && scale <= ResprouterWetIntervals[6])
+                    {
+                        tps[1].prefab = manager.resprouters[5];
+                    }
+                    else if (scale > ResprouterWetIntervals[6] && scale <= ResprouterWetIntervals[7])
+                    {
+                        tps[1].prefab = manager.resprouters[6];
+                    }
+                    else if (scale > ResprouterWetIntervals[7] && scale <= ResprouterWetIntervals[8])
+                    {
+                        tps[1].prefab = manager.resprouters[7];
+                    }
+                    else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
+                    {
+                        tps[1].prefab = manager.resprouters[8];
+                    }
                 }
             }
         }
-        else         //climate = wet
+        else if (plantsInParallel)
         {
-            if (species == "reseeder")              // reseeder + wet
+            //in this case the resprouter will always be at index 0, the reseeder will be at index 1
+            if (Climate == "dry")
             {
-                if (scale >= ReseederWetIntervals[0] && scale <= ReseederWetIntervals[1])
+                if (species == "reseeder")    //reseeder + dry
                 {
-                    tps[1].prefab = manager.reseeders[0];
+                    if (scale >= ReseederDryIntervals[0] && scale <= ReseederDryIntervals[1])
+                    {
+                        //i = 9;
+                        tps[1].prefab = manager.reseeders[0];
+                    }
+                    else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
+                    {
+                        tps[1].prefab = manager.reseeders[1];
+                    }
+                    else if (scale > ReseederDryIntervals[2] && scale <= ReseederDryIntervals[3])
+                    {
+                        tps[1].prefab = manager.reseeders[2];
+                    }
+                    else if (scale > ReseederDryIntervals[3] && scale <= ReseederDryIntervals[4])
+                    {
+                        tps[1].prefab = manager.reseeders[3];
+                    }
+                    else if (scale > ReseederDryIntervals[4] && scale <= ReseederDryIntervals[5])
+                    {
+                        tps[1].prefab = manager.reseeders[4];
+                    }
+                    else if (scale > ReseederDryIntervals[5] && scale <= ReseederDryIntervals[6])
+                    {
+                        tps[1].prefab = manager.reseeders[5];
+                    }
+                    else if (scale > ReseederDryIntervals[6] && scale <= ReseederDryIntervals[7])
+                    {
+                        tps[1].prefab = manager.reseeders[6];
+                    }
+                    else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
+                    {
+                        tps[1].prefab = manager.reseeders[7];
+                    }
+                    else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+                    {
+                        tps[1].prefab = manager.reseeders[8];
+                    }
                 }
-                else if (scale > ReseederWetIntervals[1] && scale <= ReseederWetIntervals[2])
+                else    //species = resprouter  (resprouter + dry)
                 {
-                    tps[1].prefab = manager.reseeders[1];
-                }
-                else if (scale > ReseederWetIntervals[2] && scale <= ReseederWetIntervals[3])
-                {
-                    tps[1].prefab = manager.reseeders[2];
-                }
-                else if (scale > ReseederWetIntervals[3] && scale <= ReseederWetIntervals[4])
-                {
-                    tps[1].prefab = manager.reseeders[3];
-                }
-                else if (scale > ReseederWetIntervals[4] && scale <= ReseederWetIntervals[5])
-                {
-                    tps[1].prefab = manager.reseeders[4];
-                }
-                else if (scale > ReseederWetIntervals[5] && scale <= ReseederWetIntervals[6])
-                {
-                    tps[1].prefab = manager.reseeders[5];
-                }
-                else if (scale > ReseederWetIntervals[6] && scale <= ReseederWetIntervals[7])
-                {
-                    tps[1].prefab = manager.reseeders[6];
-                }
-                else if (scale > ReseederWetIntervals[7] && scale <= ReseederWetIntervals[8])
-                {
-                    tps[1].prefab = manager.reseeders[7];
-                }
-                else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
-                {
-                    tps[1].prefab = manager.reseeders[8];
+                    if (scale >= ResprouterDryIntervals[0] && scale <= ResprouterDryIntervals[1])
+                    {
+                        tps[0].prefab = manager.resprouters[0];
+                    }
+                    else if (scale > ResprouterDryIntervals[1] && scale <= ResprouterDryIntervals[2])
+                    {
+                        tps[0].prefab = manager.resprouters[1];
+                    }
+                    else if (scale > ResprouterDryIntervals[2] && scale <= ResprouterDryIntervals[3])
+                    {
+                        tps[0].prefab = manager.resprouters[2];
+                    }
+                    else if (scale > ResprouterDryIntervals[3] && scale <= ResprouterDryIntervals[4])
+                    {
+                        tps[0].prefab = manager.resprouters[3];
+                    }
+                    else if (scale > ResprouterDryIntervals[4] && scale <= ResprouterDryIntervals[5])
+                    {
+                        tps[0].prefab = manager.resprouters[4];
+                    }
+                    else if (scale > ResprouterDryIntervals[5] && scale <= ResprouterDryIntervals[6])
+                    {
+                        tps[0].prefab = manager.resprouters[5];
+                    }
+                    else if (scale > ResprouterDryIntervals[6] && scale <= ResprouterDryIntervals[7])
+                    {
+                        tps[0].prefab = manager.resprouters[6];
+                    }
+                    else if (scale > ResprouterDryIntervals[7] && scale <= ResprouterDryIntervals[8])
+                    {
+                        tps[0].prefab = manager.resprouters[7];
+                    }
+                    else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
+                    {
+                        tps[0].prefab = manager.resprouters[8];
+                    }
                 }
             }
-            else       //species = resprouter (resprouter + wet)
+            else         //climate = wet
             {
-                if (scale >= ResprouterWetIntervals[0] && scale <= ResprouterWetIntervals[1])
+                if (species == "reseeder")              // reseeder + wet
                 {
-                    tps[0].prefab = manager.resprouters[0];
+                    if (scale >= ReseederWetIntervals[0] && scale <= ReseederWetIntervals[1])
+                    {
+                        tps[1].prefab = manager.reseeders[0];
+                    }
+                    else if (scale > ReseederWetIntervals[1] && scale <= ReseederWetIntervals[2])
+                    {
+                        tps[1].prefab = manager.reseeders[1];
+                    }
+                    else if (scale > ReseederWetIntervals[2] && scale <= ReseederWetIntervals[3])
+                    {
+                        tps[1].prefab = manager.reseeders[2];
+                    }
+                    else if (scale > ReseederWetIntervals[3] && scale <= ReseederWetIntervals[4])
+                    {
+                        tps[1].prefab = manager.reseeders[3];
+                    }
+                    else if (scale > ReseederWetIntervals[4] && scale <= ReseederWetIntervals[5])
+                    {
+                        tps[1].prefab = manager.reseeders[4];
+                    }
+                    else if (scale > ReseederWetIntervals[5] && scale <= ReseederWetIntervals[6])
+                    {
+                        tps[1].prefab = manager.reseeders[5];
+                    }
+                    else if (scale > ReseederWetIntervals[6] && scale <= ReseederWetIntervals[7])
+                    {
+                        tps[1].prefab = manager.reseeders[6];
+                    }
+                    else if (scale > ReseederWetIntervals[7] && scale <= ReseederWetIntervals[8])
+                    {
+                        tps[1].prefab = manager.reseeders[7];
+                    }
+                    else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
+                    {
+                        tps[1].prefab = manager.reseeders[8];
+                    }
                 }
-                else if (scale > ResprouterWetIntervals[1] && scale <= ResprouterWetIntervals[2])
+                else       //species = resprouter (resprouter + wet)
                 {
-                    tps[0].prefab = manager.resprouters[1];
-                }
-                else if (scale > ResprouterWetIntervals[2] && scale <= ResprouterWetIntervals[3])
-                {
-                    tps[0].prefab = manager.resprouters[2];
-                }
-                else if (scale > ResprouterWetIntervals[3] && scale <= ResprouterWetIntervals[4])
-                {
-                    tps[0].prefab = manager.resprouters[3];
-                }
-                else if (scale > ResprouterWetIntervals[4] && scale <= ResprouterWetIntervals[5])
-                {
-                    tps[0].prefab = manager.resprouters[4];
-                }
-                else if (scale > ResprouterWetIntervals[5] && scale <= ResprouterWetIntervals[6])
-                {
-                    tps[0].prefab = manager.resprouters[5];
-                }
-                else if (scale > ResprouterWetIntervals[6] && scale <= ResprouterWetIntervals[7])
-                {
-                    tps[0].prefab = manager.resprouters[6];
-                }
-                else if (scale > ResprouterWetIntervals[7] && scale <= ResprouterWetIntervals[8])
-                {
-                    tps[0].prefab = manager.resprouters[7];
-                }
-                else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
-                {
-                    tps[0].prefab = manager.resprouters[8];
+                    if (scale >= ResprouterWetIntervals[0] && scale <= ResprouterWetIntervals[1])
+                    {
+                        tps[0].prefab = manager.resprouters[0];
+                    }
+                    else if (scale > ResprouterWetIntervals[1] && scale <= ResprouterWetIntervals[2])
+                    {
+                        tps[0].prefab = manager.resprouters[1];
+                    }
+                    else if (scale > ResprouterWetIntervals[2] && scale <= ResprouterWetIntervals[3])
+                    {
+                        tps[0].prefab = manager.resprouters[2];
+                    }
+                    else if (scale > ResprouterWetIntervals[3] && scale <= ResprouterWetIntervals[4])
+                    {
+                        tps[0].prefab = manager.resprouters[3];
+                    }
+                    else if (scale > ResprouterWetIntervals[4] && scale <= ResprouterWetIntervals[5])
+                    {
+                        tps[0].prefab = manager.resprouters[4];
+                    }
+                    else if (scale > ResprouterWetIntervals[5] && scale <= ResprouterWetIntervals[6])
+                    {
+                        tps[0].prefab = manager.resprouters[5];
+                    }
+                    else if (scale > ResprouterWetIntervals[6] && scale <= ResprouterWetIntervals[7])
+                    {
+                        tps[0].prefab = manager.resprouters[6];
+                    }
+                    else if (scale > ResprouterWetIntervals[7] && scale <= ResprouterWetIntervals[8])
+                    {
+                        tps[0].prefab = manager.resprouters[7];
+                    }
+                    else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
+                    {
+                        tps[0].prefab = manager.resprouters[8];
+                    }
                 }
             }
         }
+        else if (bothInParallel)
+        {
+            //in this case: dry resprouter = index 0, dry reseeder = index 1, wet resprouter = 2, wet reseeder = index 3
+            if (Climate == "dry")
+            {
+                if (species == "reseeder")    //reseeder + dry
+                {
+                    if (scale >= ReseederDryIntervals[0] && scale <= ReseederDryIntervals[1])
+                    {
+                        //i = 9;
+                        tps[1].prefab = manager.reseeders[0];
+                    }
+                    else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
+                    {
+                        tps[1].prefab = manager.reseeders[1];
+                    }
+                    else if (scale > ReseederDryIntervals[2] && scale <= ReseederDryIntervals[3])
+                    {
+                        tps[1].prefab = manager.reseeders[2];
+                    }
+                    else if (scale > ReseederDryIntervals[3] && scale <= ReseederDryIntervals[4])
+                    {
+                        tps[1].prefab = manager.reseeders[3];
+                    }
+                    else if (scale > ReseederDryIntervals[4] && scale <= ReseederDryIntervals[5])
+                    {
+                        tps[1].prefab = manager.reseeders[4];
+                    }
+                    else if (scale > ReseederDryIntervals[5] && scale <= ReseederDryIntervals[6])
+                    {
+                        tps[1].prefab = manager.reseeders[5];
+                    }
+                    else if (scale > ReseederDryIntervals[6] && scale <= ReseederDryIntervals[7])
+                    {
+                        tps[1].prefab = manager.reseeders[6];
+                    }
+                    else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
+                    {
+                        tps[1].prefab = manager.reseeders[7];
+                    }
+                    else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+                    {
+                        tps[1].prefab = manager.reseeders[8];
+                    }
+                }
+                else    //species = resprouter  (resprouter + dry)
+                {
+                    if (scale >= ResprouterDryIntervals[0] && scale <= ResprouterDryIntervals[1])
+                    {
+                        tps[0].prefab = manager.resprouters[0];
+                    }
+                    else if (scale > ResprouterDryIntervals[1] && scale <= ResprouterDryIntervals[2])
+                    {
+                        tps[0].prefab = manager.resprouters[1];
+                    }
+                    else if (scale > ResprouterDryIntervals[2] && scale <= ResprouterDryIntervals[3])
+                    {
+                        tps[0].prefab = manager.resprouters[2];
+                    }
+                    else if (scale > ResprouterDryIntervals[3] && scale <= ResprouterDryIntervals[4])
+                    {
+                        tps[0].prefab = manager.resprouters[3];
+                    }
+                    else if (scale > ResprouterDryIntervals[4] && scale <= ResprouterDryIntervals[5])
+                    {
+                        tps[0].prefab = manager.resprouters[4];
+                    }
+                    else if (scale > ResprouterDryIntervals[5] && scale <= ResprouterDryIntervals[6])
+                    {
+                        tps[0].prefab = manager.resprouters[5];
+                    }
+                    else if (scale > ResprouterDryIntervals[6] && scale <= ResprouterDryIntervals[7])
+                    {
+                        tps[0].prefab = manager.resprouters[6];
+                    }
+                    else if (scale > ResprouterDryIntervals[7] && scale <= ResprouterDryIntervals[8])
+                    {
+                        tps[0].prefab = manager.resprouters[7];
+                    }
+                    else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
+                    {
+                        tps[0].prefab = manager.resprouters[8];
+                    }
+                }
+            }
+            else         //climate = wet
+            {
+                if (species == "reseeder")              // reseeder + wet
+                {
+                    if (scale >= ReseederWetIntervals[0] && scale <= ReseederWetIntervals[1])
+                    {
+                        tps[3].prefab = manager.reseeders[0];
+                    }
+                    else if (scale > ReseederWetIntervals[1] && scale <= ReseederWetIntervals[2])
+                    {
+                        tps[3].prefab = manager.reseeders[1];
+                    }
+                    else if (scale > ReseederWetIntervals[2] && scale <= ReseederWetIntervals[3])
+                    {
+                        tps[3].prefab = manager.reseeders[2];
+                    }
+                    else if (scale > ReseederWetIntervals[3] && scale <= ReseederWetIntervals[4])
+                    {
+                        tps[3].prefab = manager.reseeders[3];
+                    }
+                    else if (scale > ReseederWetIntervals[4] && scale <= ReseederWetIntervals[5])
+                    {
+                        tps[3].prefab = manager.reseeders[4];
+                    }
+                    else if (scale > ReseederWetIntervals[5] && scale <= ReseederWetIntervals[6])
+                    {
+                        tps[3].prefab = manager.reseeders[5];
+                    }
+                    else if (scale > ReseederWetIntervals[6] && scale <= ReseederWetIntervals[7])
+                    {
+                        tps[3].prefab = manager.reseeders[6];
+                    }
+                    else if (scale > ReseederWetIntervals[7] && scale <= ReseederWetIntervals[8])
+                    {
+                        tps[3].prefab = manager.reseeders[7];
+                    }
+                    else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
+                    {
+                        tps[3].prefab = manager.reseeders[8];
+                    }
+                }
+                else       //species = resprouter (resprouter + wet)
+                {
+                    if (scale >= ResprouterWetIntervals[0] && scale <= ResprouterWetIntervals[1])
+                    {
+                        tps[2].prefab = manager.resprouters[0];
+                    }
+                    else if (scale > ResprouterWetIntervals[1] && scale <= ResprouterWetIntervals[2])
+                    {
+                        tps[2].prefab = manager.resprouters[1];
+                    }
+                    else if (scale > ResprouterWetIntervals[2] && scale <= ResprouterWetIntervals[3])
+                    {
+                        tps[2].prefab = manager.resprouters[2];
+                    }
+                    else if (scale > ResprouterWetIntervals[3] && scale <= ResprouterWetIntervals[4])
+                    {
+                        tps[2].prefab = manager.resprouters[3];
+                    }
+                    else if (scale > ResprouterWetIntervals[4] && scale <= ResprouterWetIntervals[5])
+                    {
+                        tps[2].prefab = manager.resprouters[4];
+                    }
+                    else if (scale > ResprouterWetIntervals[5] && scale <= ResprouterWetIntervals[6])
+                    {
+                        tps[2].prefab = manager.resprouters[5];
+                    }
+                    else if (scale > ResprouterWetIntervals[6] && scale <= ResprouterWetIntervals[7])
+                    {
+                        tps[2].prefab = manager.resprouters[6];
+                    }
+                    else if (scale > ResprouterWetIntervals[7] && scale <= ResprouterWetIntervals[8])
+                    {
+                        tps[2].prefab = manager.resprouters[7];
+                    }
+                    else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
+                    {
+                        tps[2].prefab = manager.resprouters[8];
+                    }
+                }
+            }
+        }
+
+        myTerrain.terrainData.treePrototypes = tps;
     }
 
 
@@ -1206,174 +1505,174 @@ public class PlantAnimation : MonoBehaviour
 
 
 
-    //helper function to get the prototype index that corresponds to a specific scale
-    private int getIndex(float scale, string species, string Climate)
-    {
-        int i;
-        if (Climate == "dry")
-        {
-            if (species == "reseeder")    //reseeder + dry
-            {
-                if (scale >= ReseederDryIntervals[0] && scale <= ReseederDryIntervals[1])
-                {
-                    i = 9;
-                }
-                else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
-                {
-                    i = 10;
-                }
-                else if (scale > ReseederDryIntervals[2] && scale <= ReseederDryIntervals[3])
-                {
-                    i = 11;
-                }
-                else if (scale > ReseederDryIntervals[3] && scale <= ReseederDryIntervals[4])
-                {
-                    i = 12;
-                }
-                else if (scale > ReseederDryIntervals[4] && scale <= ReseederDryIntervals[5])
-                {
-                    i = 13;
-                }
-                else if (scale > ReseederDryIntervals[5] && scale <= ReseederDryIntervals[6])
-                {
-                    i = 14;
-                }
-                else if (scale > ReseederDryIntervals[6] && scale <= ReseederDryIntervals[7])
-                {
-                    i = 15;
-                }
-                else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
-                {
-                    i = 16;
-                }
-                else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
-                {
-                    i = 17;
-                }
-            }
-            else    //species = resprouter  (resprouter + dry)
-            {
-                if (scale >= ResprouterDryIntervals[0] && scale <= ResprouterDryIntervals[1])
-                {
-                    i = 0;
-                }
-                else if (scale > ResprouterDryIntervals[1] && scale <= ResprouterDryIntervals[2])
-                {
-                    i = 1;
-                }
-                else if (scale > ResprouterDryIntervals[2] && scale <= ResprouterDryIntervals[3])
-                {
-                    i = 2;
-                }
-                else if (scale > ResprouterDryIntervals[3] && scale <= ResprouterDryIntervals[4])
-                {
-                    i = 3;
-                }
-                else if (scale > ResprouterDryIntervals[4] && scale <= ResprouterDryIntervals[5])
-                {
-                    i = 4;
-                }
-                else if (scale > ResprouterDryIntervals[5] && scale <= ResprouterDryIntervals[6])
-                {
-                    i = 5;
-                }
-                else if (scale > ResprouterDryIntervals[6] && scale <= ResprouterDryIntervals[7])
-                {
-                    i = 6;
-                }
-                else if (scale > ResprouterDryIntervals[7] && scale <= ResprouterDryIntervals[8])
-                {
-                    i = 7;
-                }
-                else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
-                {
-                    i = 8;
-                }
-            }
-        }
-        else         //climate = wet
-        {
-            if (species == "reseeder")              // reseeder + wet
-            {
-                if (scale >= ReseederWetIntervals[0] && scale <= ReseederWetIntervals[1])
-                {
-                    i = 9;
-                }
-                else if (scale > ReseederWetIntervals[1] && scale <= ReseederWetIntervals[2])
-                {
-                    i = 10;
-                }
-                else if (scale > ReseederWetIntervals[2] && scale <= ReseederWetIntervals[3])
-                {
-                    i = 11;
-                }
-                else if (scale > ReseederWetIntervals[3] && scale <= ReseederWetIntervals[4])
-                {
-                    i = 12;
-                }
-                else if (scale > ReseederWetIntervals[4] && scale <= ReseederWetIntervals[5])
-                {
-                    i = 13;
-                }
-                else if (scale > ReseederWetIntervals[5] && scale <= ReseederWetIntervals[6])
-                {
-                    i = 14;
-                }
-                else if (scale > ReseederWetIntervals[6] && scale <= ReseederWetIntervals[7])
-                {
-                    i = 15;
-                }
-                else if (scale > ReseederWetIntervals[7] && scale <= ReseederWetIntervals[8])
-                {
-                    i = 16;
-                }
-                else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
-                {
-                    i = 17;
-                }
-            }
-            else       //species = resprouter (resprouter + wet)
-            {
-                if (scale >= ResprouterWetIntervals[0] && scale <= ResprouterWetIntervals[1])
-                {
-                    i = 0;
-                }
-                else if (scale > ResprouterWetIntervals[1] && scale <= ResprouterWetIntervals[2])
-                {
-                    i = 1;
-                }
-                else if (scale > ResprouterWetIntervals[2] && scale <= ResprouterWetIntervals[3])
-                {
-                    i = 2;
-                }
-                else if (scale > ResprouterWetIntervals[3] && scale <= ResprouterWetIntervals[4])
-                {
-                    i = 3;
-                }
-                else if (scale > ResprouterWetIntervals[4] && scale <= ResprouterWetIntervals[5])
-                {
-                    i = 4;
-                }
-                else if (scale > ResprouterWetIntervals[5] && scale <= ResprouterWetIntervals[6])
-                {
-                    i = 5;
-                }
-                else if (scale > ResprouterWetIntervals[6] && scale <= ResprouterWetIntervals[7])
-                {
-                    i = 6;
-                }
-                else if (scale > ResprouterWetIntervals[7] && scale <= ResprouterWetIntervals[8])
-                {
-                    i = 7;
-                }
-                else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
-                {
-                    i = 8;
-                }
-            }
-        }
-        return i;
-    }
+    ////helper function to get the prototype index that corresponds to a specific scale
+    //private int getIndex(float scale, string species, string Climate)
+    //{
+    //    int i;
+    //    if (Climate == "dry")
+    //    {
+    //        if (species == "reseeder")    //reseeder + dry
+    //        {
+    //            if (scale >= ReseederDryIntervals[0] && scale <= ReseederDryIntervals[1])
+    //            {
+    //                i = 9;
+    //            }
+    //            else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
+    //            {
+    //                i = 10;
+    //            }
+    //            else if (scale > ReseederDryIntervals[2] && scale <= ReseederDryIntervals[3])
+    //            {
+    //                i = 11;
+    //            }
+    //            else if (scale > ReseederDryIntervals[3] && scale <= ReseederDryIntervals[4])
+    //            {
+    //                i = 12;
+    //            }
+    //            else if (scale > ReseederDryIntervals[4] && scale <= ReseederDryIntervals[5])
+    //            {
+    //                i = 13;
+    //            }
+    //            else if (scale > ReseederDryIntervals[5] && scale <= ReseederDryIntervals[6])
+    //            {
+    //                i = 14;
+    //            }
+    //            else if (scale > ReseederDryIntervals[6] && scale <= ReseederDryIntervals[7])
+    //            {
+    //                i = 15;
+    //            }
+    //            else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
+    //            {
+    //                i = 16;
+    //            }
+    //            else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+    //            {
+    //                i = 17;
+    //            }
+    //        }
+    //        else    //species = resprouter  (resprouter + dry)
+    //        {
+    //            if (scale >= ResprouterDryIntervals[0] && scale <= ResprouterDryIntervals[1])
+    //            {
+    //                i = 0;
+    //            }
+    //            else if (scale > ResprouterDryIntervals[1] && scale <= ResprouterDryIntervals[2])
+    //            {
+    //                i = 1;
+    //            }
+    //            else if (scale > ResprouterDryIntervals[2] && scale <= ResprouterDryIntervals[3])
+    //            {
+    //                i = 2;
+    //            }
+    //            else if (scale > ResprouterDryIntervals[3] && scale <= ResprouterDryIntervals[4])
+    //            {
+    //                i = 3;
+    //            }
+    //            else if (scale > ResprouterDryIntervals[4] && scale <= ResprouterDryIntervals[5])
+    //            {
+    //                i = 4;
+    //            }
+    //            else if (scale > ResprouterDryIntervals[5] && scale <= ResprouterDryIntervals[6])
+    //            {
+    //                i = 5;
+    //            }
+    //            else if (scale > ResprouterDryIntervals[6] && scale <= ResprouterDryIntervals[7])
+    //            {
+    //                i = 6;
+    //            }
+    //            else if (scale > ResprouterDryIntervals[7] && scale <= ResprouterDryIntervals[8])
+    //            {
+    //                i = 7;
+    //            }
+    //            else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
+    //            {
+    //                i = 8;
+    //            }
+    //        }
+    //    }
+    //    else         //climate = wet
+    //    {
+    //        if (species == "reseeder")              // reseeder + wet
+    //        {
+    //            if (scale >= ReseederWetIntervals[0] && scale <= ReseederWetIntervals[1])
+    //            {
+    //                i = 9;
+    //            }
+    //            else if (scale > ReseederWetIntervals[1] && scale <= ReseederWetIntervals[2])
+    //            {
+    //                i = 10;
+    //            }
+    //            else if (scale > ReseederWetIntervals[2] && scale <= ReseederWetIntervals[3])
+    //            {
+    //                i = 11;
+    //            }
+    //            else if (scale > ReseederWetIntervals[3] && scale <= ReseederWetIntervals[4])
+    //            {
+    //                i = 12;
+    //            }
+    //            else if (scale > ReseederWetIntervals[4] && scale <= ReseederWetIntervals[5])
+    //            {
+    //                i = 13;
+    //            }
+    //            else if (scale > ReseederWetIntervals[5] && scale <= ReseederWetIntervals[6])
+    //            {
+    //                i = 14;
+    //            }
+    //            else if (scale > ReseederWetIntervals[6] && scale <= ReseederWetIntervals[7])
+    //            {
+    //                i = 15;
+    //            }
+    //            else if (scale > ReseederWetIntervals[7] && scale <= ReseederWetIntervals[8])
+    //            {
+    //                i = 16;
+    //            }
+    //            else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
+    //            {
+    //                i = 17;
+    //            }
+    //        }
+    //        else       //species = resprouter (resprouter + wet)
+    //        {
+    //            if (scale >= ResprouterWetIntervals[0] && scale <= ResprouterWetIntervals[1])
+    //            {
+    //                i = 0;
+    //            }
+    //            else if (scale > ResprouterWetIntervals[1] && scale <= ResprouterWetIntervals[2])
+    //            {
+    //                i = 1;
+    //            }
+    //            else if (scale > ResprouterWetIntervals[2] && scale <= ResprouterWetIntervals[3])
+    //            {
+    //                i = 2;
+    //            }
+    //            else if (scale > ResprouterWetIntervals[3] && scale <= ResprouterWetIntervals[4])
+    //            {
+    //                i = 3;
+    //            }
+    //            else if (scale > ResprouterWetIntervals[4] && scale <= ResprouterWetIntervals[5])
+    //            {
+    //                i = 4;
+    //            }
+    //            else if (scale > ResprouterWetIntervals[5] && scale <= ResprouterWetIntervals[6])
+    //            {
+    //                i = 5;
+    //            }
+    //            else if (scale > ResprouterWetIntervals[6] && scale <= ResprouterWetIntervals[7])
+    //            {
+    //                i = 6;
+    //            }
+    //            else if (scale > ResprouterWetIntervals[7] && scale <= ResprouterWetIntervals[8])
+    //            {
+    //                i = 7;
+    //            }
+    //            else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
+    //            {
+    //                i = 8;
+    //            }
+    //        }
+    //    }
+    //    return i;
+    //}
 
     private void OnApplicationQuit()
     {
