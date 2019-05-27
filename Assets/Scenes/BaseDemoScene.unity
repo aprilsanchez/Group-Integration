@@ -286,6 +286,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   season: 6
+  reseeders:
+  - {fileID: 1043163201331519190, guid: d0bcb2ea53443214ba0fa08fe9423f65, type: 3}
+  - {fileID: 2989813565522119551, guid: 2af9fb9addc253b44854a21860e88084, type: 3}
+  - {fileID: 136364045513802524, guid: 49f0fb833e691b343821892908fade70, type: 3}
+  - {fileID: 9161336684235880099, guid: c5205583c5e3cc04aa11b3130bfd440e, type: 3}
+  - {fileID: 4133282076317896563, guid: 2770ad0c97b423f458b06c6e91703a96, type: 3}
+  - {fileID: 2835698606908641979, guid: 9089f77661dfc7f42a065b904d4eaff7, type: 3}
+  - {fileID: 295537986364239788, guid: 5e9214cd792a4d641b55e8fc421efbea, type: 3}
+  - {fileID: 7959017743214402043, guid: b988bfa22c117c7459cabf9b29142a41, type: 3}
+  - {fileID: 6676214014573763725, guid: 773fc826b19358148b111807a6929c14, type: 3}
+  resprouters:
+  - {fileID: 8945095765398220573, guid: b0fa02d8511f99e48a9a6114c604e61d, type: 3}
+  - {fileID: 3316810075517033122, guid: 84c2a25f6ac9e9344bfaf18dd6e1673c, type: 3}
+  - {fileID: 8422829146057274976, guid: 36b07847df50e194fb1f231eb2e80d1e, type: 3}
+  - {fileID: 923350356316839938, guid: 04b36c0229252ba4b90f2aaeeb79a5a2, type: 3}
+  - {fileID: 7202960488674829019, guid: c0f9c04dec0927348aa9fc42cc686120, type: 3}
+  - {fileID: 8197228118260862870, guid: 5f6a2cd1769ce2044af5bd2785616c2c, type: 3}
+  - {fileID: 2004412463562498231, guid: 941acec6f76fbf8409948e1621ea702f, type: 3}
+  - {fileID: 1354489492978068865, guid: cfae40dac906d9a4886a50d1ce6698a7, type: 3}
+  - {fileID: 425325260417532159, guid: f9dc630ab5763d24f91aa8599d156e39, type: 3}
   OMaxBioDry: 0
   OMinBioDry: 0
   OMaxBioWet: 0
@@ -391,17 +411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf98dd1206224111a38765365e98e207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setCursorInvisibleWhenFocusLocked: 1
-  maxGazeCollisionDistance: 10
-  raycastLayerMasks:
-  - serializedVersion: 2
-    m_Bits: 4294967291
-  stabilizer:
-    storedStabilitySamples: 60
-  gazeTransform: {fileID: 0}
-  minHeadVelocityThreshold: 0.5
-  maxHeadVelocityThreshold: 2
-  preferEyeTracking: 0
 --- !u!114 &1699381420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,13 +423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a21b486d0bb44444b1418aaa38b44de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &1699381421
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -161,7 +161,7 @@ public class Manager : MonoBehaviour
 
         //float newMin = 0;
         //float newMax = 0;
-        min = 0;
+        min = scale;
         max = 0;
         for (int i = 1; i < list.Count; i++)
         {
