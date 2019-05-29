@@ -11,7 +11,7 @@ public class TimeControl : MonoBehaviour
     TextMeshPro tmp;
     float timePerRealDay; //10s in unity is 1 day in real life
     private float timePassed = 0f; //since object first enabled
-    public void Start()
+    public void OnEnable()
     {
         myTime = new System.DateTime(1980, 12, 5);
         timePerRealDay = Terrain.FindObjectOfType<Size>().growthTime;

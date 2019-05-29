@@ -12,7 +12,7 @@ public class DataBarControl : MonoBehaviour
     private float timePassed = 0f;
     int i = 0;
     public string barisFor;
-    void Start()
+    void OnEnable()
     {
         mySlider = GetComponent<Slider>();
         if (barisFor == "p") { data = new List<float> { 5f, 10f, 15f, 17f, 16f, 12f, 3f, 0f }; }
