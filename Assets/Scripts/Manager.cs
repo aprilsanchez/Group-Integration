@@ -193,6 +193,9 @@ public class Manager : MonoBehaviour
         //animation.countPixels();
         //animation.ClimateInParallel("reseeder");
         animation.PlantsInParallel("dry");
+        //System.Threading.Thread.Sleep(20000);
+        //Debug.Log("calling PlantsInParallel(wet)");
+        //animation.PlantsInParallel("wet");
         //animation.testPlacement(animation.location, new Vector2(30, 30), 0, 8, ReseederDry[0].bushScale);
     }
 }

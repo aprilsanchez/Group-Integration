@@ -24,21 +24,33 @@ public class PlantAnimation : MonoBehaviour
     float[] ReseederWetIntervals;
     float[] ResprouterDryIntervals;
     float[] ResprouterWetIntervals;
+    float[] leafSizes = { 0, 0.008f, 0.016f, 0.024f, 0.032f, 0.04f, 0.048f, 0.056f, 0.064f };
     public bool reseederLeavesFalling = false;
     public bool resprouterLeavesFalling = false;
-    public bool leavesFalling;
+    public bool RLeavesFalling = false; //resprouters
+    public bool OLeavesFalling = false; //reseeders
+
+    public bool RWetFalling;
+    public bool RDryFalling;
+    public bool ODryFalling;
+    public bool OWetFalling;
 
     private bool fireOccurred = false;
     public ParticleSystem fire;
     public ParticleSystem rain;
     public GameObject sun;
-    public ParticleSystem leaves;
+    public ParticleSystem ReseederLeaves;
+    public ParticleSystem ResprouterLeaves;
+    public List<ParticleSystem> ListOLeaves = new List<ParticleSystem>();
+    public List<ParticleSystem> ListRLeaves = new List<ParticleSystem>();
+
     public Texture2D segmentation;
+    //private ParticleSystemRenderer psr;
 
     //660 or x    1625
     //private bool startBushGrowth = false;
     //private Vector3 rainPos = new Vector3(0, 50, 0);
-  
+
     private bool bothInParallel = false;
     private bool climateInParallel = false;
     private bool plantsInParallel = false;
@@ -133,6 +145,8 @@ public class PlantAnimation : MonoBehaviour
         Color green = new Color(0, 1, 0, 1);
         Color c;
 
+        //Vector3 bushPosition;
+
         Debug.Log("begin reading pixels");
         for (int y = (int)startPt.y; y < (int)startPt.y + dim.y; y = y + 2)
         {
@@ -143,7 +157,24 @@ public class PlantAnimation : MonoBehaviour
                 if (IsSameColor(c, green))
                 {
                     //Debug.Log("Found green pixel");
-                    addBushToTerrain(x, y, PrototypeIndex, scale);
+
+                    //bushPosition = addBushToTerrain(x, y, PrototypeIndex, scale);
+                    //bushPosition = addBushToTerrain(x, y, PrototypeIndex, scale);
+                    //bushPosition = Vector3.Scale(bushPosition, myTerrain.terrainData.size) + myTerrain.transform.position;
+                    //bushPosition.y = 0;
+
+                    Vector3 bushPosition = Vector3.Scale(myTerrain.terrainData.GetTreeInstance(myTerrain.terrainData.treeInstanceCount - 1).position, myTerrain.terrainData.size) + myTerrain.transform.position;
+                    bushPosition.y += (4 / 5) * scale;
+                    if (speciesInSeries == "resprouter")
+                    {
+                        ParticleSystem l = Instantiate(ResprouterLeaves, bushPosition, ResprouterLeaves.transform.rotation);
+                        ListRLeaves.Add(l);
+                    }
+                    else
+                    {
+                        ParticleSystem l = Instantiate(ReseederLeaves, bushPosition, ReseederLeaves.transform.rotation);
+                        ListOLeaves.Add(l);
+                    }
                     count++;
                 }
             }
@@ -167,28 +198,24 @@ public class PlantAnimation : MonoBehaviour
         int greenPixels = 0;
 
         Color green = new Color(0, 1, 0, 1);
-        //Color[] pixels = segmentation.GetPixels();
+
         Color c;
 
-        //bool swap = true;
-
-        //Debug.Log("begin reading pixels");
         for (int y = (int)startPt.y; y < (int)startPt.y + dim.y; y = y + 2)
         {
             for (int x = (int)startPt.x; x < (int)startPt.x + dim.x; x = x + 2)
             {
                 totalRead++;
                 c = segmentation.GetPixel(x, y);
-                //Debug.Log("checking if color " + c + "is green");
+
                 if ((c.r == w.r) && (c.g == w.g) && (c.b == w.b))
                 {
                     whitePixels++;
                 }
-                //Debug.Log("checking at location (" + x + ", " + y + ")");
+
                 if (IsSameColor(c, green))
                 {
                     greenPixels++;
-                    //Debug.Log("FOUND GREEN PIXEL AT (" + x + ", " + y + ")");
                     addBushToTerrain(x, y, PrototypeIndex2, scale);
 
                 }
@@ -197,11 +224,6 @@ public class PlantAnimation : MonoBehaviour
             }
         }
 
-        //Debug.Log("Done reading pixels");
-        //Debug.Log("whitePixels = " + whitePixels);
-        //Debug.Log("greenPixels = " + greenPixels);
-        //Debug.Log("totalPixels = " + totalRead);
-        //Debug.Log("count = " + count);
         myTerrain.Flush();
 
     }
@@ -212,45 +234,49 @@ public class PlantAnimation : MonoBehaviour
     //function to instantiate both types of bushes 
     private int PlaceBushes(Vector2 startPt, Vector2 dim, int PrototypeIndex1, int PrototypeIndex2, float scale1, float scale2)
     {
-        //Debug.Log("inside placeBushes()");
+
         int count = 0;
         //if pixel is green, instantiate a bush
         // note: the index corresponds to the piposition of the pixel in the texture
-        Color w = new Color(1, 1, 1, 1);
-        //int whitePixels = 0;
-        int totalRead = 0;
-        int greenPixels = 0;
+
 
         Color green = new Color(0, 1, 0, 1);
         Color c;
 
         bool swap = true;
 
-        //Debug.Log("begin reading pixels");
         for (int y = (int)startPt.y; y < (int)startPt.y + dim.y; y = y + 2)
         {
             for (int x = (int)startPt.x; x < (int)startPt.x + dim.x; x = x + 2)
             {
-                totalRead++;
+
                 c = segmentation.GetPixel(x,y);
-                //Debug.Log("checking if color " + c + "is green");
-                //if ( (c.r == w.r) && (c.g == w.g) && (c.b == w.b) )
-                //{
-                //    whitePixels++;
-                //}
-                //Debug.Log("checking at location (" + x + ", " + y + ")");
+
+                //Vector3 bushPosition; 
+
                 if (IsSameColor(c, green))
                 {
-                    greenPixels++;
-                    //Debug.Log("FOUND GREEN PIXEL AT (" + x + ", " + y + ")");
-                    if (swap)
+                    if (swap) //resprouters
                     {
                         addBushToTerrain(x, y, 0, scale1);
+                        Vector3 bushPosition = Vector3.Scale(myTerrain.terrainData.GetTreeInstance(myTerrain.terrainData.treeInstanceCount - 1).position, myTerrain.terrainData.size) + myTerrain.transform.position;
+                        bushPosition.y += scale1;
+
+                        //bushPosition = Vector3.Scale(bushPosition, myTerrain.terrainData.size) + myTerrain.transform.position;
+                        //bushPosition.y = 0;
+                        ParticleSystem l = Instantiate(ResprouterLeaves, bushPosition, ResprouterLeaves.transform.rotation);
+                        ListRLeaves.Add(l);
                         swap = false;
                     }
-                    else
+                    else //reseeder
                     {
                         addBushToTerrain(x, y, 1, scale2);
+                        //bushPosition = Vector3.Scale(bushPosition, myTerrain.terrainData.size) + myTerrain.transform.position;
+                        //bushPosition.y = 0;
+                        Vector3 bushPosition = Vector3.Scale(myTerrain.terrainData.GetTreeInstance(myTerrain.terrainData.treeInstanceCount - 1).position, myTerrain.terrainData.size) + myTerrain.transform.position;
+                        bushPosition.y += (4 / 5) * scale2;
+                        ParticleSystem l = Instantiate(ReseederLeaves, bushPosition, ReseederLeaves.transform.rotation);
+                        ListOLeaves.Add(l);
                         swap = true;
                     }
                     count++;
@@ -258,17 +284,13 @@ public class PlantAnimation : MonoBehaviour
             }
         }
 
-        //Debug.Log("Done reading pixels");
-        //Debug.Log("whitePixels = " + whitePixels);
-        //Debug.Log("greenPixels = " + greenPixels);
-        //Debug.Log("totalPixels = " + totalRead);
         myTerrain.Flush();
         return count;
         
     }
 
     //helper function for placeBushes, adds a single bush to the terrain
-    private void addBushToTerrain(int j, int k, int Prototype, float scale)
+    private Vector3 addBushToTerrain(int j, int k, int Prototype, float scale)
     {
         //Debug.Log("inside addBushToTerrain");
         Vector3 p = (new Vector3((j + UnityEngine.Random.Range(0f, 0.75f)) / (float)segmentation.height, 0, (k + UnityEngine.Random.Range(0f, 0.75f)) / (float)segmentation.width));
@@ -276,36 +298,6 @@ public class PlantAnimation : MonoBehaviour
         TreeInstance tree = new TreeInstance();
         tree.prototypeIndex = Prototype;
         tree.position = p;
-
-
-        //if (Prototype >= 0 && Prototype <= 8) //it's a resprouter
-        //{
-        //    if (climate == "dry")
-        //    {
-        //        tree.heightScale = manager.ResprouterDry[0].bushScale;
-        //        tree.widthScale = tree.heightScale;
-        //    }
-        //    else    //it's wet
-        //    {
-        //        tree.heightScale = manager.ResprouterWet[0].bushScale;
-        //        tree.widthScale = tree.heightScale;
-        //    }
-        //    //else if (climate == "both") ???
-
-        //}
-        //else   //it's a reseeder
-        //{
-        //    if (climate == "dry")
-        //    {
-        //        tree.heightScale = manager.ReseederDry[0].bushScale;
-        //        tree.widthScale = tree.heightScale;
-        //    }
-        //    else    //it's wet
-        //    {
-        //        tree.heightScale = manager.ReseederWet[0].bushScale;
-        //        tree.widthScale = tree.heightScale;
-        //    }
-        //}
 
         tree.heightScale = scale;
         tree.widthScale = scale;
@@ -315,6 +307,7 @@ public class PlantAnimation : MonoBehaviour
 
         myTerrain.AddTreeInstance(tree);
         Debug.Log("added bush");
+        return p;
     }
 
 
@@ -365,6 +358,8 @@ public class PlantAnimation : MonoBehaviour
         PlaceBushes(new Vector2(location.x + 15, location.y), new Vector2(15, 30), 1, wetScale);
         StartGrowth();
     }
+
+
 
     public void PlantsInParallel(string Climate)
     {
@@ -446,8 +441,11 @@ public class PlantAnimation : MonoBehaviour
     {
         myTerrain = Terrain.activeTerrain;
 
-        //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //cube.transform.position = new Vector3(myTerrain.transform.position.x + location.x, myTerrain.terrainData.GetHeight((int)location.x, (int) location.y), myTerrain.transform.position.z + location.y);
+        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        float x = myTerrain.GetPosition().x + location.x;
+        float z = myTerrain.GetPosition().z + location.y;
+        float y = myTerrain.SampleHeight( new Vector3(x, myTerrain.terrainData.GetHeight((int)x, (int)z), z));
+        cube.transform.position = new Vector3(x, y + myTerrain.GetPosition().y, z);
         //cube.transform.position = new Vector3(myTerrain.transform.position.x + location.x, 0, myTerrain.transform.position.z + location.y);
         //DestroyBushes();
         //TreeInstance tree = new TreeInstance();
@@ -460,33 +458,12 @@ public class PlantAnimation : MonoBehaviour
         //myTerrain.AddTreeInstance(tree);
         //myTerrain.Flush();
 
+        
         manager = GameObject.Find("manager").GetComponent<Manager>();
         ReseederDryIntervals = makeIntervals(manager.OMinBioDry, manager.OMaxBioDry);   //need to compare actual biomass, not scales
         ReseederWetIntervals = makeIntervals(manager.OMinBioWet, manager.OMaxBioWet);
         ResprouterDryIntervals = makeIntervals(manager.RMinBioDry, manager.RMaxBioWet);
         ResprouterWetIntervals = makeIntervals(manager.RMinBioWet, manager.RMaxBioWet);
-
-        //Debug.Log("ReseederDryIntervals: ");
-        //for (int i = 0; i < ReseederDryIntervals.Length; i++)
-        //{
-        //    Debug.Log(ReseederDryIntervals[i]);
-        //}
-        
-        //Debug.Log("ReseederWetIntervals: ");
-        //for (int i = 0; i < ReseederWetIntervals.Length; i++)
-        //{
-        //    Debug.Log(ReseederWetIntervals[i]);
-        //}
-        //Debug.Log("ResprouterDryIntervals: ");
-        //for (int i = 0; i < ResprouterDryIntervals.Length; i++)
-        //{
-        //    Debug.Log(ResprouterDryIntervals[i]);
-        //}
-        //Debug.Log("ResporuterWetIntervals: ");
-        //for (int i = 0; i < ResprouterWetIntervals.Length; i++)
-        //{
-        //    Debug.Log(ResprouterDryIntervals[i]);
-        //}
 
         makeCurve(ref ReseederDryCurve, ref manager.ReseederDry);
         makeCurve(ref ReseederWetCurve, ref manager.ReseederWet);
@@ -535,21 +512,6 @@ public class PlantAnimation : MonoBehaviour
             TreeInstance t0 = myTerrain.terrainData.GetTreeInstance(0);
             TreeInstance t1 = myTerrain.terrainData.GetTreeInstance(1);
 
-            //bool swap1 = false;
-            //bool swap2 = false;
-
-            //if (t0.prototypeIndex != newIndex1)
-            //{
-            //    t0.prototypeIndex = newIndex1;
-            //    swap1 = true;
-            //}
-
-            //if(t1.prototypeIndex != newIndex2)
-            //{
-            //    t1.prototypeIndex = newIndex2;
-            //    swap2 = true;
-            //}
-
             bool reseedersDecrease = false;
             bool resproutersDecrease = false;
 
@@ -575,6 +537,8 @@ public class PlantAnimation : MonoBehaviour
                 t1.widthScale = scale2;
             }
 
+            int RLeaf = 0;
+            int OLeaf = 0;
 
             for (int i = 0; i < myTerrain.terrainData.treeInstances.Length; i++)
             {
@@ -586,10 +550,21 @@ public class PlantAnimation : MonoBehaviour
                     if (!resproutersDecrease)          //biomass increasing
                     {
                         //if leaves are falling, make them stop
-                        if (resprouterLeavesFalling)
+                        if (ListRLeaves[RLeaf].isEmitting)
                         {
                             /////////////////////////////////////////////////// add code here
+                            ListRLeaves[RLeaf].Stop();
                         }
+                        RLeaf++;
+                        //if (RLeavesFalling)
+                        //{
+                        //    RLeavesFalling = false;
+                        //    for (int k = 0; k < ListRLeaves.Count; i++)
+                        //    {
+                        //        ListRLeaves[k].Stop();
+                        //    }
+                        //    /////////////////////////////////////////////////// add code here
+                        //}
                         t0.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t0);
                         Debug.Log("UPDATED A BUSH");
@@ -597,9 +572,22 @@ public class PlantAnimation : MonoBehaviour
                     }
                     else          //biomass decreasing
                     {
-
+                        if (!ListRLeaves[RLeaf].isEmitting)
+                        {
+                            ListRLeaves[RLeaf].Play();
+                        }
+                        RLeaf++;
                         //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                       
+
+                        //if (!RLeavesFalling)
+                        //{
+                        //    RLeavesFalling = true;
+                        //    for (int k = 0; k < ListRLeaves.Count; i++)
+                        //    {
+                        //        ListRLeaves[k].Play();
+                        //    }
+                        //}
+
                         //if leaves not already falling, make them fall
                         //////////////////////////////////////////////////////////// add code here
                         continue;
@@ -611,14 +599,23 @@ public class PlantAnimation : MonoBehaviour
                     if (!reseedersDecrease)          //biomass increasing
                     {
                         //if leaves are falling, make them stop
-                        if (reseederLeavesFalling)
+                        if (ListOLeaves[OLeaf].isEmitting)
                         {
                             //////////////////////////////////////////////////////// add code here
+                            ListOLeaves[OLeaf].Stop();
                         }
+                        OLeaf++;
+                        //if (OLeavesFalling)
+                        //{
+                        //    OLeavesFalling = false;
+                        //    for (int k = 0; k < ListOLeaves.Count; i++)
+                        //    {
+                        //        ListOLeaves[k].Stop();
+                        //    }
+                        //    /////////////////////////////////////////////////// add code here
+                        //}
                         t1.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t1);
-
-
                     }
                     else          //biomass decreasing
                     {
@@ -627,6 +624,19 @@ public class PlantAnimation : MonoBehaviour
 
                         //if leaves not already falling, make them fall
                         //////////////////////////////////////////////////////////// add code here
+                        if(!ListOLeaves[OLeaf].isEmitting)
+                        {
+                            ListOLeaves[OLeaf].Play();
+                        }
+                        OLeaf++;
+                        //if (!OLeavesFalling)
+                        //{
+                        //    OLeavesFalling = true;
+                        //    for (int k = 0; k < ListOLeaves.Count; i++)
+                        //    {
+                        //        ListOLeaves[k].Play();
+                        //    }
+                        //}
                         continue;
 
                     }
@@ -639,9 +649,11 @@ public class PlantAnimation : MonoBehaviour
             {
 
                 DestroyBushes();
+                DestroyLeaves();
                 plantsInParallel = false;
                 index = 1;
                 climate = "";
+
 
             }
 
@@ -712,8 +724,13 @@ public class PlantAnimation : MonoBehaviour
                 if (!biomassDecreaseDry)          //biomass increasing
                 {
                     //if leaves are falling, make them stop
-                    if (leavesFalling)
+                    if (RLeavesFalling)
                     {
+                        RLeavesFalling = false;
+                        for (int k = 0; k < ListRLeaves.Count; i++)
+                        {
+                            ListRLeaves[k].Stop();
+                        }
                         /////////////////////////////////////////////////// add code here
                     }
                     t0.position = temp.position;
@@ -721,10 +738,20 @@ public class PlantAnimation : MonoBehaviour
                                                           }
                 else          //biomass decreasing
                 {
+                    //RLeavesFalling = true;
                     //instantiate leaves if not already falling and then just continue?? becuase you don't need to update the tree
-                      
+
                     //if leaves not already falling, make them fall, if they are break???
                     //////////////////////////////////////////////////////////// add code here
+                    if (!RLeavesFalling)
+                    {
+                        RLeavesFalling = true;
+                        for (int k = 0; k < ListRLeaves.Count; i++)
+                        {
+                            ListRLeaves[k].Play();
+                        }
+                    }
+
                     continue;
                 }               
                 
@@ -736,7 +763,7 @@ public class PlantAnimation : MonoBehaviour
                 if (!biomassDecreaseWet)          //biomass increasing
                 {
                     //if leaves are falling, make them stop
-                    if (leavesFalling)
+                    if (RLeavesFalling)
                     {
                         /////////////////////////////////////////////////// add code here
                     }
@@ -763,7 +790,10 @@ public class PlantAnimation : MonoBehaviour
             {
 
                 DestroyBushes();
+                DestroyLeaves();
                 climateInParallel = false;
+                RLeavesFalling = false;
+                OLeavesFalling = false;
                 index = 1;
 
             }
@@ -790,28 +820,6 @@ public class PlantAnimation : MonoBehaviour
             TreeInstance t1 = myTerrain.terrainData.GetTreeInstance(1);
             TreeInstance t2 = myTerrain.terrainData.GetTreeInstance(parallelIndex);
             TreeInstance t3 = myTerrain.terrainData.GetTreeInstance(parallelIndex + 1);
-
-            //Tricky part: we know treeInstance(0) will be a resprouter and treeInstance(1) will be a reseeder, both of them on the dry side of the patch
-            // but we don't know at which index the resprouter and reseeder are on the wet half of the patch
-            //all treeInstances are stored in a list, so the variable parallelIndex we set earlier in BothInParallel() will tell us where in the list the resprouter on the wet side 
-            //is and (parallelIndex + 1) will be the index of the reseeder
-
-            //first do the dry side
-
-            //bool swap1 = false;
-            //bool swap2 = false;
-
-            //if (t0.prototypeIndex != RDryIndex)
-            //{
-            //    t0.prototypeIndex = RDryIndex;
-            //    swap1 = true;
-            //}
-
-            //if (t1.prototypeIndex != ODryIndex)
-            //{
-            //    t1.prototypeIndex = ODryIndex;
-            //    swap2 = true;
-            //}
 
             bool ODecreaseDry = false;
             bool ODecreaseWet = false;
@@ -970,6 +978,7 @@ public class PlantAnimation : MonoBehaviour
             {
 
                 DestroyBushes();
+                DestroyLeaves();
                 bothInParallel = false;
                 index = 1;
 
@@ -984,7 +993,20 @@ public class PlantAnimation : MonoBehaviour
         
     }
 
+    private void DestroyLeaves()
+    {
+        for (int i = 0; i < ListRLeaves.Count; i++)
+        {
+            Destroy(ListRLeaves[i]);
+        }
 
+        for (int i = 0; i < ListOLeaves.Count; i++)
+        {
+            Destroy(ListOLeaves[i]);
+        }
+        ListRLeaves = new List<ParticleSystem>();
+        ListOLeaves = new List<ParticleSystem>();
+    }
 
 
     //helper function to get the prototype index that corresponds to a specific scale
@@ -1003,6 +1025,11 @@ public class PlantAnimation : MonoBehaviour
                     {
                         //i = 9;
                         tps[0].prefab = manager.reseeders[0];
+                        for (int i = 0; i < ListOLeaves.Count; i ++)
+                        {
+                            var main = ListOLeaves[i].main;
+                        }
+                        
                     }
                     else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
                     {
@@ -1032,7 +1059,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[0].prefab = manager.reseeders[7];
                     }
-                    else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+                    else 
                     {
                         tps[0].prefab = manager.reseeders[8];
                     }
@@ -1071,7 +1098,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[0].prefab = manager.resprouters[7];
                     }
-                    else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
+                    else
                     {
                         tps[0].prefab = manager.resprouters[8];
                     }
@@ -1113,7 +1140,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[1].prefab = manager.reseeders[7];
                     }
-                    else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
+                    else
                     {
                         tps[1].prefab = manager.reseeders[8];
                     }
@@ -1152,7 +1179,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[1].prefab = manager.resprouters[7];
                     }
-                    else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
+                    else 
                     {
                         tps[1].prefab = manager.resprouters[8];
                     }
@@ -1199,7 +1226,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[1].prefab = manager.reseeders[7];
                     }
-                    else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+                    else 
                     {
                         tps[1].prefab = manager.reseeders[8];
                     }
@@ -1238,7 +1265,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[0].prefab = manager.resprouters[7];
                     }
-                    else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
+                    else 
                     {
                         tps[0].prefab = manager.resprouters[8];
                     }
@@ -1280,7 +1307,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[1].prefab = manager.reseeders[7];
                     }
-                    else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
+                    else 
                     {
                         tps[1].prefab = manager.reseeders[8];
                     }
@@ -1319,7 +1346,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[0].prefab = manager.resprouters[7];
                     }
-                    else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
+                    else 
                     {
                         tps[0].prefab = manager.resprouters[8];
                     }
@@ -1366,7 +1393,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[1].prefab = manager.reseeders[7];
                     }
-                    else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
+                    else 
                     {
                         tps[1].prefab = manager.reseeders[8];
                     }
@@ -1405,7 +1432,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[0].prefab = manager.resprouters[7];
                     }
-                    else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
+                    else
                     {
                         tps[0].prefab = manager.resprouters[8];
                     }
@@ -1486,7 +1513,7 @@ public class PlantAnimation : MonoBehaviour
                     {
                         tps[2].prefab = manager.resprouters[7];
                     }
-                    else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
+                    else 
                     {
                         tps[2].prefab = manager.resprouters[8];
                     }
@@ -1497,182 +1524,6 @@ public class PlantAnimation : MonoBehaviour
         myTerrain.terrainData.treePrototypes = tps;
     }
 
-
-
-
-
-
-
-
-
-    ////helper function to get the prototype index that corresponds to a specific scale
-    //private int getIndex(float scale, string species, string Climate)
-    //{
-    //    int i;
-    //    if (Climate == "dry")
-    //    {
-    //        if (species == "reseeder")    //reseeder + dry
-    //        {
-    //            if (scale >= ReseederDryIntervals[0] && scale <= ReseederDryIntervals[1])
-    //            {
-    //                i = 9;
-    //            }
-    //            else if (scale > ReseederDryIntervals[1] && scale <= ReseederDryIntervals[2])
-    //            {
-    //                i = 10;
-    //            }
-    //            else if (scale > ReseederDryIntervals[2] && scale <= ReseederDryIntervals[3])
-    //            {
-    //                i = 11;
-    //            }
-    //            else if (scale > ReseederDryIntervals[3] && scale <= ReseederDryIntervals[4])
-    //            {
-    //                i = 12;
-    //            }
-    //            else if (scale > ReseederDryIntervals[4] && scale <= ReseederDryIntervals[5])
-    //            {
-    //                i = 13;
-    //            }
-    //            else if (scale > ReseederDryIntervals[5] && scale <= ReseederDryIntervals[6])
-    //            {
-    //                i = 14;
-    //            }
-    //            else if (scale > ReseederDryIntervals[6] && scale <= ReseederDryIntervals[7])
-    //            {
-    //                i = 15;
-    //            }
-    //            else if (scale > ReseederDryIntervals[7] && scale <= ReseederDryIntervals[8])
-    //            {
-    //                i = 16;
-    //            }
-    //            else //if (scale > ReseederDryIntervals[8] && scale <= ReseederDryIntervals[9])
-    //            {
-    //                i = 17;
-    //            }
-    //        }
-    //        else    //species = resprouter  (resprouter + dry)
-    //        {
-    //            if (scale >= ResprouterDryIntervals[0] && scale <= ResprouterDryIntervals[1])
-    //            {
-    //                i = 0;
-    //            }
-    //            else if (scale > ResprouterDryIntervals[1] && scale <= ResprouterDryIntervals[2])
-    //            {
-    //                i = 1;
-    //            }
-    //            else if (scale > ResprouterDryIntervals[2] && scale <= ResprouterDryIntervals[3])
-    //            {
-    //                i = 2;
-    //            }
-    //            else if (scale > ResprouterDryIntervals[3] && scale <= ResprouterDryIntervals[4])
-    //            {
-    //                i = 3;
-    //            }
-    //            else if (scale > ResprouterDryIntervals[4] && scale <= ResprouterDryIntervals[5])
-    //            {
-    //                i = 4;
-    //            }
-    //            else if (scale > ResprouterDryIntervals[5] && scale <= ResprouterDryIntervals[6])
-    //            {
-    //                i = 5;
-    //            }
-    //            else if (scale > ResprouterDryIntervals[6] && scale <= ResprouterDryIntervals[7])
-    //            {
-    //                i = 6;
-    //            }
-    //            else if (scale > ResprouterDryIntervals[7] && scale <= ResprouterDryIntervals[8])
-    //            {
-    //                i = 7;
-    //            }
-    //            else //if (scale > ResprouterDryIntervals[8] && scale <= ResprouterDryIntervals[9])
-    //            {
-    //                i = 8;
-    //            }
-    //        }
-    //    }
-    //    else         //climate = wet
-    //    {
-    //        if (species == "reseeder")              // reseeder + wet
-    //        {
-    //            if (scale >= ReseederWetIntervals[0] && scale <= ReseederWetIntervals[1])
-    //            {
-    //                i = 9;
-    //            }
-    //            else if (scale > ReseederWetIntervals[1] && scale <= ReseederWetIntervals[2])
-    //            {
-    //                i = 10;
-    //            }
-    //            else if (scale > ReseederWetIntervals[2] && scale <= ReseederWetIntervals[3])
-    //            {
-    //                i = 11;
-    //            }
-    //            else if (scale > ReseederWetIntervals[3] && scale <= ReseederWetIntervals[4])
-    //            {
-    //                i = 12;
-    //            }
-    //            else if (scale > ReseederWetIntervals[4] && scale <= ReseederWetIntervals[5])
-    //            {
-    //                i = 13;
-    //            }
-    //            else if (scale > ReseederWetIntervals[5] && scale <= ReseederWetIntervals[6])
-    //            {
-    //                i = 14;
-    //            }
-    //            else if (scale > ReseederWetIntervals[6] && scale <= ReseederWetIntervals[7])
-    //            {
-    //                i = 15;
-    //            }
-    //            else if (scale > ReseederWetIntervals[7] && scale <= ReseederWetIntervals[8])
-    //            {
-    //                i = 16;
-    //            }
-    //            else //if (scale > ReseederWetIntervals[8] && scale <= ReseederWetIntervals[9])
-    //            {
-    //                i = 17;
-    //            }
-    //        }
-    //        else       //species = resprouter (resprouter + wet)
-    //        {
-    //            if (scale >= ResprouterWetIntervals[0] && scale <= ResprouterWetIntervals[1])
-    //            {
-    //                i = 0;
-    //            }
-    //            else if (scale > ResprouterWetIntervals[1] && scale <= ResprouterWetIntervals[2])
-    //            {
-    //                i = 1;
-    //            }
-    //            else if (scale > ResprouterWetIntervals[2] && scale <= ResprouterWetIntervals[3])
-    //            {
-    //                i = 2;
-    //            }
-    //            else if (scale > ResprouterWetIntervals[3] && scale <= ResprouterWetIntervals[4])
-    //            {
-    //                i = 3;
-    //            }
-    //            else if (scale > ResprouterWetIntervals[4] && scale <= ResprouterWetIntervals[5])
-    //            {
-    //                i = 4;
-    //            }
-    //            else if (scale > ResprouterWetIntervals[5] && scale <= ResprouterWetIntervals[6])
-    //            {
-    //                i = 5;
-    //            }
-    //            else if (scale > ResprouterWetIntervals[6] && scale <= ResprouterWetIntervals[7])
-    //            {
-    //                i = 6;
-    //            }
-    //            else if (scale > ResprouterWetIntervals[7] && scale <= ResprouterWetIntervals[8])
-    //            {
-    //                i = 7;
-    //            }
-    //            else //if (scale > ResprouterWetIntervals[8] && scale <= ResprouterWetIntervals[9])
-    //            {
-    //                i = 8;
-    //            }
-    //        }
-    //    }
-    //    return i;
-    //}
 
     private void OnApplicationQuit()
     {
