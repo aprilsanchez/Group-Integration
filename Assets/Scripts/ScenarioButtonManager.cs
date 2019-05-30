@@ -22,7 +22,7 @@ public class ScenarioButtonManager : MonoBehaviour
         button4.SetDisabled(true);
         button5.SetDisabled(true);
         button6.SetDisabled(false);
-        SceneController.Instance.AddSBM(this);
+        SceneMontroller.Instance.AddSBM(this);
     }
 
     public void EnableButton1()
@@ -52,6 +52,6 @@ public class ScenarioButtonManager : MonoBehaviour
 
     public void EndSimulation()
     {
-        SceneController.Instance.AllScenesComplete();
+        SceneMontroller.Instance.AllScenesComplete();
     }
 }

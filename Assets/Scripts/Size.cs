@@ -52,13 +52,13 @@ public class Size : MonoBehaviour
     
     private void StartSun()
     {
-        SceneController.Instance.EnableSun();
+        SceneMontroller.Instance.EnableSun();
         Invoke("StopSun", 60);  // stops sun after 60 seconds
     }
 
     private void StopSun()
     {
-        SceneController.Instance.DisableSun();
+        SceneMontroller.Instance.DisableSun();
     }
     
     private void StartFire(int x)
@@ -128,7 +128,7 @@ public class Size : MonoBehaviour
                 //Debug.Log("maxDiff is: " + maxDiff);
                 myTerrain.GetComponent<TestGenerator>().DestroyBushes();
                 startBushGrowth = false;
-                SceneController.Instance.ActivateNextButton(scenario);
+                SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
             }
         }

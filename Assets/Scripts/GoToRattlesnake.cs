@@ -7,6 +7,6 @@ public class GoToRattlesnake : MonoBehaviour
 {
     public void SceneSwitcher()
     {
-        SceneController.Instance.EnterRattlesnake();
+        SceneMontroller.Instance.EnterRattlesnake();
     }
 }
