@@ -22,8 +22,9 @@ public class TimeControl : MonoBehaviour
     void FixedUpdate()
     {
         //next 3 line makes sure the time move and rotate with the camera
-        transform.LookAt(Camera.main.transform.rotation * Vector3.up);
-        transform.Rotate(new Vector3(0f,180f,0f));
+        //transform.LookAt(Camera.main.transform.rotation * Vector3.up);
+        transform.LookAt(Camera.main.transform.rotation);
+        //transform.Rotate(new Vector3(0f,180f,0f));
         transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance + Camera.main.transform.up * yOffset;      
 
         timePassed += Time.deltaTime;

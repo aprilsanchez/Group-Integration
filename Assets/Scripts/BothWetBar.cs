@@ -24,7 +24,7 @@ public class BothWetBar : MonoBehaviour
 
         max = 10f;
         //timePerRealDay = Terrain.FindObjectOfType<Size>().growthTime;
-        timePerRealDay = 2f;
+        timePerRealDay = 1f;
     }
 
 
