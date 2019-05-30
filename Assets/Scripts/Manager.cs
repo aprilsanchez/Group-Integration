@@ -120,7 +120,7 @@ public class Manager : MonoBehaviour
             {
                 values = line.Split(' ');
                 year = int.Parse(values[yearIdx]);
-                if (year > 1994 && year < 2010)
+                if (year > 1993 && year < 2010)
                 {
 
                     biomass = float.Parse(values[bioIdx]);
@@ -192,10 +192,10 @@ public class Manager : MonoBehaviour
         PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
         //animation.countPixels();
         //animation.ClimateInParallel("reseeder");
-        animation.PlantsInParallel("dry");
+        //animation.PlantsInParallel("dry");
         //System.Threading.Thread.Sleep(20000);
         //Debug.Log("calling PlantsInParallel(wet)");
-        //animation.PlantsInParallel("wet");
+        animation.ClimateInParallel("resprouter");
         //animation.testPlacement(animation.location, new Vector2(30, 30), 0, 8, ReseederDry[0].bushScale);
     }
 }
