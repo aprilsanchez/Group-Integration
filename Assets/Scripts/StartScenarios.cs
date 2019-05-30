@@ -8,6 +8,27 @@ public class StartScenarios : MonoBehaviour
     private Vector2 reseederXZ = new Vector2(841, 1631);
     private Vector2 resprouterXZ = new Vector2(872, 1631);
 
+
+    public void startClimateInParallel(string species)
+    {
+        PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
+        animation.ClimateInParallel(species);
+    }
+
+    public void startPlantsInParallel(string climate)
+    {
+        PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
+        animation.PlantsInParallel(climate);
+        //animation.countPixels();
+    }
+
+
+    public void startBothInParallel()
+    {
+        PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
+        animation.BothInParallel();
+    }
+
     // input must be either "wet" or "dry"
     public void StartScenarioA(string climate)
     {

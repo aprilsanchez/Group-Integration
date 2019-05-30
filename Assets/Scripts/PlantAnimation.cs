@@ -46,6 +46,7 @@ public class PlantAnimation : MonoBehaviour
     public List<ParticleSystem> ListRLeaves = new List<ParticleSystem>();
 
     public Texture2D segmentation;
+    private int scenario;
     //private ParticleSystemRenderer psr;
 
     //660 or x    1625
@@ -63,6 +64,50 @@ public class PlantAnimation : MonoBehaviour
     
     private Vector2 location = new Vector2(841, 1631);
     //private Vector2 location = new Vector2(655, 1610);
+
+
+    private void StartRain(Vector3 rainPos)
+    {
+        ParticleSystem r = Instantiate(rain, rainPos, rain.transform.rotation);
+    }
+
+    private void StartSun()
+    {
+        SceneMontroller.Instance.EnableSun();
+        Invoke("StopSun", 60);  // stops sun after 60 seconds
+    }
+
+    private void StopSun()
+    {
+        SceneMontroller.Instance.DisableSun();
+    }
+
+    private void StartFire(int sec)
+    {
+        foreach (TreeInstance tree in myTerrain.terrainData.treeInstances)
+        {
+            Vector3 pos = Vector3.Scale(tree.position, myTerrain.terrainData.size) + myTerrain.transform.position;
+            ParticleSystem p = Instantiate(fire, pos, fire.transform.rotation);
+            Destroy(p.gameObject, sec);
+        }
+
+        if (type == "ClimateInParallel")
+        {
+            climateInParallel = false;
+        }
+        else if (type == "PlantsInParallel")
+        {
+            plantsInParallel = false;
+        }
+        else
+        {
+            bothInParallel = false;
+        }
+
+        
+        Invoke(type, sec);   // start growth again in 5 seconds
+        index--;    // decreases index by 1 so this data point isn't skipped
+    }
 
 
     //function that makes animation curves from biomass data
@@ -189,7 +234,7 @@ public class PlantAnimation : MonoBehaviour
     //function to instantiate both types of bushes 
     private int PlaceBushes(Vector2 startPt, Vector2 dim, int PrototypeIndex1, int PrototypeIndex2, float scale1, float scale2)
     {
-
+        Debug.Log("in PlaceBushes");
         int count = 0;
         //if pixel is green, instantiate a bush
         // note: the index corresponds to the piposition of the pixel in the texture
@@ -206,10 +251,11 @@ public class PlantAnimation : MonoBehaviour
             {
 
                 c = segmentation.GetPixel(x,y);
-
+                Debug.Log("color is " + c + "at coordinate: (" + x + ", " + y + ")");
 
                 if (IsSameColor(c, green))
                 {
+                    Debug.Log("FOUND GREEN PIXEL");
                     if (swap) //resprouters
                     {
                         addBushToTerrain(x, y, 0, scale1);
@@ -235,6 +281,7 @@ public class PlantAnimation : MonoBehaviour
         }
 
         myTerrain.Flush();
+        Debug.Log("end of PlaceBushes");
         return count;
         
     }
@@ -316,7 +363,9 @@ public class PlantAnimation : MonoBehaviour
     {
         if (!set)
         {
+            
             setVariables();
+            Debug.Log("successfully set variables");
         }
         climate = Climate;
         type = "PlantsInParallel";
@@ -392,12 +441,13 @@ public class PlantAnimation : MonoBehaviour
 
     private void Awake()
     {
-        
+        scenario = 1;
     }
 
     private void setVariables()
     {
         myTerrain = Terrain.activeTerrain;
+        Debug.Log(myTerrain);
         manager = GameObject.Find("manager").GetComponent<Manager>();
         ReseederDryIntervals = makeIntervals(manager.OMinBioDry, manager.OMaxBioDry);   //need to compare actual biomass, not scales
         ReseederWetIntervals = makeIntervals(manager.OMinBioWet, manager.OMaxBioWet);
@@ -415,18 +465,6 @@ public class PlantAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        //manager = GameObject.Find("manager").GetComponent<Manager>();
-        //ReseederDryIntervals = makeIntervals(manager.OMinBioDry, manager.OMaxBioDry);   //need to compare actual biomass, not scales
-        //ReseederWetIntervals = makeIntervals(manager.OMinBioWet, manager.OMaxBioWet);
-        //ResprouterDryIntervals = makeIntervals(manager.RMinBioDry, manager.RMaxBioWet);
-        //ResprouterWetIntervals = makeIntervals(manager.RMinBioWet, manager.RMaxBioWet);
-
-        //makeCurve(ref ReseederDryCurve, ref manager.ReseederDry);
-        //makeCurve(ref ReseederWetCurve, ref manager.ReseederWet);
-        //makeCurve(ref ResprouterDryCurve, ref manager.ResprouterDry);
-        //makeCurve(ref ResprouterWetCurve, ref manager.ResprouterWet);
-
 
     }
 
@@ -503,6 +541,20 @@ public class PlantAnimation : MonoBehaviour
                 //working with reseeder or resprouter?  resprouters are evens, reseeders are odd
                 if (i % 2 == 0)    //resprouter
                 {
+                    //if (scale1 >= RIntervals[0] && scale1 < RIntervals[1] && !fireOccurred)
+                    //{
+                    //    fireOccurred = true;
+                    //    if (climate == "dry")
+                    //    {
+                    //        StartSun();
+                    //    }
+                    //    else
+                    //    {
+                    //        StartRain(new Vector3(0, 50, 0));
+                    //    }
+                    //    StartFire(5);
+
+                    //} 
                     if (scale1 >= RIntervals[0] && scale1 < RIntervals[1])
                     {
                         //if leaves are falling, make them stop
@@ -606,8 +658,9 @@ public class PlantAnimation : MonoBehaviour
                 plantsInParallel = false;
                 index = 1;
                 climate = "";
-
-
+                Debug.Log("END OF PLANTSINPARALLEL");
+                SceneMontroller.Instance.ActivateNextButton(scenario);
+                scenario++;
             }
 
 
@@ -882,6 +935,8 @@ public class PlantAnimation : MonoBehaviour
                 RLeavesFalling = false;
                 OLeavesFalling = false;
                 index = 1;
+                SceneMontroller.Instance.ActivateNextButton(scenario);
+                scenario++;
 
             }
 
@@ -1066,7 +1121,8 @@ public class PlantAnimation : MonoBehaviour
                 DestroyLeaves();
                 bothInParallel = false;
                 index = 1;
-
+                SceneMontroller.Instance.ActivateNextButton(scenario);
+                scenario++;
             }
 
 

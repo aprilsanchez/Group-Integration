@@ -190,13 +190,13 @@ public class Manager : MonoBehaviour
     private void Start()
     {
         
-        PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
+        //PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
         //animation.countPixels();
         //animation.ClimateInParallel("reseeder");
         //animation.PlantsInParallel("dry");
         //System.Threading.Thread.Sleep(20000);
         //Debug.Log("calling PlantsInParallel(wet)");
-        animation.ClimateInParallel("resprouter");
+        //animation.ClimateInParallel("resprouter");
         //animation.testPlacement(animation.location, new Vector2(30, 30), 0, 8, ReseederDry[0].bushScale);
     }
 }
