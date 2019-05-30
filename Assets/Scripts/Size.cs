@@ -106,14 +106,14 @@ public class Size : MonoBehaviour
 
             myTerrain.terrainData.SetTreeInstance(i, t);
 
-            Debug.Log("scale size is now: " + t.heightScale);
+            //Debug.Log("scale size is now: " + t.heightScale);
         }
         index++;
         
         //read until there are no more Biomasses to read
         if (index >= (15*365))//ResprouterSizes.Count - 1)
         {
-            Debug.Log("maxDiff is: " + maxDiff);
+            //Debug.Log("maxDiff is: " + maxDiff);
             myTerrain.GetComponent<TestGenerator>().destroyBushes();
             //Debug.Break();
         }

@@ -32,7 +32,7 @@ public class TimeControl : MonoBehaviour
             timePassed = timePassed % timePerRealDay;
             myTime = myTime.AddDays(1);
             if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
-            tmp.text = myTime.Year.ToString() + " / " + month;
+            tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month;
         }   
     }
 }
