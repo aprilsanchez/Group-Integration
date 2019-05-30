@@ -7,7 +7,7 @@ using System.IO;
 public class Size : MonoBehaviour
 {
     private int index = 1;   // use to index my sizes list
-    [SerializeField] private float growthTime = 1;    // how long to pause before reading the next value in sizes
+    public float growthTime = 1;    // how long to pause before reading the next value in sizes
     public string ReseederFile;
     public string ResprouterFile;
     public ParticleSystem fire;
@@ -106,14 +106,14 @@ public class Size : MonoBehaviour
 
             myTerrain.terrainData.SetTreeInstance(i, t);
 
-            Debug.Log("scale size is now: " + t.heightScale);
+            //Debug.Log("scale size is now: " + t.heightScale);
         }
         index++;
         
         //read until there are no more Biomasses to read
         if (index >= (15*365))//ResprouterSizes.Count - 1)
         {
-            Debug.Log("maxDiff is: " + maxDiff);
+            //Debug.Log("maxDiff is: " + maxDiff);
             myTerrain.GetComponent<TestGenerator>().destroyBushes();
             //Debug.Break();
         }

@@ -29,12 +29,12 @@ public class TestGenerator : MonoBehaviour
         float x = Mathf.Abs(Mathf.Abs(lon) - Mathf.Abs(terrainLocation2.y))*degreeToMeters; 
         Vector2 location = new Vector2( (int) x, (int) z);
         //return location;
-        Debug.Log("location is: " + "(" + x + "," + z + ") on the terrain");
+        //Debug.Log("location is: " + "(" + x + "," + z + ") on the terrain");
 
         ///////
 
         Vector3 p = new Vector3( x / 2460f, 0, z / 2460f);
-        Debug.Log("marker location: " + p);
+        //Debug.Log("marker location: " + p);
         TreeInstance tree = new TreeInstance();
         tree.prototypeIndex = 0;
         tree.position = p;
@@ -53,7 +53,7 @@ public class TestGenerator : MonoBehaviour
     private void placeBushes(Vector2 startPt, int PrototypeIndex)
     {
         //Texture2D bound = new Texture2D(myTerrainData.height);
-        Debug.Log("in placeBushes function");
+        //Debug.Log("in placeBushes function");
         myTerrain = Terrain.activeTerrain;
         myTerrainData = Terrain.activeTerrain.terrainData;
 
@@ -74,12 +74,12 @@ public class TestGenerator : MonoBehaviour
 
                 if (myTerrain.GetComponent<color>().IsSameColor(c, green))
                 {
-                    Debug.Log("pixel was GREEN");
+                    //Debug.Log("pixel was GREEN");
                     addBushToTerrain(x, y, PrototypeIndex);                   
                 }
                 else
                 {
-                    Debug.Log("pixel was WHITE");
+                    //Debug.Log("pixel was WHITE");
                 }
                 
             }
@@ -91,7 +91,7 @@ public class TestGenerator : MonoBehaviour
     private void addBushToTerrain(int j, int k, int Prototype)
     {
         Vector3 p = ( new Vector3( (j + Random.Range(0f, 0.75f)) / (float) myTexture.height, 0, (k + Random.Range(0f, 0.75f)) /(float) myTexture.width));
-        Debug.Log(p);
+        //Debug.Log(p);
         TreeInstance tree = new TreeInstance();
         tree.prototypeIndex = Prototype;
         tree.position = p;
@@ -130,7 +130,7 @@ public class TestGenerator : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("T height: " + myTexture.height + ", T width: " + myTexture.width);
+        //Debug.Log("T height: " + myTexture.height + ", T width: " + myTexture.width);
         placeBushes(resprouterXZ, 0);
         placeBushes(reseederXZ, 1);
         //findLocation(34.462989f, -119.687829f);
