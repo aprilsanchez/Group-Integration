@@ -105,7 +105,7 @@ public class PlantAnimation : MonoBehaviour
         }
 
         
-        Invoke(type, sec);   // start growth again in 5 seconds
+        Invoke("StartGrowth", sec);   // start growth again in 5 seconds
         index--;    // decreases index by 1 so this data point isn't skipped
     }
 
@@ -541,29 +541,49 @@ public class PlantAnimation : MonoBehaviour
                 //working with reseeder or resprouter?  resprouters are evens, reseeders are odd
                 if (i % 2 == 0)    //resprouter
                 {
-                    //if (scale1 >= RIntervals[0] && scale1 < RIntervals[1] && !fireOccurred)
-                    //{
-                    //    fireOccurred = true;
-                    //    if (climate == "dry")
-                    //    {
-                    //        StartSun();
-                    //    }
-                    //    else
-                    //    {
-                    //        StartRain(new Vector3(0, 50, 0));
-                    //    }
-                    //    StartFire(5);
-
-                    //} 
-                    if (scale1 >= RIntervals[0] && scale1 < RIntervals[1])
+                    //FIRE OCCURED
+                    if (scale1 >= RIntervals[0] && scale1 < RIntervals[1] && !fireOccurred)
                     {
                         //if leaves are falling, make them stop
                         if (ListRLeaves[RLeaf].isEmitting)
                         {
-                            ListRLeaves[RLeaf].Stop();
+                            for (int t = 0; t < ListRLeaves.Count; t++)
+                            {
+                                ListRLeaves[t].Stop();
+                            }
+
+                        }
+                        if (ListOLeaves[OLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListOLeaves.Count; t++)
+                            {
+                                ListOLeaves[t].Stop();
+                            }
+
+                        }
+
+                        fireOccurred = true;
+                        if (climate == "dry")
+                        {
+                            StartSun();
+                        }
+                        else
+                        {
+                            StartRain(new Vector3(0, 50, 0));
+                        }
+                        StartFire(5);
+                        break;
+                    } 
+                    else if (scale1 >= RIntervals[0] && scale1 < RIntervals[1]) 
+                    {
+                        //if leaves are falling, make them stop
+                        if (ListRLeaves[RLeaf].isEmitting)
+                        {
+                            ListRLeaves[RLeaf].Stop();        
                         }
                         RLeaf++;
-
+                        //////////////
+                        
                         t0.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t0);
                         Debug.Log("UPDATED A BUSH");
@@ -571,6 +591,10 @@ public class PlantAnimation : MonoBehaviour
                     }
                     else if (!resproutersDecrease)          //biomass increasing
                     {
+                        //if (scale1 > RIntervals[5])
+                        //{
+
+                        //}
                         //if leaves are falling, make them stop
                         if (ListRLeaves[RLeaf].isEmitting)
                         {
@@ -601,7 +625,41 @@ public class PlantAnimation : MonoBehaviour
                 }
                 else         //working with resprouters (same work as above but for reseeders
                 {
-                    if (scale2 >= OIntervals[0] && scale2 < OIntervals[1])
+                    //FIRE OCCURED
+                    if (scale2 >= OIntervals[0] && scale2 < OIntervals[1] && !fireOccurred)
+                    {
+                        //if leaves are falling, make them stop
+                        if (ListOLeaves[OLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListOLeaves.Count; t++)
+                            {
+                                ListOLeaves[t].Stop();
+                            }
+
+                        }
+                        if (ListRLeaves[RLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListRLeaves.Count; t++)
+                            {
+                                ListRLeaves[t].Stop();
+                            }
+
+                        }
+
+
+                        fireOccurred = true;
+                        if (climate == "dry")
+                        {
+                            StartSun();
+                        }
+                        else
+                        {
+                            StartRain(new Vector3(0, 50, 0));
+                        }
+                        StartFire(5);
+                        break;
+                    }
+                    else if (scale2 >= OIntervals[0] && scale2 < OIntervals[1])
                     {
                         //if leaves are falling, make them stop
                         if (ListOLeaves[OLeaf].isEmitting)
@@ -661,6 +719,7 @@ public class PlantAnimation : MonoBehaviour
                 Debug.Log("END OF PLANTSINPARALLEL");
                 SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
+                fireOccurred = false;
             }
 
 
@@ -937,6 +996,7 @@ public class PlantAnimation : MonoBehaviour
                 index = 1;
                 SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
+                fireOccurred = false;
 
             }
 
@@ -1123,6 +1183,7 @@ public class PlantAnimation : MonoBehaviour
                 index = 1;
                 SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
+                fireOccurred = false;
             }
 
 

@@ -123,10 +123,6 @@ GameObject:
   - component: {fileID: 568544320}
   - component: {fileID: 568544319}
   - component: {fileID: 568544318}
-  - component: {fileID: 568544323}
-  - component: {fileID: 568544322}
-  - component: {fileID: 568544321}
-  - component: {fileID: 568544324}
   - component: {fileID: 568544325}
   m_Layer: 0
   m_Name: Terrain
@@ -196,62 +192,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &568544321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568544317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb1c6ca9c66086b479617cc8c3f76b6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myTexture: {fileID: 0}
---- !u!114 &568544322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568544317}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df206e19043d82741bb1165cdb5e9a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReseederFile: ceanothus
-  ResprouterFile: chamise
-  fire: {fileID: 3057370067444201477, guid: c95e10298ccad6d4b89ff1c7743ad237, type: 3}
-  rain: {fileID: 886963246310107771, guid: 49648070556a1514db5dba0b48c5a0fe, type: 3}
-  ResprouterSizes: []
-  ReseederSizes: []
---- !u!114 &568544323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568544317}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02e8e6e40c92cb948b7801e1845b7d3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myTexture: {fileID: 2800000, guid: 4d62ab24ff8fdc64a92ad9a5f32e5c44, type: 3}
---- !u!114 &568544324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568544317}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3c3855bd7ccc74419b9b895556a466c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &568544325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,8 +232,8 @@ MonoBehaviour:
   speciesInSeries: 
   climate: 
   ResprouterWetIntervals: []
-  fire: {fileID: 0}
-  rain: {fileID: 0}
+  fire: {fileID: 3057370067444201477, guid: c95e10298ccad6d4b89ff1c7743ad237, type: 3}
+  rain: {fileID: 886963246310107771, guid: 49648070556a1514db5dba0b48c5a0fe, type: 3}
   sun: {fileID: 0}
   ReseederLeaves: {fileID: 1781749680235825866, guid: 487b43e65dee8354e90526430eccc8cb,
     type: 3}
@@ -301,7 +241,7 @@ MonoBehaviour:
     type: 3}
   ListOLeaves: []
   ListRLeaves: []
-  segmentation: {fileID: 2800000, guid: 17f69f150e86b074d8c631687ffa1eca, type: 3}
+  segmentation: {fileID: 2800000, guid: 4d62ab24ff8fdc64a92ad9a5f32e5c44, type: 3}
 --- !u!1 &968577286
 GameObject:
   m_ObjectHideFlags: 0
