@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class changeScene : MonoBehaviour
+public class GoToRattlesnake : MonoBehaviour
 {
     public void SceneSwitcher()
     {
-        SceneManager.UnloadSceneAsync("scene_navigation");
-        SceneManager.LoadScene("Rattlesnake", LoadSceneMode.Additive);
+        SceneController.Instance.EnterRattlesnake();
     }
 }

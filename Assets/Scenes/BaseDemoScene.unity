@@ -225,6 +225,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1152480505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1152480507}
+  - component: {fileID: 1152480506}
+  m_Layer: 0
+  m_Name: manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1152480506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152480505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24171e494367b6e4099875b035b630c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sky: {fileID: 2100000, guid: 7b621f3d20f81af4785f8576da7910e2, type: 2}
+  noSky: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  directionalLight: {fileID: 247366199}
+  noSun: {fileID: 0}
+  sun: {fileID: 12100000, guid: 28f1e8eff353b4e69941c036ea093e73, type: 2}
+  sbm: {fileID: 0}
+--- !u!4 &1152480507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152480505}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.794604, y: 133.27638, z: -120.030594}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1420024426
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +283,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1420024427}
-  - component: {fileID: 1420024428}
   m_Layer: 0
   m_Name: MixedRealityPlayspace
   m_TagString: Untagged
@@ -257,18 +305,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1420024428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420024426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24171e494367b6e4099875b035b630c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1699381415
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,6 +319,7 @@ GameObject:
   - component: {fileID: 1699381421}
   - component: {fileID: 1699381420}
   - component: {fileID: 1699381419}
+  - component: {fileID: 1699381422}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -411,3 +448,11 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!124 &1699381422
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699381415}
+  m_Enabled: 1
