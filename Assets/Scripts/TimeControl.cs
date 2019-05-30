@@ -6,7 +6,7 @@ using TMPro;
 public class TimeControl : MonoBehaviour
 {
     System.DateTime myTime;
-    private float distance = 3f; private float yOffset = 1f;
+    private float distance = 3f; private float yOffset = 0f;
     string month, year;
     TextMeshPro tmp;
     float timePerRealDay; //10s in unity is 1 day in real life
@@ -23,8 +23,8 @@ public class TimeControl : MonoBehaviour
     {
         //next 3 line makes sure the time move and rotate with the camera
         //transform.LookAt(Camera.main.transform.rotation * Vector3.up);
-        transform.LookAt(Camera.main.transform.rotation);
-        //transform.Rotate(new Vector3(0f,180f,0f));
+        transform.LookAt(Camera.main.transform.position);
+        transform.Rotate(new Vector3(0f,180f,0f));
         transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance + Camera.main.transform.up * yOffset;      
 
         timePassed += Time.deltaTime;

@@ -37,6 +37,12 @@ public class BothDryBar : MonoBehaviour
             mySlider.value = data[i] / max;
             i += 1;
         }
+
+        if (i == data.Count)
+        {
+            mySlider.value = 0;
+            enabled = false;
+        }
     }
 
 }

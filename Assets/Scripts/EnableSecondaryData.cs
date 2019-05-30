@@ -19,13 +19,19 @@ public class EnableSecondaryData : MonoBehaviour
 
     public void EnableBothDry()
     {
-        GameObject.Find("Biobar").GetComponent<BothDryBar>().enabled = true;
-        GameObject.Find("Prepbar").GetComponent<BothDryBar>().enabled = true;
+        GameObject.Find("myBiobar").GetComponent<BothDryBar>().enabled = true;
+        GameObject.Find("myPrepbar").GetComponent<BothDryBar>().enabled = true;
     }
 
     public void EnableBothWet()
     {
-        GameObject.Find("Biobar").GetComponent<BothWetBar>().enabled = true;
-        GameObject.Find("Prepbar").GetComponent<BothWetBar>().enabled = true;
+        GameObject.Find("myBiobar").GetComponent<BothWetBar>().enabled = true;
+        GameObject.Find("myPrepbar").GetComponent<BothWetBar>().enabled = true;
+    }
+
+    public void EnableSeeder()
+    {
+        GameObject.Find("myBiobar").GetComponent<SeederBar>().enabled = true;
+        GameObject.Find("myPrepbar").GetComponent<SeederBar>().enabled = true;
     }
 }
