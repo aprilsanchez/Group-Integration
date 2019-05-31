@@ -3,123 +3,134 @@ using System.Collections.Generic;
 using System.Linq; //for finding min
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
 
 public class Size : MonoBehaviour
 {
     private int index = 1;   // use to index my sizes list
-    public float growthTime = 1;    // how long to pause before reading the next value in sizes
+    //[SerializeField] private float growthTime = 1;    // how long to pause before reading the next value in sizes
     public string ReseederFile;
     public string ResprouterFile;
     public ParticleSystem fire;
     public ParticleSystem rain;
-    //public string fileName;
+    private bool fireOccurred = false;
+    private bool startBushGrowth = false;
     public List<float> ResprouterSizes = new List<float>();
     public List<float> ReseederSizes = new List<float>();
-    private Vector3 rainPos = new Vector3(0, 50, 0);
-
     Terrain myTerrain;
-    
-   
+    private string climate;
+    private int scenario;
+
+    //store biomass data from file
     private void Awake()
     {
-        //store biomass data from file
-        ReseederSizes = GameFunctions.Read(ReseederFile, "biomass");
-        ResprouterSizes = GameFunctions.Read(ResprouterFile, "biomass");
-
+        ReseederSizes = DataReader.Read(ReseederFile, "biomass");
+        ResprouterSizes = DataReader.Read(ResprouterFile, "biomass");
+        scenario = 1;
     }
-   
 
-    public void Biomass()
+    // previously the "Biomass" function
+    public void BeginScene(string climate)
     {
-        bool fireOccured = false;
+        this.climate = climate;
         myTerrain = Terrain.activeTerrain;
-        StartCoroutine(WaitThenChangeSize(0, fireOccured));
+        index = 1;
+        StartGrowth();
     }
 
-    IEnumerator WaitThenChangeSize(float time, bool Fire)
+    private void StartGrowth()
     {
-        yield return new WaitForSeconds(time);
-
-        float maxDiff = 0;
-        for (int i = 0; i < myTerrain.terrainData.treeInstances.Length; i++)
-        {
-            /*
-            TreeInstance t = myTerrain.terrainData.GetTreeInstance(i);
-            float percentage = (sizes[index] - sizes[index - 1]) / sizes[index - 1];
-            float x = myTerrain.terrainData.GetTreeInstance(i - 1).heightScale * (1 + percentage);
-            t.heightScale = x;
-            t.widthScale = x;
-
-            myTerrain.terrainData.SetTreeInstance(i, t);
-
-            Debug.Log("scale size is now: " + t.heightScale);
-            */
-            //problem: there was one tree whose size wasn't being changed
-
-            TreeInstance t = myTerrain.terrainData.GetTreeInstance(i);
-            float percentage;
-            
-            //if it's a resprouter
-            if (t.prototypeIndex == 0)
-            {
-                percentage = (ResprouterSizes[index] - ResprouterSizes[index - 1]) / ResprouterSizes[index - 1];
-            }
-            else //it's a reseeder
-            {
-                percentage = (ReseederSizes[index] - ReseederSizes[index - 1]) / ReseederSizes[index - 1];
-            }
-
-            if ( (ReseederSizes[index] - ReseederSizes[index - 1]) > maxDiff)
-            {
-                maxDiff = Mathf.Abs( ReseederSizes[index] - ReseederSizes[index - 1] );
-            }
-
-            float x = t.heightScale * (1 + percentage);
-
-            //if scale is dropped drastically and there hasn't been a fire yet
-            if ( x < 0.65f && !Fire)
-            {
-                Fire = true;
-                ParticleSystem r = Instantiate(rain, rainPos, rain.transform.rotation);
-                //Destroy(r.gameObject, 15);
-                foreach (TreeInstance tree in myTerrain.terrainData.treeInstances)
-                {
-                    Vector3 pos = Vector3.Scale(tree.position, myTerrain.terrainData.size) + myTerrain.transform.position;
-                    ParticleSystem p = Instantiate(fire, pos, fire.transform.rotation);
-                    Destroy(p.gameObject, 5);
-                }
-
-                yield return new WaitForSeconds(5);
-                
-            }
-            
-            
-
-            //reset Fire Occured status to be false
-            if (Fire && (x > 1f))
-            {
-                Fire = false;
-            }
-
-            t.heightScale = x;
-            t.widthScale = x;
-
-            myTerrain.terrainData.SetTreeInstance(i, t);
-
-            //Debug.Log("scale size is now: " + t.heightScale);
-        }
-        index++;
-        
-        //read until there are no more Biomasses to read
-        if (index >= (15*365))//ResprouterSizes.Count - 1)
-        {
-            //Debug.Log("maxDiff is: " + maxDiff);
-            myTerrain.GetComponent<TestGenerator>().destroyBushes();
-            //Debug.Break();
-        }
-       
-        StartCoroutine(WaitThenChangeSize(growthTime, Fire));
-        
+        startBushGrowth = true;
     }
 
+    // starts rain at rainPos
+    // note: the clouds take 5 seconds to form
+    private void StartRain(Vector3 rainPos)
+    {
+        ParticleSystem r = Instantiate(rain, rainPos, rain.transform.rotation);
+    }
+    
+    private void StartSun()
+    {
+        SceneMontroller.Instance.EnableSun();
+        Invoke("StopSun", 60);  // stops sun after 60 seconds
+    }
+
+    private void StopSun()
+    {
+        SceneMontroller.Instance.DisableSun();
+    }
+    
+    private void StartFire(int x)
+    {
+        foreach (TreeInstance tree in myTerrain.terrainData.treeInstances)
+        {
+            Vector3 pos = Vector3.Scale(tree.position, myTerrain.terrainData.size) + myTerrain.transform.position;
+            ParticleSystem p = Instantiate(fire, pos, fire.transform.rotation);
+            Destroy(p.gameObject, x);
+        }
+
+        startBushGrowth = false;
+        Invoke("StartGrowth", x);   // start growth again in 5 seconds
+        index--;    // decreases index by 1 so this data point isn't skipped
+    }
+
+    private void Update()
+    {
+        if (startBushGrowth) // && counter%60 == 0)
+        {
+            float maxDiff = 0;
+            for (int i = 0; i < myTerrain.terrainData.treeInstances.Length; i++)
+            {
+                TreeInstance t = myTerrain.terrainData.GetTreeInstance(i);
+
+                // if it's a resprouter, compute from resprouters, otherwise read from reseeders
+                float percentage = (t.prototypeIndex == 0) ? (ResprouterSizes[index] - ResprouterSizes[index - 1]) / ResprouterSizes[index - 1] : (ReseederSizes[index] - ReseederSizes[index - 1]) / ReseederSizes[index - 1];
+                if ((ReseederSizes[index] - ReseederSizes[index - 1]) > maxDiff) maxDiff = Mathf.Abs(ReseederSizes[index] - ReseederSizes[index - 1]);
+                float x = t.heightScale * (1 + percentage);
+
+                //if scale is dropped drastically and there hasn't been a fire yet
+                if (x < 0.65f && !fireOccurred)
+                {
+                    fireOccurred = true;
+                    if (climate.Equals("dry"))
+                    {
+                        StartSun();
+                    }
+                    else if (climate.Equals("wet"))
+                    {
+                        StartRain(new Vector3(0, 50, 0));
+                    }
+                    else if (climate.Equals("dryandwet"))
+                    {
+                        StartSun();
+                        StartRain(new Vector3(30, 50, 0));
+                    }
+                    StartFire(5);
+                    break;  // break out of the for loop so rest of the bushes are not read
+                }
+                else
+                {
+                    if (fireOccurred && (x > 1f)) //reset Fire Occured status to be false
+                    {
+                        fireOccurred = false;
+                    }
+                    t.heightScale = x;
+                    t.widthScale = x;
+                    myTerrain.terrainData.SetTreeInstance(i, t);
+                }
+            }
+            index++;
+
+            //read until there are no more Biomasses to read
+            if (index >= 10 * 365)//15 * 365)//ResprouterSizes.Count - 1)
+            {
+                //Debug.Log("maxDiff is: " + maxDiff);
+                myTerrain.GetComponent<TestGenerator>().DestroyBushes();
+                startBushGrowth = false;
+                SceneMontroller.Instance.ActivateNextButton(scenario);
+                scenario++;
+            }
+        }
+    }
 }
