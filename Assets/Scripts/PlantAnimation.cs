@@ -53,12 +53,12 @@ public class PlantAnimation : MonoBehaviour
     //private bool startBushGrowth = false;
     //private Vector3 rainPos = new Vector3(0, 50, 0);
 
-    private bool bothInParallel = false;
-    private bool climateInParallel = false;
-    private bool plantsInParallel = false;
+    public bool bothInParallel = false;
+    public bool climateInParallel = false;
+    public bool plantsInParallel = false;
     private int parallelIndex;
 
-    private string type;
+    public string type;
 
     //public Vector2 location = new Vector2(660, 1624);
     
@@ -162,7 +162,7 @@ public class PlantAnimation : MonoBehaviour
         Color green = new Color(0, 1, 0, 1);
         Color[] pixels = segmentation.GetPixels();
 
-        Debug.Log("begin reading pixels");
+        //Debug.Log("begin reading pixels");
         for (int y = 0; y < (int)segmentation.height; y++)
         {
             for (int x = 0; x < (int)segmentation.width; x++)
@@ -170,12 +170,12 @@ public class PlantAnimation : MonoBehaviour
                 Color c = pixels[30 * y + x];
                 if (IsSameColor(c, green))
                 {
-                    Debug.Log("Found green pixel at index (" + x + ", " +  y + ")");
+                    //Debug.Log("Found green pixel at index (" + x + ", " +  y + ")");
 
                 }
             }
         }
-        Debug.Log("stop reading pixels");
+        //Debug.Log("stop reading pixels");
     }
 
     //ProtypeIndex will always be 0 for resprouter and 1 for reseeder
@@ -191,17 +191,17 @@ public class PlantAnimation : MonoBehaviour
 
         //Vector3 bushPosition;
 
-        //Debug.Log("begin reading pixels");
+        ////Debug.Log("begin reading pixels");
         for (int y = (int)startPt.y; y < (int)startPt.y + dim.y; y = y + 2)
         {
             for (int x = (int)startPt.x; x < (int)startPt.x + dim.x; x = x + 2)
             {
                 c = segmentation.GetPixel(x, y);
-                //Debug.Log("checking at location (" + x + ", " + y + ")");
+                ////Debug.Log("checking at location (" + x + ", " + y + ")");
                 
                 if (IsSameColor(c, green))
                 {
-                    //Debug.Log("Found green pixel");
+                    ////Debug.Log("Found green pixel");
 
                     addBushToTerrain(x, y, PrototypeIndex, scale);
                     Vector3 bushPosition = Vector3.Scale(myTerrain.terrainData.GetTreeInstance(myTerrain.terrainData.treeInstanceCount - 1).position, myTerrain.terrainData.size) + myTerrain.transform.position;
@@ -222,7 +222,7 @@ public class PlantAnimation : MonoBehaviour
         }
 
         myTerrain.Flush();
-        //Debug.Log("Done reading pixels");
+        ////Debug.Log("Done reading pixels");
         return count;
 
     }
@@ -234,7 +234,7 @@ public class PlantAnimation : MonoBehaviour
     //function to instantiate both types of bushes 
     private int PlaceBushes(Vector2 startPt, Vector2 dim, int PrototypeIndex1, int PrototypeIndex2, float scale1, float scale2)
     {
-        Debug.Log("in PlaceBushes");
+        //Debug.Log("in PlaceBushes");
         int count = 0;
         //if pixel is green, instantiate a bush
         // note: the index corresponds to the piposition of the pixel in the texture
@@ -251,11 +251,11 @@ public class PlantAnimation : MonoBehaviour
             {
 
                 c = segmentation.GetPixel(x,y);
-                Debug.Log("color is " + c + "at coordinate: (" + x + ", " + y + ")");
+                //Debug.Log("color is " + c + "at coordinate: (" + x + ", " + y + ")");
 
                 if (IsSameColor(c, green))
                 {
-                    Debug.Log("FOUND GREEN PIXEL");
+                    //Debug.Log("FOUND GREEN PIXEL");
                     if (swap) //resprouters
                     {
                         addBushToTerrain(x, y, 0, scale1);
@@ -281,7 +281,7 @@ public class PlantAnimation : MonoBehaviour
         }
 
         myTerrain.Flush();
-        Debug.Log("end of PlaceBushes");
+        //Debug.Log("end of PlaceBushes");
         return count;
         
     }
@@ -302,7 +302,7 @@ public class PlantAnimation : MonoBehaviour
         tree.rotation = UnityEngine.Random.Range(0f, 6f);  //not really working
 
         myTerrain.AddTreeInstance(tree);
-        Debug.Log("added bush");
+        //Debug.Log("added bush");
         return p;
     }
 
@@ -365,7 +365,7 @@ public class PlantAnimation : MonoBehaviour
         {
             
             setVariables();
-            Debug.Log("successfully set variables");
+            //Debug.Log("successfully set variables");
         }
         climate = Climate;
         type = "PlantsInParallel";
@@ -447,7 +447,7 @@ public class PlantAnimation : MonoBehaviour
     private void setVariables()
     {
         myTerrain = Terrain.activeTerrain;
-        Debug.Log(myTerrain);
+        //Debug.Log(myTerrain);
         manager = GameObject.Find("manager").GetComponent<Manager>();
         ReseederDryIntervals = makeIntervals(manager.OMinBioDry, manager.OMaxBioDry);   //need to compare actual biomass, not scales
         ReseederWetIntervals = makeIntervals(manager.OMinBioWet, manager.OMaxBioWet);
@@ -569,7 +569,7 @@ public class PlantAnimation : MonoBehaviour
                         }
                         else
                         {
-                            StartRain(new Vector3(0, 50, 0));
+                            StartRain(new Vector3(-20, 50, 10));
                         }
                         StartFire(5);
                         break;
@@ -586,7 +586,7 @@ public class PlantAnimation : MonoBehaviour
                         
                         t0.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t0);
-                        Debug.Log("UPDATED A BUSH");
+                        //Debug.Log("UPDATED A BUSH");
                         continue; ////////////////
                     }
                     else if (!resproutersDecrease)          //biomass increasing
@@ -604,7 +604,7 @@ public class PlantAnimation : MonoBehaviour
 
                         t0.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t0);
-                        Debug.Log("UPDATED A BUSH");
+                        //Debug.Log("UPDATED A BUSH");
                         continue; ////////////////
 
                     }
@@ -670,7 +670,7 @@ public class PlantAnimation : MonoBehaviour
 
                         t1.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t1);
-                        Debug.Log("UPDATED A BUSH");
+                        //Debug.Log("UPDATED A BUSH");
                         continue; ///////////
                     }
                     else if (!reseedersDecrease)          //biomass increasing
@@ -705,7 +705,7 @@ public class PlantAnimation : MonoBehaviour
                     }
                 }          
             }
-            index += 2;
+            index += 1;
 
             //stop when there are no more Biomasses to read
             if (index >= (16 * 365))
@@ -716,7 +716,7 @@ public class PlantAnimation : MonoBehaviour
                 plantsInParallel = false;
                 index = 1;
                 climate = "";
-                Debug.Log("END OF PLANTSINPARALLEL");
+                //Debug.Log("END OF PLANTSINPARALLEL");
                 SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
                 fireOccurred = false;
@@ -733,7 +733,7 @@ public class PlantAnimation : MonoBehaviour
             float[] DryIntervals;
             float[] WetIntervals;
 
-            //Debug.Log("Before evaluate");
+            ////Debug.Log("Before evaluate");
             if (speciesInSeries == "reseeder")
             {
                 dryScale = ReseederDryCurve.Evaluate(index);
@@ -800,34 +800,34 @@ public class PlantAnimation : MonoBehaviour
                     //check if leaves are falling, if so make them stop (can be either reseeder or resprouter leaves, so check species first)
                     if (speciesInSeries == "reseeder")
                     {
-                        Debug.Log("accessing reseeder leaves");
+                        //Debug.Log("accessing reseeder leaves");
                         if (ListOLeaves[OLeaf].isEmitting)
                         {
                             ListOLeaves[OLeaf].Stop();
                         }
                         OLeaf++;
-                        Debug.Log("done accessing reseeder leaves");
+                        //Debug.Log("done accessing reseeder leaves");
                     }
                     else
                     {
-                        Debug.Log("accessing resprouter leaves at index " + RLeaf);
+                        //Debug.Log("accessing resprouter leaves at index " + RLeaf);
                         if (ListRLeaves[RLeaf].isEmitting)
                         {
                             ListRLeaves[RLeaf].Stop();
                         }
-                        Debug.Log("done accessing resprouter leaves");
+                        //Debug.Log("done accessing resprouter leaves");
                         RLeaf++;
                     }
 
 
                     t0.position = temp.position;
                     myTerrain.terrainData.SetTreeInstance(i, t0);
-                    //Debug.Log("UPDATED A BUSH");
+                    ////Debug.Log("UPDATED A BUSH");
                     continue; ////////
                 }
                 else if (!biomassDecreaseDry)          //BIOMASS IS INCREASING
                 {
-                    //Debug.Log("BIOMASS IS INCREASING");
+                    ////Debug.Log("BIOMASS IS INCREASING");
                     //if leaves are falling, if so make them stop (can be either reseeder or resprouter leaves, so check species first)
                     if (speciesInSeries == "reseeder")
                     {
@@ -852,7 +852,7 @@ public class PlantAnimation : MonoBehaviour
                 }
                 else          //BIOMASS DECREASING
                 {
-                    //Debug.Log("BIOMASS IS DECREASING");
+                    ////Debug.Log("BIOMASS IS DECREASING");
                     //only want to make leaves fall if the bush is full enough where it makes sense to have leaves falling (i.e we don't want a bare bush to drop leaves)
 
                     if (dryScale > DryIntervals[4])
@@ -884,14 +884,14 @@ public class PlantAnimation : MonoBehaviour
 
             }
 
-            Debug.Log("**********************************************************************");
+            //Debug.Log("**********************************************************************");
 
             for (int i = parallelIndex; i < myTerrain.terrainData.treeInstances.Length; i++)
             {
                 TreeInstance temp = myTerrain.terrainData.GetTreeInstance(i);
 
-                Debug.Log("current Resprouter scale = " + wetScale);
-                Debug.Log("prototypeIndex = " + temp.prototypeIndex);
+                //Debug.Log("current Resprouter scale = " + wetScale);
+                //Debug.Log("prototypeIndex = " + temp.prototypeIndex);
                 //CASE WHERE THERE IS A FIRE
                 if (wetScale >= WetIntervals[0] && wetScale < WetIntervals[1])
                 {
@@ -916,7 +916,7 @@ public class PlantAnimation : MonoBehaviour
 
                     t1.position = temp.position;
                     myTerrain.terrainData.SetTreeInstance(i, t1);
-                    //Debug.Log("UPDATED A BUSH");
+                    ////Debug.Log("UPDATED A BUSH");
                     continue; /////////
                 }
                 else if (!biomassDecreaseWet)          //BIOMASS INCREASING
@@ -1732,3 +1732,4 @@ public class PlantAnimation : MonoBehaviour
         DestroyBushes();
     }
 }
+
