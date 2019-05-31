@@ -8,6 +8,45 @@ public class StartScenarios : MonoBehaviour
     private Vector2 reseederXZ = new Vector2(841, 1631);
     private Vector2 resprouterXZ = new Vector2(872, 1631);
 
+    private bool paused = false;
+
+    public void pauseSimulation()
+    {
+        PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
+        if (!paused)
+        {
+            paused = true;
+            if (animation.type == "PlantsInParallel")
+            {
+                animation.plantsInParallel = false;
+            }
+            else if (animation.type == "ClimateInParallel")
+            {
+                animation.climateInParallel = false;
+            }
+            else
+            {
+                animation.bothInParallel = false;
+            }
+        }
+        else
+        {
+            //game is paused and we want to start it again
+            paused = false;
+            if (animation.type == "PlantsInParallel")
+            {
+                animation.plantsInParallel = true;
+            }
+            else if (animation.type == "ClimateInParallel")
+            {
+                animation.climateInParallel = true;
+            }
+            else
+            {
+                animation.bothInParallel = true;
+            }
+        }
+    }
 
     public void startClimateInParallel(string species)
     {
