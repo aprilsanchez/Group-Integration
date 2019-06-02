@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3500668, g: 0.44915104, b: 0.5880307, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -242,6 +242,10 @@ MonoBehaviour:
   ListOLeaves: []
   ListRLeaves: []
   segmentation: {fileID: 2800000, guid: 4d62ab24ff8fdc64a92ad9a5f32e5c44, type: 3}
+  bothInParallel: 0
+  climateInParallel: 0
+  plantsInParallel: 0
+  type: 
 --- !u!1 &968577286
 GameObject:
   m_ObjectHideFlags: 0

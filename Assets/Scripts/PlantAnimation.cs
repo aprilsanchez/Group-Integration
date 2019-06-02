@@ -352,8 +352,8 @@ public class PlantAnimation : MonoBehaviour
 
         //left side of the patch will be dry, right side will be wet
         // dryPrototypeIndex = 0, wetPrototypeIndex = 1;
-        parallelIndex = PlaceBushes(location, new Vector2(15,30) , 0, dryScale);
-        PlaceBushes(new Vector2(location.x + 15, location.y), new Vector2(15, 30), 1, wetScale);
+        parallelIndex = PlaceBushes(location, new Vector2(14,30) , 0, dryScale);
+        PlaceBushes(new Vector2(location.x + 16, location.y), new Vector2(14, 30), 1, wetScale);
         StartGrowth();
     }
 
@@ -569,7 +569,7 @@ public class PlantAnimation : MonoBehaviour
                         }
                         else
                         {
-                            StartRain(new Vector3(-20, 50, 10));
+                            StartRain(new Vector3(-20, 50, 15));
                         }
                         StartFire(5);
                         break;
@@ -582,20 +582,14 @@ public class PlantAnimation : MonoBehaviour
                             ListRLeaves[RLeaf].Stop();        
                         }
                         RLeaf++;
-                        //////////////
                         
                         t0.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t0);
-                        //Debug.Log("UPDATED A BUSH");
-                        continue; ////////////////
+
+                        continue; 
                     }
                     else if (!resproutersDecrease)          //biomass increasing
                     {
-                        //if (scale1 > RIntervals[5])
-                        //{
-
-                        //}
-                        //if leaves are falling, make them stop
                         if (ListRLeaves[RLeaf].isEmitting)
                         {
                             ListRLeaves[RLeaf].Stop();
@@ -604,8 +598,8 @@ public class PlantAnimation : MonoBehaviour
 
                         t0.position = temp.position;
                         myTerrain.terrainData.SetTreeInstance(i, t0);
-                        //Debug.Log("UPDATED A BUSH");
-                        continue; ////////////////
+
+                        continue; 
 
                     }
                     else          //biomass decreasing
@@ -646,7 +640,6 @@ public class PlantAnimation : MonoBehaviour
 
                         }
 
-
                         fireOccurred = true;
                         if (climate == "dry")
                         {
@@ -678,7 +671,6 @@ public class PlantAnimation : MonoBehaviour
                         //if leaves are falling, make them stop
                         if (ListOLeaves[OLeaf].isEmitting)
                         {
-                            //////////////////////////////////////////////////////// add code here
                             ListOLeaves[OLeaf].Stop();
                         }
                         OLeaf++;
@@ -733,7 +725,6 @@ public class PlantAnimation : MonoBehaviour
             float[] DryIntervals;
             float[] WetIntervals;
 
-            ////Debug.Log("Before evaluate");
             if (speciesInSeries == "reseeder")
             {
                 dryScale = ReseederDryCurve.Evaluate(index);
@@ -750,8 +741,6 @@ public class PlantAnimation : MonoBehaviour
                 DryIntervals = ResprouterDryIntervals;
                 WetIntervals = ResprouterWetIntervals;
             }
-
-
 
             float currDryScale = myTerrain.terrainData.GetTreeInstance(0).heightScale;
             float currWetScale = myTerrain.terrainData.GetTreeInstance(parallelIndex + 1).heightScale;
@@ -794,40 +783,66 @@ public class PlantAnimation : MonoBehaviour
             {
                 TreeInstance temp = myTerrain.terrainData.GetTreeInstance(i);
 
-                //CASE WHERE THERE IS A FIRE
-                if (dryScale >= DryIntervals[0] && dryScale < DryIntervals[1])
+                if (dryScale >= DryIntervals[0] && dryScale < DryIntervals[1] && !fireOccurred)
                 {
+                    if (speciesInSeries == "resprouter")
+                    {
+                        if (ListRLeaves[RLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListRLeaves.Count; t++)
+                            {
+                                ListRLeaves[i].Stop();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (ListOLeaves[OLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListOLeaves.Count; t++)
+                            {
+                                ListOLeaves[i].Stop();
+                            }
+                        }
+                    }
+
+                    fireOccurred = true;
+                    StartSun();
+                    StartRain(new Vector3(-5, 50, 15));
+                    StartFire(5);
+                    break;
+                }
+                //BUSH IS BARE
+                else if (dryScale >= DryIntervals[0] && dryScale < DryIntervals[1])
+                {
+
                     //check if leaves are falling, if so make them stop (can be either reseeder or resprouter leaves, so check species first)
                     if (speciesInSeries == "reseeder")
                     {
-                        //Debug.Log("accessing reseeder leaves");
                         if (ListOLeaves[OLeaf].isEmitting)
                         {
                             ListOLeaves[OLeaf].Stop();
                         }
                         OLeaf++;
-                        //Debug.Log("done accessing reseeder leaves");
                     }
                     else
                     {
-                        //Debug.Log("accessing resprouter leaves at index " + RLeaf);
+
                         if (ListRLeaves[RLeaf].isEmitting)
                         {
                             ListRLeaves[RLeaf].Stop();
                         }
-                        //Debug.Log("done accessing resprouter leaves");
+
                         RLeaf++;
                     }
 
 
                     t0.position = temp.position;
                     myTerrain.terrainData.SetTreeInstance(i, t0);
-                    ////Debug.Log("UPDATED A BUSH");
                     continue; ////////
                 }
                 else if (!biomassDecreaseDry)          //BIOMASS IS INCREASING
                 {
-                    ////Debug.Log("BIOMASS IS INCREASING");
                     //if leaves are falling, if so make them stop (can be either reseeder or resprouter leaves, so check species first)
                     if (speciesInSeries == "reseeder")
                     {
@@ -890,9 +905,6 @@ public class PlantAnimation : MonoBehaviour
             {
                 TreeInstance temp = myTerrain.terrainData.GetTreeInstance(i);
 
-                //Debug.Log("current Resprouter scale = " + wetScale);
-                //Debug.Log("prototypeIndex = " + temp.prototypeIndex);
-                //CASE WHERE THERE IS A FIRE
                 if (wetScale >= WetIntervals[0] && wetScale < WetIntervals[1])
                 {
                     //check if leaves are falling, if so make them stop (can be either reseeder or resprouter leaves, so check species first)
@@ -982,7 +994,7 @@ public class PlantAnimation : MonoBehaviour
 
 
 
-            index += 2;
+            index += 1;
 
             //stop when there are no more Biomasses to read
             if (index >= (16 * 365))//ResprouterSizes.Count - 1)
