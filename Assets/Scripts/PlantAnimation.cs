@@ -412,8 +412,8 @@ public class PlantAnimation : MonoBehaviour
         updatePrefab(resprouterDryScale, "resprouter", "dry");
 
         //left side of the patch will be dry, right side will be wet
-        parallelIndex = PlaceBushes(location, new Vector2(15, 30), 0, 1, resprouterDryScale, reseederDryScale);
-        PlaceBushes(new Vector2(location.x + 15, location.y), new Vector2(15, 30), 2, 3, resprouterWetScale, reseederWetScale);
+        parallelIndex = PlaceBushes(location, new Vector2(14, 30), 0, 1, resprouterDryScale, reseederDryScale);
+        PlaceBushes(new Vector2(location.x + 16, location.y), new Vector2(14, 30), 2, 3, resprouterWetScale, reseederWetScale);
         StartGrowth();
 
     } 
@@ -1045,22 +1045,11 @@ public class PlantAnimation : MonoBehaviour
             {
                 RDecreaseDry = true;
             }
-            else
-            {
-                //biomass increased, so scale up
-                t0.heightScale = RDryScale;
-                t0.widthScale = RDryScale;
-            }
 
             //dry reseeders 
             if (t1.heightScale - ODryScale > 0)
             {
                 ODecreaseDry = true;
-            }
-            else
-            {
-                t1.heightScale = ODryScale;
-                t1.widthScale = ODryScale;
             }
 
             //wet resprouter
@@ -1068,23 +1057,22 @@ public class PlantAnimation : MonoBehaviour
             {
                 RDecreaseWet = true;
             }
-            else
-            {
-                //biomass increased, so scale up
-                t2.heightScale = RWetScale;
-                t2.widthScale = RWetScale;
-            }
 
             //wet reseeders 
             if (t3.heightScale - OWetScale > 0)
             {
                 ODecreaseWet = true;
             }
-            else
-            {
-                t3.heightScale = OWetScale;
-                t3.widthScale = OWetScale;
-            }
+
+            //biomass increased, so scale up
+            t0.heightScale = RDryScale;
+            t0.widthScale = RDryScale;
+            t1.heightScale = ODryScale;
+            t1.widthScale = ODryScale;
+            t2.heightScale = RWetScale;
+            t2.widthScale = RWetScale;
+            t3.heightScale = OWetScale;
+            t3.widthScale = OWetScale;
 
             int RLeaf = 0;
             int OLeaf = 0;
