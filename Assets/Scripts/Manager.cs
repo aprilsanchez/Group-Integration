@@ -56,15 +56,24 @@ public class Manager : MonoBehaviour
         //check if other PM exists
         // go through array and delete other existing managers if any
 
-        Read("Ceanothus_burn_dryP", ref ReseederDry, ref OMinBioDry, ref OMaxBioDry, "dry");
-        Read("Ceanothus_burn_wetP", ref ReseederWet, ref OMinBioWet, ref OMaxBioWet, "wet");
-        Read("Chamise_burn_dryP", ref ResprouterDry, ref RMinBioDry, ref RMaxBioDry, "dry");
-        Read("Chamise_burn_wetP", ref ResprouterWet, ref RMinBioWet, ref RMaxBioWet, "wet");
+        Read("Ceanothus_burn_dryP", ref ReseederDry, ref OMinBioDry, ref OMaxBioDry);
+        Read("Ceanothus_burn_wetP", ref ReseederWet, ref OMinBioWet, ref OMaxBioWet);
+        Read("Chamise_burn_dryP", ref ResprouterDry, ref RMinBioDry, ref RMaxBioDry);
+        Read("Chamise_burn_wetP", ref ResprouterWet, ref RMinBioWet, ref RMaxBioWet);
+
+        //Debug.Log("size of ReseederDry: " + ReseederDry.Count);
+        //Debug.Log("size of ReseederWet: " + ReseederWet.Count);
+        //Debug.Log("size of ResprouterDry: " + ResprouterDry.Count);
+        //Debug.Log("size of ResprouterWet: " + ResprouterWet.Count);
+        //for (int i = 0; i < ReseederDry.Count; i++)
+        //{
+        //    Debug.Log("scale: " + ReseederDry[i].biomass);
+        //}
 
     }
 
     //read from fileName.txt, and return a list of all values of targetVar in the file
-    public void Read(string fileName, ref List<data> list, ref float min, ref float max, string climate)
+    public void Read(string fileName, ref List<data> list, ref float min, ref float max)
     {
         //Debug.Log("inside Read");
         //List<data> result = new List<data>();
@@ -101,7 +110,6 @@ public class Manager : MonoBehaviour
             float biomass = float.Parse(values[bioIdx]);
             float precip = float.Parse(values[precipIdx]);
 
-            int originalYear = year;
             list.Add(new data(month, year, biomass, precip, 0));
             //data currDataObject = new data(currMonth, currYear, bioSum, precipSum);
 
@@ -113,9 +121,7 @@ public class Manager : MonoBehaviour
             {
                 values = line.Split(' ');
                 year = int.Parse(values[yearIdx]);
-
-
-                if (year < originalYear + 15)
+                if (year > 1993 && year < 2010)
                 {
 
                     biomass = float.Parse(values[bioIdx]);
@@ -132,15 +138,16 @@ public class Manager : MonoBehaviour
                     list.Add(new data(int.Parse(values[monthIdx]), year, biomass, float.Parse(values[precipIdx]), 0));
                     //Debug.Log("added another item to list");
                 }
-                else
+                else if (year > 2009)
                 {
                     //end while loop because we've already read 15 years of data post fire
                     break;
-                } 
+                }
 
             }
         }
-
+        //float tempMin = 0;
+        //float tempMax = 0;
         scaleBiomass(ref list, ref tempMin, ref tempMax);
         min = tempMin;
         max = tempMax;
