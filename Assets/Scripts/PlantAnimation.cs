@@ -649,7 +649,7 @@ public class PlantAnimation : MonoBehaviour
                         }
                         else
                         {
-                            StartRain(new Vector3(0, 50, 0));
+                            StartRain(new Vector3(0, 20, 0));
                         }
                         StartFire(5);
                         break;
@@ -810,7 +810,7 @@ public class PlantAnimation : MonoBehaviour
 
                     fireOccurred = true;
                     StartSun();
-                    StartRain(new Vector3(-3, 50, 15));
+                    StartRain(new Vector3(-3, 20, 15));
                     StartFire(5);
                     break;
                 }
@@ -1107,7 +1107,7 @@ public class PlantAnimation : MonoBehaviour
 
                         fireOccurred = true;
                         StartSun();
-                        StartRain(new Vector3(-3, 50, 15));
+                        StartRain(new Vector3(-3, 20, 15));
                         StartFire(5);
                         break;
                     }
