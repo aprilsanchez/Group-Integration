@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class TimeControl : MonoBehaviour
 {
     System.DateTime myTime;
+    float counter = 0f;
     private float distance = 3f; private float yOffset = 0f;
     string month, year;
     TextMeshPro tmp;
@@ -13,8 +15,9 @@ public class TimeControl : MonoBehaviour
     private float timePassed = 0f; //since object first enabled
     public void OnEnable()
     {
-        myTime = new System.DateTime(1980, 12, 5);
-        timePerRealDay = Terrain.FindObjectOfType<Size>().growthTime;
+        myTime = new System.DateTime(1989, 10, 1);
+        
+        //timePerRealDay = Terrain.FindObjectOfType<Size>().growthTime;
         tmp = GetComponent<TextMeshPro>();
     }
 
@@ -33,10 +36,11 @@ public class TimeControl : MonoBehaviour
             timePassed = timePassed % timePerRealDay;
             myTime = myTime.AddDays(1);
             if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
-            tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month;
+            tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month; + counter.Year.ToString() + " " + counter.Month.ToString()
         }   */
         myTime = myTime.AddDays(1);
+        counter += 1;
         if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
-        tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month;
+        tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month + "\n" + "num of years since fire happened: " + Math.Ceiling(counter / 365);
     }
 }
