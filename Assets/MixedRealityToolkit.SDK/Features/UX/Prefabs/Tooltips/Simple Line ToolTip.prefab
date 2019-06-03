@@ -61,12 +61,13 @@ MonoBehaviour:
   pivot: {fileID: 1689994015351696}
   label: {fileID: 1468030888342674}
   contentParent: {fileID: 1486990241750050}
-  toolTipText: Tooltip Text
+  toolTipText: Press this to select button
   backgroundPadding: {x: 0.075, y: 0.015}
   backgroundOffset: {x: 0, y: 0, z: 0}
-  contentScale: 2
-  fontSize: 30
+  contentScale: 1.99
+  fontSize: 26
   attachPointType: 9
+  attachPointOffset: {x: 0, y: 0, z: 0}
   toolTipLine: {fileID: 114254035704318198}
 --- !u!114 &114957968741241876
 MonoBehaviour:
@@ -143,6 +144,7 @@ MonoBehaviour:
   - {x: 0, y: 1, z: 0}
   velocitySearchRange: 0.02
   distorters: []
+  distortionEnabled: 1
   distortionMode: 0
   distortionStrength:
     serializedVersion: 2
@@ -190,7 +192,7 @@ MonoBehaviour:
   lineDataSource: {fileID: 114254035704318198}
   lineColor:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 0.40583837, g: 0.9056604, b: 0.8717978, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -221,8 +223,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: -34.448013
+      value: 0.51830876
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -230,8 +232,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 20.506226
+      value: 0.13679504
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -492,7 +494,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Tooltip Text
+  m_text: 'Tooltip '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -561,20 +563,20 @@ MonoBehaviour:
   m_margin: {x: -5, y: 0, z: -5, w: 0}
   m_textInfo:
     textComponent: {fileID: 7446970764068212843}
-    characterCount: 12
+    characterCount: 8
     spriteCount: 0
     spaceCount: 1
-    wordCount: 2
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 179178002932158396}
   m_subTextObjects:
@@ -727,6 +729,7 @@ MonoBehaviour:
   - {x: 0, y: 1, z: 0}
   velocitySearchRange: 0.02
   distorters: []
+  distortionEnabled: 1
   distortionMode: 0
   distortionStrength:
     serializedVersion: 2

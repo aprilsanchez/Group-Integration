@@ -85,12 +85,15 @@ public class PlantAnimation : MonoBehaviour
 
     private void StartFire(int sec)
     {
+        
         foreach (TreeInstance tree in myTerrain.terrainData.treeInstances)
         {
             Vector3 pos = Vector3.Scale(tree.position, myTerrain.terrainData.size) + myTerrain.transform.position;
             ParticleSystem p = Instantiate(fire, pos, fire.transform.rotation);
-            Destroy(p.gameObject, sec);
+            //Destroy(p.gameObject, sec);
         }
+        
+        //ParticleSystem p = Instantiate(fire, new Vector3(-20, 0, 15), fire.transform.rotation);
 
         if (type == "ClimateInParallel")
         {
@@ -571,9 +574,9 @@ public class PlantAnimation : MonoBehaviour
                         }
                         else
                         {
-                            StartRain(new Vector3(-20, 50, 15));
+                            StartRain(new Vector3(-20, 20, 15));
                         }
-                        StartFire(5);
+                        StartFire(15);
                         break;
                     } 
                     else if (scale1 >= RIntervals[0] && scale1 < RIntervals[1]) 
@@ -651,7 +654,7 @@ public class PlantAnimation : MonoBehaviour
                         {
                             StartRain(new Vector3(0, 20, 0));
                         }
-                        StartFire(5);
+                        StartFire(15);
                         break;
                     }
                     else if (scale2 >= OIntervals[0] && scale2 < OIntervals[1])
@@ -811,7 +814,7 @@ public class PlantAnimation : MonoBehaviour
                     fireOccurred = true;
                     StartSun();
                     StartRain(new Vector3(-3, 20, 15));
-                    StartFire(5);
+                    StartFire(15);
                     break;
                 }
                 //BUSH IS BARE
@@ -1108,7 +1111,7 @@ public class PlantAnimation : MonoBehaviour
                         fireOccurred = true;
                         StartSun();
                         StartRain(new Vector3(-3, 20, 15));
-                        StartFire(5);
+                        StartFire(15);
                         break;
                     }
                     //BUSH IS BARE
