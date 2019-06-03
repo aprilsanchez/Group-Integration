@@ -25,15 +25,18 @@ public class TimeControl : MonoBehaviour
         //transform.LookAt(Camera.main.transform.rotation * Vector3.up);
         transform.LookAt(Camera.main.transform.position);
         transform.Rotate(new Vector3(0f,180f,0f));
-        transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance + Camera.main.transform.up * yOffset;      
+        transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance + Camera.main.transform.up * yOffset;
 
-        timePassed += Time.deltaTime;
+        /*timePassed += Time.deltaTime;
         if(timePassed >= timePerRealDay)
         {
             timePassed = timePassed % timePerRealDay;
             myTime = myTime.AddDays(1);
             if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
             tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month;
-        }   
+        }   */
+        myTime = myTime.AddDays(1);
+        if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
+        tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month;
     }
 }
