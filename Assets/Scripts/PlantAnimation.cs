@@ -35,8 +35,8 @@ public class PlantAnimation : MonoBehaviour
     private bool RDryFalling;
     private bool ODryFalling;
     private bool OWetFalling;
-
-    private bool fireOccurred = false;
+    public bool fireFinished = false;
+    public bool fireOccurred = false;
     public ParticleSystem fire;
     public ParticleSystem rain;
     public GameObject sun;
@@ -110,10 +110,11 @@ public class PlantAnimation : MonoBehaviour
 
         
         Invoke("StartGrowth", sec);   // start growth again in 5 seconds
+        Invoke("SetFireFinished", sec);
         index--;    // decreases index by 1 so this data point isn't skipped
     }
 
-
+    public void SetFireFinished() { fireFinished = true; }
     //function that makes animation curves from biomass data
     private void makeCurve(ref AnimationCurve c, ref List<Manager.data> list)
     {
@@ -427,6 +428,7 @@ public class PlantAnimation : MonoBehaviour
 
     private void StartGrowth()
     {
+
         if (type == "ClimateInParallel")
         {
             climateInParallel = true;

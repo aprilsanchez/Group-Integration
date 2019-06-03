@@ -10,6 +10,8 @@ public class TimeControl : MonoBehaviour
     float counter = 0f;
     private float distance = 3f; private float yOffset = 0f;
     string month, year;
+    float index;
+    bool fireStuff;
     TextMeshPro tmp;
     float timePerRealDay; //10s in unity is 1 day in real life
     private float timePassed = 0f; //since object first enabled
@@ -38,8 +40,9 @@ public class TimeControl : MonoBehaviour
             if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
             tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month; + counter.Year.ToString() + " " + counter.Month.ToString()
         }   */
+        fireStuff = Terrain.FindObjectOfType<PlantAnimation>().fireFinished;
         myTime = myTime.AddDays(1);
-        counter += 1;
+        if (fireStuff) { counter += 1; }
         if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
         tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month + "\n" + "num of years since fire happened: " + Math.Ceiling(counter / 365);
     }
