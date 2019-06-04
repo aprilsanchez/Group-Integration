@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7826225431756275857}
   m_Layer: 0
-  m_Name: WallWithDevider
+  m_Name: WallWithoutDevider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 7826225431756275856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.8, y: 8.9, z: -1.1}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1.55, y: 1.58, z: 1.78}
   m_Children:
   - {fileID: 7826225432332366427}
   - {fileID: 7826225431389591709}

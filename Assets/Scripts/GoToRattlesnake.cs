@@ -8,5 +8,6 @@ public class GoToRattlesnake : MonoBehaviour
     public void SceneSwitcher()
     {
         SceneMontroller.Instance.EnterRattlesnake();
+        GameObject.FindWithTag("ToolTip").SetActive(false);
     }
 }

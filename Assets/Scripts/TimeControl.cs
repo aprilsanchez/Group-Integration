@@ -8,7 +8,7 @@ public class TimeControl : MonoBehaviour
 {
     System.DateTime myTime;
     float counter = 0f;
-    private float distance = 3f; private float yOffset = 0f;
+    private float distance = 3f; private float yOffset = 1f;
     string month, year;
     float index;
     bool fireStuff;
@@ -42,8 +42,16 @@ public class TimeControl : MonoBehaviour
         }   */
         fireStuff = Terrain.FindObjectOfType<PlantAnimation>().fireFinished;
         myTime = myTime.AddDays(1);
-        if (fireStuff) { counter += 1; }
-        if (myTime.Month < 10) { month = "0" + myTime.Month.ToString(); } else { month = myTime.Month.ToString(); }
-        tmp.text = "Year  Month\n" + myTime.Year.ToString() + " / " + month + "\n" + "num of years since fire happened: " + Math.Ceiling(counter / 365);
+        if (fireStuff)
+        {
+
+            tmp.text = "Month: " + Terrain.FindObjectOfType<PlantAnimation>().getCurrentMonth() + "\n" + "num of years since fire happened: " + Math.Floor((Terrain.FindObjectOfType<PlantAnimation>().getIndex() - 609) / 365.0);
+
+
+        }
+        else { tmp.text = "Month: " + Terrain.FindObjectOfType<PlantAnimation>().getCurrentMonth(); }
+
+
+
     }
 }

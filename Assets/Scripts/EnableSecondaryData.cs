@@ -15,7 +15,9 @@ public class EnableSecondaryData : MonoBehaviour
     public void EnableTime()
     {
         GameObject.Find("myTime").GetComponent<TimeControl>().enabled = true;
+        GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = true;
     }
+    
 
     public void EnableBothDry()
     {

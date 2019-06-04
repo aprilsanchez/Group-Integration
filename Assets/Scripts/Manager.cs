@@ -114,7 +114,7 @@ public class Manager : MonoBehaviour
                 year = int.Parse(values[yearIdx]);
 
 
-                if (year < originalYear + 15)
+                if (year > originalYear + 3 && year < originalYear + 15)
                 {
 
                     biomass = float.Parse(values[bioIdx]);
@@ -130,7 +130,7 @@ public class Manager : MonoBehaviour
 
                     list.Add(new data(int.Parse(values[monthIdx]), year, biomass, float.Parse(values[precipIdx]), 0));
                 }
-                else
+                else if (year >= originalYear + 15)
                 {
                     //end while loop because we've already read 15 years of data post fire
                     break;

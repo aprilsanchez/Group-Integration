@@ -34,41 +34,58 @@ public class PlantAnimation : MonoBehaviour
     public bool fireOccurred = false;
     public ParticleSystem fire;
     public ParticleSystem rain;
+    public ParticleSystem halfrain;
     public GameObject sun;
+    private GameObject currSun;
     public ParticleSystem ReseederLeaves;
     public ParticleSystem ResprouterLeaves;
     public List<ParticleSystem> ListOLeaves = new List<ParticleSystem>();
     public List<ParticleSystem> ListRLeaves = new List<ParticleSystem>();
-
+    public GameObject Divider;
     public Texture2D segmentation;
     private int scenario;
     private int maxIndex; //lenght of data points in an animatino curve
-    private int fireLength = 8;
+    private int fireLength = 12;
 
     public bool bothInParallel = false;
     public bool climateInParallel = false;
     public bool plantsInParallel = false;
+    private bool firstTimeClimateInParallel = true;
     private int parallelIndex;
-
+    private Vector3 dividerPos = new Vector3(0.54f,0,23.0f);
     public string type; //which of the three P's is it    
     private Vector2 location = new Vector2(841, 1631);
 
+    public int getIndex()
+    {
+        return index;
+    }
 
+    public int getCurrentMonth()
+    {
+        return manager.ReseederDry[index].month;
+    }
 
     private void StartRain(Vector3 rainPos)
     {
         ParticleSystem r = Instantiate(rain, rainPos, rain.transform.rotation);
     }
 
-    private void StartSun()
+    private void StartHalfRain(Vector3 rainPos)
     {
-        SceneMontroller.Instance.EnableSun();
-        Invoke("StopSun", 60);  // stops sun after 60 seconds
+        ParticleSystem r = Instantiate(halfrain, rainPos, halfrain.transform.rotation);
+    }
+
+    IEnumerator StartSun(Vector3 sunPos)
+    {
+        yield return new WaitForSeconds(12);
+        currSun = Instantiate(sun, sunPos, sun.transform.rotation);
+        Invoke("StopSun", 30);  // stops sun after 30 seconds
     }
 
     private void StopSun()
     {
-        SceneMontroller.Instance.DisableSun();
+        Destroy(currSun);
     }
 
     private void StartFire(int sec)
@@ -321,6 +338,7 @@ public class PlantAnimation : MonoBehaviour
         }
         type = "ClimateInParallel";
         speciesInSeries = species;
+        fireFinished = false;
 
         float wetScale;
         float dryScale;
@@ -347,6 +365,11 @@ public class PlantAnimation : MonoBehaviour
         // dryPrototypeIndex = 0, wetPrototypeIndex = 1;
         parallelIndex = PlaceBushes(location, new Vector2(14,30) , 0, dryScale);
         PlaceBushes(new Vector2(location.x + 16, location.y), new Vector2(14, 30), 1, wetScale);
+        if (firstTimeClimateInParallel)
+        {
+            Instantiate(Divider, dividerPos, Divider.transform.rotation);
+            firstTimeClimateInParallel = false;
+        }
         StartGrowth();
     }
 
@@ -354,6 +377,7 @@ public class PlantAnimation : MonoBehaviour
 
     public void PlantsInParallel(string Climate)
     {
+
         if (!set)
         {
             
@@ -362,6 +386,7 @@ public class PlantAnimation : MonoBehaviour
         }
         climate = Climate;
         type = "PlantsInParallel";
+        fireFinished = false;
 
         float initialScale1;
         float initialScale2;
@@ -393,6 +418,7 @@ public class PlantAnimation : MonoBehaviour
             setVariables();
         }
         type = "BothInParallel";
+        fireFinished = false;
 
         float reseederWetScale = manager.ReseederWet[0].bushScale;
         updatePrefab(reseederWetScale, "reseeder", "wet");
@@ -538,6 +564,7 @@ public class PlantAnimation : MonoBehaviour
                     //FIRE OCCURED
                     if (scale1 >= RIntervals[0] && scale1 < RIntervals[1] && !fireOccurred)
                     {
+                        Debug.Log("fire happened at index: " + index);
                         //revert back to prefire look
                         updatePrefab(currScale1, "resprouter", "dry");
                         updatePrefab(currScale2, "reseeder", "dry");
@@ -563,11 +590,11 @@ public class PlantAnimation : MonoBehaviour
                         fireOccurred = true;
                         if (climate == "dry")
                         {
-                            StartSun();
+                            StartCoroutine(StartSun(new Vector3(-2, 18, 25)));
                         }
                         else
                         {
-                            StartRain(new Vector3(-20, 20, 15));
+                            StartRain(new Vector3(-2, 11.8f, 15));
                         }
                         StartFire(fireLength);
                         break;
@@ -620,6 +647,7 @@ public class PlantAnimation : MonoBehaviour
                     //FIRE OCCURED
                     if (scale2 >= OIntervals[0] && scale2 < OIntervals[1] && !fireOccurred)
                     {
+                        Debug.Log("fire happened at index: " + index);
                         //revert back to prefire look
                         updatePrefab(currScale1, "resprouter", "dry");
                         updatePrefab(currScale2, "reseeder", "dry");
@@ -645,11 +673,11 @@ public class PlantAnimation : MonoBehaviour
                         fireOccurred = true;
                         if (climate == "dry")
                         {
-                            StartSun();
+                            StartCoroutine(StartSun(new Vector3(-2, 18, 25)));
                         }
                         else
                         {
-                            StartRain(new Vector3(0, 20, 0));
+                            StartRain(new Vector3(-2, 11.8f, 15));
                         }
                         StartFire(fireLength);
                         break;
@@ -711,6 +739,8 @@ public class PlantAnimation : MonoBehaviour
                 SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
                 fireOccurred = false;
+                GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
+                GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
             }
 
 
@@ -810,8 +840,8 @@ public class PlantAnimation : MonoBehaviour
                     }
 
                     fireOccurred = true;
-                    StartSun();
-                    StartRain(new Vector3(-3, 20, 15));
+                    StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
+                    StartHalfRain(new Vector3(11.2f, 20, 15));
                     StartFire(fireLength);
                     break;
                 }
@@ -1012,7 +1042,8 @@ public class PlantAnimation : MonoBehaviour
                 SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
                 fireOccurred = false;
-
+                GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
+                GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
             }
 
 
@@ -1116,8 +1147,8 @@ public class PlantAnimation : MonoBehaviour
                         }
 
                         fireOccurred = true;
-                        StartSun();
-                        StartRain(new Vector3(-3, 20, 15));
+                        StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
+                        StartHalfRain(new Vector3(11.2f, 20, 15));
                         StartFire(fireLength);
                         break;
                     }
@@ -1324,6 +1355,8 @@ public class PlantAnimation : MonoBehaviour
                 SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
                 fireOccurred = false;
+                GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
+                GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
             }
 
         }

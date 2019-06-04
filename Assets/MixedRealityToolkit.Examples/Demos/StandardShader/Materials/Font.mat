@@ -165,7 +165,7 @@ Material:
     - _ClippingPlaneBorderColor: {r: 1, g: 0.2, b: 0, a: 1}
     - _Color: {r: 0.4753471, g: 0.91573143, b: 0.9245283, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissiveColor: {r: 0.6792453, g: 0.28312466, b: 0.24670699, a: 1}
+    - _EmissiveColor: {r: 0.2924528, g: 0.042927362, b: 0.020692414, a: 1}
     - _EnvironmentColorX: {r: 1, g: 0, b: 0, a: 1}
     - _EnvironmentColorY: {r: 0, g: 1, b: 0, a: 1}
     - _EnvironmentColorZ: {r: 0, g: 0, b: 1, a: 1}
