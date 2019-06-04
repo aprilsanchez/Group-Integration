@@ -124,11 +124,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Biobar
       objectReference: {fileID: 0}
-    - target: {fileID: 685172273480338710, guid: b34ea22a8f1a10445ab2af032799ddba,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2539228172710611196, guid: b34ea22a8f1a10445ab2af032799ddba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -233,6 +228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 685172273480338710, guid: b34ea22a8f1a10445ab2af032799ddba,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4197562660608415566, guid: b34ea22a8f1a10445ab2af032799ddba,
         type: 3}
@@ -371,6 +371,8 @@ MonoBehaviour:
   speciesInSeries: 
   climate: 
   ResprouterWetIntervals: []
+  fireFinished: 0
+  fireOccurred: 0
   fire: {fileID: 967977544, guid: 2ca77f934cf36477ba933243160560f0, type: 3}
   rain: {fileID: 886963246310107771, guid: 49648070556a1514db5dba0b48c5a0fe, type: 3}
   sun: {fileID: 0}
@@ -529,6 +531,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2440072984638503613, guid: f1e49b68dd8d2d8409f172c824cd685b,
+        type: 3}
+      propertyPath: m_Name
+      value: Prepbar
+      objectReference: {fileID: 0}
     - target: {fileID: 415309447153851703, guid: f1e49b68dd8d2d8409f172c824cd685b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -643,11 +650,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2440072984638503613, guid: f1e49b68dd8d2d8409f172c824cd685b,
-        type: 3}
-      propertyPath: m_Name
-      value: Prepbar
       objectReference: {fileID: 0}
     - target: {fileID: 4878658670377680819, guid: f1e49b68dd8d2d8409f172c824cd685b,
         type: 3}

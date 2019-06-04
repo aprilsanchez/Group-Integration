@@ -66,8 +66,7 @@ public class Manager : MonoBehaviour
     //read from fileName.txt, and return a list of all values of targetVar in the file
     public void Read(string fileName, ref List<data> list, ref float min, ref float max, string climate)
     {
-        //Debug.Log("inside Read");
-        //List<data> result = new List<data>();
+
         string path = Application.dataPath + "/Data/" + fileName + ".txt";
         float tempMin;
         float tempMax;
@@ -95,7 +94,7 @@ public class Manager : MonoBehaviour
             //get starting values
             line = sr.ReadLine();
             values = line.Split(' ');
-            //int currDay = int.Parse(values[dayIdx]); // do i even need this????
+            //int currDay = int.Parse(values[dayIdx]); // do i even need this
             int month = int.Parse(values[monthIdx]);
             int year = int.Parse(values[yearIdx]);
             float biomass = float.Parse(values[bioIdx]);
@@ -130,7 +129,6 @@ public class Manager : MonoBehaviour
                     }
 
                     list.Add(new data(int.Parse(values[monthIdx]), year, biomass, float.Parse(values[precipIdx]), 0));
-                    //Debug.Log("added another item to list");
                 }
                 else
                 {
@@ -144,8 +142,9 @@ public class Manager : MonoBehaviour
         scaleBiomass(ref list, ref tempMin, ref tempMax);
         min = tempMin;
         max = tempMax;
-        //return result;
+
     }
+
     private void scaleBiomass(ref List<data> list, ref float min, ref float max)
     {
         float scale;
@@ -153,8 +152,6 @@ public class Manager : MonoBehaviour
         scale = (list[0].biomass * 2.25f) / max;
         list[0] = new data(list[0].month, list[0].year, list[0].biomass, list[0].precip, scale);
 
-        //float newMin = 0;
-        //float newMax = 0;
         min = scale;
         max = 0;
         for (int i = 1; i < list.Count; i++)
@@ -174,22 +171,12 @@ public class Manager : MonoBehaviour
             list[i] = new data(list[i].month, list[i].year, list[i].biomass, list[0].precip, scale);
         }
 
-        //min = newMin;
-        //max = newMax;
+
 
     }
 
 
     private void Start()
     {
-        
-        //PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
-        //animation.countPixels();
-        //animation.ClimateInParallel("reseeder");
-        //animation.PlantsInParallel("dry");
-        //System.Threading.Thread.Sleep(20000);
-        //Debug.Log("calling PlantsInParallel(wet)");
-        //animation.ClimateInParallel("resprouter");
-        //animation.testPlacement(animation.location, new Vector2(30, 30), 0, 8, ReseederDry[0].bushScale);
     }
 }
