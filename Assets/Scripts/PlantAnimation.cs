@@ -939,7 +939,40 @@ public class PlantAnimation : MonoBehaviour
             {
                 TreeInstance temp = myTerrain.terrainData.GetTreeInstance(i);
 
-                if (wetScale >= WetIntervals[0] && wetScale < WetIntervals[1])
+                if (wetScale >= WetIntervals[0] && wetScale < WetIntervals[1] && !fireOccurred)
+                {
+                    updatePrefab(currDryScale, speciesInSeries, "dry");
+                    updatePrefab(currWetScale, speciesInSeries, "wet");
+
+                    if (speciesInSeries == "resprouter")
+                    {
+                        if (ListRLeaves[RLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListRLeaves.Count; t++)
+                            {
+                                ListRLeaves[t].Stop();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (ListOLeaves[OLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListOLeaves.Count; t++)
+                            {
+                                ListOLeaves[t].Stop();
+                            }
+                        }
+                    }
+
+                    fireOccurred = true;
+                    StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
+                    StartHalfRain(new Vector3(11.2f, 20, 15));
+                    StartFire(fireLength);
+                    break;
+                }
+
+                else if (wetScale >= WetIntervals[0] && wetScale < WetIntervals[1])
                 {
                     //check if leaves are falling, if so make them stop (can be either reseeder or resprouter leaves, so check species first)
                     if (speciesInSeries == "reseeder")
@@ -1202,8 +1235,37 @@ public class PlantAnimation : MonoBehaviour
                 }
                 else         //working with reseeder (same work as above but for reseeders
                 {
+                    if (ODryScale >= ReseederDryIntervals[0] && ODryScale < ReseederDryIntervals[1] && !fireOccurred)
+                    {
+                        updatePrefab(currODryScale, "reseeder", "dry");
+                        updatePrefab(currOWetScale, "reseeder", "wet");
+                        updatePrefab(currRDryScale, "resprouter", "dry");
+                        updatePrefab(currRWetScale, "resprouter", "wet");
+
+                        if (ListRLeaves[RLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListRLeaves.Count; t++)
+                            {
+                                ListRLeaves[t].Stop();
+                            }
+                        }
+
+                        if (ListOLeaves[OLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListOLeaves.Count; t++)
+                            {
+                                ListOLeaves[t].Stop();
+                            }
+                        }
+
+                        fireOccurred = true;
+                        StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
+                        StartHalfRain(new Vector3(11.2f, 20, 15));
+                        StartFire(fireLength);
+                        break;
+                    }
                     //BUSH IS BARE
-                    if (ODryScale >= ReseederDryIntervals[0] && ODryScale < ReseederDryIntervals[1])
+                    else if (ODryScale >= ReseederDryIntervals[0] && ODryScale < ReseederDryIntervals[1])
                     {
 
                         if (ListOLeaves[OLeaf].isEmitting)
@@ -1256,7 +1318,36 @@ public class PlantAnimation : MonoBehaviour
                 if (swap)    //resprouter
                 {
                     swap = false;
-                    if (RWetScale >= ResprouterWetIntervals[0] && RWetScale < ResprouterWetIntervals[1])
+                    if (RWetScale >= ResprouterWetIntervals[0] && RWetScale < ResprouterWetIntervals[1] && !fireOccurred)
+                    {
+                        updatePrefab(currODryScale, "reseeder", "dry");
+                        updatePrefab(currOWetScale, "reseeder", "wet");
+                        updatePrefab(currRDryScale, "resprouter", "dry");
+                        updatePrefab(currRWetScale, "resprouter", "wet");
+
+                        if (ListRLeaves[RLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListRLeaves.Count; t++)
+                            {
+                                ListRLeaves[t].Stop();
+                            }
+                        }
+
+                        if (ListOLeaves[OLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListOLeaves.Count; t++)
+                            {
+                                ListOLeaves[t].Stop();
+                            }
+                        }
+
+                        fireOccurred = true;
+                        StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
+                        StartHalfRain(new Vector3(11.2f, 20, 15));
+                        StartFire(fireLength);
+                        break;
+                    }
+                    else if (RWetScale >= ResprouterWetIntervals[0] && RWetScale < ResprouterWetIntervals[1])
                     {
 
                         if (ListRLeaves[RLeaf].isEmitting)
@@ -1299,6 +1390,35 @@ public class PlantAnimation : MonoBehaviour
                 {
                     swap = true;
 
+                    if (OWetScale >= ReseederWetIntervals[0] && OWetScale < ReseederWetIntervals[1] && !fireOccurred)
+                    {
+                        updatePrefab(currODryScale, "reseeder", "dry");
+                        updatePrefab(currOWetScale, "reseeder", "wet");
+                        updatePrefab(currRDryScale, "resprouter", "dry");
+                        updatePrefab(currRWetScale, "resprouter", "wet");
+
+                        if (ListRLeaves[RLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListRLeaves.Count; t++)
+                            {
+                                ListRLeaves[t].Stop();
+                            }
+                        }
+
+                        if (ListOLeaves[OLeaf].isEmitting)
+                        {
+                            for (int t = 0; t < ListOLeaves.Count; t++)
+                            {
+                                ListOLeaves[t].Stop();
+                            }
+                        }
+
+                        fireOccurred = true;
+                        StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
+                        StartHalfRain(new Vector3(11.2f, 20, 15));
+                        StartFire(fireLength);
+                        break;
+                    }
                     //BUSH IS BARE
                     if (OWetScale >= ReseederWetIntervals[0] && OWetScale < ReseederWetIntervals[1])
                     {
