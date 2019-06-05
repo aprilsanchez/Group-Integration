@@ -15,6 +15,9 @@ public class TimeControl : MonoBehaviour
     TextMeshPro tmp;
     float timePerRealDay; //10s in unity is 1 day in real life
     private float timePassed = 0f; //since object first enabled
+
+    private Vector3 latePosition;
+
     public void OnEnable()
     {
         myTime = new System.DateTime(1989, 10, 1);
@@ -30,7 +33,8 @@ public class TimeControl : MonoBehaviour
         //transform.LookAt(Camera.main.transform.rotation * Vector3.up);
         transform.LookAt(Camera.main.transform.position);
         transform.Rotate(new Vector3(0f,180f,0f));
-        transform.position = Camera.main.transform.position + Camera.main.transform.forward * distance + Camera.main.transform.up * yOffset;
+        latePosition = Camera.main.transform.position + Camera.main.transform.forward * distance + Camera.main.transform.up * yOffset;
+        transform.position = Vector3.Lerp(transform.position, latePosition, 0.01f);
 
         /*timePassed += Time.deltaTime;
         if(timePassed >= timePerRealDay)

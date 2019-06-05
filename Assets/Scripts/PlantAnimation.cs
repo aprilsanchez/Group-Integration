@@ -736,11 +736,12 @@ public class PlantAnimation : MonoBehaviour
                 plantsInParallel = false;
                 index = 1;
                 climate = "";
-                SceneMontroller.Instance.ActivateNextButton(scenario);
+                //SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
                 fireOccurred = false;
                 GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
                 GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.Find("Terrain").GetComponent<PanelControl>().EnablePanel();
             }
 
 
@@ -1039,11 +1040,12 @@ public class PlantAnimation : MonoBehaviour
                 RLeavesFalling = false;
                 OLeavesFalling = false;
                 index = 1;
-                SceneMontroller.Instance.ActivateNextButton(scenario);
+                //SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
                 fireOccurred = false;
                 GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
                 GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.Find("Terrain").GetComponent<PanelControl>().EnablePanel();
             }
 
 
@@ -1352,11 +1354,12 @@ public class PlantAnimation : MonoBehaviour
                 DestroyLeaves();
                 bothInParallel = false;
                 index = 1;
-                SceneMontroller.Instance.ActivateNextButton(scenario);
+                //SceneMontroller.Instance.ActivateNextButton(scenario);
                 scenario++;
                 fireOccurred = false;
                 GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
                 GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
+                GameObject.Find("Terrain").GetComponent<PanelControl>().EnablePanel();
             }
 
         }

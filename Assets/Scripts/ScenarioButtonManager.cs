@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,3 +56,4 @@ public class ScenarioButtonManager : MonoBehaviour
         SceneMontroller.Instance.AllScenesComplete();
     }
 }
+*/

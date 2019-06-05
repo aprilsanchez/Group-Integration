@@ -68,6 +68,7 @@ public class StartScenarios : MonoBehaviour
         animation.BothInParallel();
     }
 
+    /*
     // input must be either "wet" or "dry"
     public void StartScenarioA(string climate)
     {
@@ -99,5 +100,5 @@ public class StartScenarios : MonoBehaviour
         myTerrain.GetComponent<TestGenerator>().PlaceBushes(resprouterXZ, 0);
         myTerrain.GetComponent<TestGenerator>().PlaceBushes(reseederXZ, 1);
         myTerrain.GetComponent<Size>().BeginScene("dryandwet");
-   } 
+   } */
 }
