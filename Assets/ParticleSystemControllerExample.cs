@@ -4,68 +4,47 @@ using UnityEngine;
 
 public class ParticleSystemControllerExample : MonoBehaviour
 {
-    ParticleSystem particleSystem;
+    new private ParticleSystem particleSystem;
     ParticleSystem.MainModule mainModule;
     bool shouldDie = false;
-    ParticleSystem.MinMaxCurve minmax;
+    public float LifeSpan;
+    public float Speed;
+    private float fireSize;
+    private bool killed = false;
+
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         particleSystem = GetComponent<ParticleSystem>();
         mainModule = particleSystem.main;
-        minmax = mainModule.startSize;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D)){
-            Die();
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            StartCoroutine(DieGradually());
-        }
-
-
+        mainModule.startSize = fireSize;
         if (shouldDie)
-        {
-            minmax.constant -= 0.001f;
-            mainModule.startSize = minmax;
-            if (minmax.constant < 0.001f)
+        { 
+            fireSize -= Speed / 1000;
+            if(fireSize < 0.0000000000000001f && !killed)
             {
-                shouldDie = false;
-                minmax.constant = 0.0f;
-                Destroy(gameObject);
+                killed = true;
+                Destroy(gameObject, 10);
+                 
             }
 
         }
-    }
 
-    void Die()
-    {
-        shouldDie = true;
-    }
-
-
-    IEnumerator DieGradually()
-    {
-
-        for(int i = 0; i < 10000; i++)
+        if (fireSize > LifeSpan / 2)
         {
-            minmax.constant -= 0.001f;
-            mainModule.startSize = minmax;
-            if (minmax.constant < 0.001f)
-            {
-                shouldDie = false;
-                minmax.constant = 0.0f;
-                Destroy(gameObject);
-            }
-            yield return null;
+            shouldDie = true;
         }
-        yield return null;
+
+        if (!shouldDie)
+        {
+            fireSize += Speed / 1000;
+        }
     }
 
-}
+    }

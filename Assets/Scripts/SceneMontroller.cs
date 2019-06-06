@@ -8,10 +8,10 @@ public class SceneMontroller : MonoBehaviour
     public Material sky;
     public Material noSky;
     public Light directionalLight;
-    public Flare noSun;
-    public Flare sun;
+    //public Flare noSun;
+    //public Flare sun;
 
-    public ScenarioButtonManager sbm;
+    //public ScenarioButtonManager sbm;
     public static SceneMontroller Instance { get; private set; }
 
     void Awake()
@@ -39,18 +39,19 @@ public class SceneMontroller : MonoBehaviour
         SceneManager.UnloadSceneAsync("scene_navigation");
         SceneManager.LoadScene("Rattlesnake", LoadSceneMode.Additive);
         RenderSettings.skybox = sky;
-        sbm.EnableButton1();
+        //sbm.EnableButton1();
     }
 
+    /*
     public void EnableSun()
     {
         directionalLight.flare= sun;
-    }
+    } 
 
     public void DisableSun()
     {
         directionalLight.flare = noSun;
-    }
+    } */
 
     void UnloadAllScenesExcept(string sceneName)
     {
@@ -67,14 +68,16 @@ public class SceneMontroller : MonoBehaviour
 
     public void AllScenesComplete()
     {
-        print("All 5 scenes have been completed!");
+        //print("All 5 scenes have been completed!");
     }
 
+    /*
     public void AddSBM(ScenarioButtonManager s)
     {
         sbm = s;
-    }
+    } */
 
+        /*
     public void ActivateNextButton(int x)
     {
         switch (x)
@@ -92,5 +95,5 @@ public class SceneMontroller : MonoBehaviour
                 sbm.EnableButton5();
                 break;
         }
-    }
+    } */
 }

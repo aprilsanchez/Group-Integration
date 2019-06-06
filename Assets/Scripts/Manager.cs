@@ -56,27 +56,17 @@ public class Manager : MonoBehaviour
         //check if other PM exists
         // go through array and delete other existing managers if any
 
-        Read("Ceanothus_burn_dryP", ref ReseederDry, ref OMinBioDry, ref OMaxBioDry);
-        Read("Ceanothus_burn_wetP", ref ReseederWet, ref OMinBioWet, ref OMaxBioWet);
-        Read("Chamise_burn_dryP", ref ResprouterDry, ref RMinBioDry, ref RMaxBioDry);
-        Read("Chamise_burn_wetP", ref ResprouterWet, ref RMinBioWet, ref RMaxBioWet);
-
-        //Debug.Log("size of ReseederDry: " + ReseederDry.Count);
-        //Debug.Log("size of ReseederWet: " + ReseederWet.Count);
-        //Debug.Log("size of ResprouterDry: " + ResprouterDry.Count);
-        //Debug.Log("size of ResprouterWet: " + ResprouterWet.Count);
-        //for (int i = 0; i < ReseederDry.Count; i++)
-        //{
-        //    Debug.Log("scale: " + ReseederDry[i].biomass);
-        //}
+        Read("Ceanothus_burn_dryP", ref ReseederDry, ref OMinBioDry, ref OMaxBioDry, "dry");
+        Read("Ceanothus_burn_wetP", ref ReseederWet, ref OMinBioWet, ref OMaxBioWet, "wet");
+        Read("Chamise_burn_dryP", ref ResprouterDry, ref RMinBioDry, ref RMaxBioDry, "dry");
+        Read("Chamise_burn_wetP", ref ResprouterWet, ref RMinBioWet, ref RMaxBioWet, "wet");
 
     }
 
     //read from fileName.txt, and return a list of all values of targetVar in the file
-    public void Read(string fileName, ref List<data> list, ref float min, ref float max)
+    public void Read(string fileName, ref List<data> list, ref float min, ref float max, string climate)
     {
-        //Debug.Log("inside Read");
-        //List<data> result = new List<data>();
+
         string path = Application.dataPath + "/Data/" + fileName + ".txt";
         float tempMin;
         float tempMax;
@@ -104,12 +94,13 @@ public class Manager : MonoBehaviour
             //get starting values
             line = sr.ReadLine();
             values = line.Split(' ');
-            //int currDay = int.Parse(values[dayIdx]); // do i even need this????
+            //int currDay = int.Parse(values[dayIdx]); // do i even need this
             int month = int.Parse(values[monthIdx]);
             int year = int.Parse(values[yearIdx]);
             float biomass = float.Parse(values[bioIdx]);
             float precip = float.Parse(values[precipIdx]);
 
+            int originalYear = year;
             list.Add(new data(month, year, biomass, precip, 0));
             //data currDataObject = new data(currMonth, currYear, bioSum, precipSum);
 
@@ -121,7 +112,9 @@ public class Manager : MonoBehaviour
             {
                 values = line.Split(' ');
                 year = int.Parse(values[yearIdx]);
-                if (year > 1993 && year < 2010)
+
+
+                if (year > originalYear + 3 && year < originalYear + 15)
                 {
 
                     biomass = float.Parse(values[bioIdx]);
@@ -136,23 +129,22 @@ public class Manager : MonoBehaviour
                     }
 
                     list.Add(new data(int.Parse(values[monthIdx]), year, biomass, float.Parse(values[precipIdx]), 0));
-                    //Debug.Log("added another item to list");
                 }
-                else if (year > 2009)
+                else if (year >= originalYear + 15)
                 {
                     //end while loop because we've already read 15 years of data post fire
                     break;
-                }
+                } 
 
             }
         }
-        //float tempMin = 0;
-        //float tempMax = 0;
+
         scaleBiomass(ref list, ref tempMin, ref tempMax);
         min = tempMin;
         max = tempMax;
-        //return result;
+
     }
+
     private void scaleBiomass(ref List<data> list, ref float min, ref float max)
     {
         float scale;
@@ -160,8 +152,6 @@ public class Manager : MonoBehaviour
         scale = (list[0].biomass * 2.25f) / max;
         list[0] = new data(list[0].month, list[0].year, list[0].biomass, list[0].precip, scale);
 
-        //float newMin = 0;
-        //float newMax = 0;
         min = scale;
         max = 0;
         for (int i = 1; i < list.Count; i++)
@@ -181,22 +171,12 @@ public class Manager : MonoBehaviour
             list[i] = new data(list[i].month, list[i].year, list[i].biomass, list[0].precip, scale);
         }
 
-        //min = newMin;
-        //max = newMax;
+
 
     }
 
 
     private void Start()
     {
-        
-        //PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
-        //animation.countPixels();
-        //animation.ClimateInParallel("reseeder");
-        //animation.PlantsInParallel("dry");
-        //System.Threading.Thread.Sleep(20000);
-        //Debug.Log("calling PlantsInParallel(wet)");
-        //animation.ClimateInParallel("resprouter");
-        //animation.testPlacement(animation.location, new Vector2(30, 30), 0, 8, ReseederDry[0].bushScale);
     }
 }

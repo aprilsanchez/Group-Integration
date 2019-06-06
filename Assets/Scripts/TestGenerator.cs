@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -146,3 +147,4 @@ public class TestGenerator : MonoBehaviour
         Terrain.activeTerrain.terrainData.SetHeights(0, 0, heights);
     }
 }
+*/
