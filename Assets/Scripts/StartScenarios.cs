@@ -8,7 +8,13 @@ public class StartScenarios : MonoBehaviour
     private Vector2 reseederXZ = new Vector2(841, 1631);
     private Vector2 resprouterXZ = new Vector2(872, 1631);
 
+    int pip;
+
     private bool paused = false;
+
+    private void Start()
+    {
+    }
 
     public void pauseSimulation()
     {

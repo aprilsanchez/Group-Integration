@@ -4,77 +4,132 @@ using UnityEngine;
 
 public class PanelControl : MonoBehaviour
 {
+    /*
     public GameObject firstPanel;
     public GameObject secondPanel;
     public GameObject thirdPanel;
     public GameObject fourthPanel;
-    public GameObject fifthPanel;
-    public int scenenum = 1;
+    public GameObject fifthPanel; */
+    public GameObject pip;
+    public GameObject piptransition;
+    public GameObject cip;
+    public GameObject ciptransition;
+    public GameObject bip;
+    public int scenenum = 0;
+
+    public int study;   // set to 1, 2, 3, 4, 5, or 6
+    /* 1 = PIP, CIP, BIP
+     * 2 = PIP, BIP, CIP
+     * 3 = CIP, PIP, BIP
+     * 4 = CIP, BIP, PIP
+     * 5 = BIP, PIP, CIP
+     * 6 = BIP, CIP, PIP
+     */
+
+    // pip are 1 & 2 ** always keep these consecutive!!**
+    // cip are 3 & 4 ** always keep these consecutive!!**
+    private int[] order1 = { 1, 2, 3, 4, 5 };
+    private int[] order2 = { 1, 2, 5, 3, 4 };
+    private int[] order3 = { 3, 4, 1, 2, 5 };
+    private int[] order4 = { 3, 4, 5, 1, 2 };
+    private int[] order5 = { 5, 1, 2, 3, 4 };
+    private int[] order6 = { 5, 3, 4, 1, 2 };
+
+    public int[] chosenOrder;
 
     // Start is called before the first frame update
     void Start()
     {
-        EnablePanel();
+        switch (study)
+        {
+            case 1:
+                chosenOrder = order1;
+                break;
+            case 2:
+                chosenOrder = order2;
+                break;
+            case 3:
+                chosenOrder = order3;
+                break;
+            case 4:
+                chosenOrder = order4;
+                break;
+            case 5:
+                chosenOrder = order5;
+                break;
+            case 6:
+                chosenOrder = order6;
+                break;
+        }
+        RemoveFirstPanel();
         RemoveSecondPanel();
         RemoveThirdPanel();
         RemoveFourthPanel();
         RemoveFifthPanel();
+        EnablePanel();
     }
 
     // Update is called once per frame
     public void RemoveFirstPanel()
     {
-        firstPanel.SetActive(false);
+        pip.SetActive(false);
     }
 
     public void RemoveSecondPanel()
     {
-        secondPanel.SetActive(false);
+        piptransition.SetActive(false);
     }
 
     public void RemoveThirdPanel()
     {
-        thirdPanel.SetActive(false);
+        cip.SetActive(false);
     }
 
     public void RemoveFourthPanel()
     {
-        fourthPanel.SetActive(false);
+        ciptransition.SetActive(false);
     }
 
     public void RemoveFifthPanel()
     {
-        fifthPanel.SetActive(false);
+        bip.SetActive(false);
     }
 
     public void EnablePanel()
     {
-        switch(scenenum)
+        if (chosenOrder[scenenum] > 5)
         {
-            case (1):
-                firstPanel.SetActive(true);
-                scenenum += 1;
-                break;
+            Debug.Log("All simulations have ended!");
+        } else
+        {
+            switch (chosenOrder[scenenum])
+            {
+                case 1:
+                    pip.SetActive(true);
+                    scenenum += 1;
+                    break;
 
-            case 2:
-                secondPanel.SetActive(true);
-                scenenum += 1;
-                break;
+                case 2:
+                    piptransition.SetActive(true);
+                    scenenum += 1;
+                    break;
 
-            case 3:
-                thirdPanel.SetActive(true);
-                scenenum += 1;
-                break;
+                case 3:
+                    cip.SetActive(true);
+                    scenenum += 1;
+                    break;
 
-            case 4:
-                fourthPanel.SetActive(true);
-                scenenum += 1;
-                break;
+                case 4:
+                    ciptransition.SetActive(true);
+                    scenenum += 1;
+                    break;
 
-            case 5:
-                fifthPanel.SetActive(true);
-                scenenum += 1;
-                break;
+                case 5:
+                    bip.SetActive(true);
+                    scenenum += 1;
+                    break;
+            }
         }
+        
     }
 }

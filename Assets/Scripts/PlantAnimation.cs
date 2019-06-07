@@ -52,7 +52,7 @@ public class PlantAnimation : MonoBehaviour
     public bool plantsInParallel = false;
     private bool firstTimeClimateInParallel = true;
     private int parallelIndex;
-    private Vector3 dividerPos = new Vector3(0.54f,0,23.0f);
+    private Vector3 dividerPos = new Vector3(0,0,23.0f);
     public string type; //which of the three P's is it    
     private Vector2 location = new Vector2(841, 1631);
 
@@ -593,11 +593,11 @@ public class PlantAnimation : MonoBehaviour
                         fireOccurred = true;
                         if (climate == "dry")
                         {
-                            StartCoroutine(StartSun(new Vector3(-2, 18, 25)));
+                            StartCoroutine(StartSun(new Vector3(0, 18, 25)));
                         }
                         else
                         {
-                            StartRain(new Vector3(-2, 11.8f, 15));
+                            StartRain(new Vector3(0, 20, 15)); 
                         }
                         StartFire(fireLength);
                         break;
@@ -676,11 +676,11 @@ public class PlantAnimation : MonoBehaviour
                         fireOccurred = true;
                         if (climate == "dry")
                         {
-                            StartCoroutine(StartSun(new Vector3(-2, 18, 25)));
+                            StartCoroutine(StartSun(new Vector3(0, 18, 25)));
                         }
                         else
                         {
-                            StartRain(new Vector3(-2, 11.8f, 15));
+                            StartRain(new Vector3(-2, 20, 15));
                         }
                         StartFire(fireLength);
                         break;
@@ -928,7 +928,7 @@ public class PlantAnimation : MonoBehaviour
                 else          //BIOMASS DECREASING
                 {
                     ////Debug.Log("BIOMASS IS DECREASING");
-                    //only want to make leaves fall if the bush is full enough where it makes sense to have leaves falling (i.e we don't want a bare bush to drop leaves)
+                    //only want to make leaves fall if the bush is full enough where it makes sense to have leaves falling (i.e we don'tnt a bare bush to drop leaves)
 
                     if (dryScale > DryIntervals[4])
                     {
