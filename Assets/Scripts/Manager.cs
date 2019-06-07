@@ -12,6 +12,7 @@ public class Manager : MonoBehaviour
 
     public int pipChoice;
     public int cipChoice;
+    public int studyChoice;
 
     public struct data
     {

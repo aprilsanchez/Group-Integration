@@ -37,8 +37,7 @@ public class PanelControl : MonoBehaviour
 
     public int[] chosenOrder;
 
-    // Start is called before the first frame update
-    void Start()
+    public void setOrder(int study)
     {
         switch (study)
         {
@@ -61,12 +60,24 @@ public class PanelControl : MonoBehaviour
                 chosenOrder = order6;
                 break;
         }
+        EnablePanel();
+    }
+
+    private void Awake()
+    {
         RemoveFirstPanel();
         RemoveSecondPanel();
         RemoveThirdPanel();
         RemoveFourthPanel();
         RemoveFifthPanel();
-        EnablePanel();
+        Manager manager = GameObject.Find("manager").GetComponent<Manager>();
+        setOrder(manager.studyChoice);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -105,6 +116,7 @@ public class PanelControl : MonoBehaviour
             switch (chosenOrder[scenenum])
             {
                 case 1:
+                    Debug.Log("Chose study 1");
                     pip.SetActive(true);
                     scenenum += 1;
                     break;
