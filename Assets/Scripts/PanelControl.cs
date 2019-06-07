@@ -15,7 +15,7 @@ public class PanelControl : MonoBehaviour
     public GameObject cip;
     public GameObject ciptransition;
     public GameObject bip;
-    public int scenenum = 0;
+    private int scenenum = 0;
 
     public int study;   // set to 1, 2, 3, 4, 5, or 6
     /* 1 = PIP, CIP, BIP

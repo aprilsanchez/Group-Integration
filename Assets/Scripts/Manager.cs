@@ -9,7 +9,10 @@ public class Manager : MonoBehaviour
     public int season = 6;
     public GameObject[] reseeders = new GameObject[9];
     public GameObject[] resprouters = new GameObject[9];
-   
+
+    public int pipChoice;
+    public int cipChoice;
+
     public struct data
     {
         public int month;
@@ -60,6 +63,9 @@ public class Manager : MonoBehaviour
         Read("Ceanothus_burn_wetP", ref ReseederWet, ref OMinBioWet, ref OMaxBioWet, "wet");
         Read("Chamise_burn_dryP", ref ResprouterDry, ref RMinBioDry, ref RMaxBioDry, "dry");
         Read("Chamise_burn_wetP", ref ResprouterWet, ref RMinBioWet, ref RMaxBioWet, "wet");
+
+        pipChoice = UnityEngine.Random.Range(0, 2); // if 0 start with dry, if 1 start with wet
+        cipChoice = UnityEngine.Random.Range(0, 2); // if 0 start with resp, if 1 start with obs
 
     }
 

@@ -8,12 +8,13 @@ public class StartScenarios : MonoBehaviour
     private Vector2 reseederXZ = new Vector2(841, 1631);
     private Vector2 resprouterXZ = new Vector2(872, 1631);
 
-    int pip;
+    private Manager manager;
 
     private bool paused = false;
 
     private void Start()
     {
+        manager = GameObject.Find("manager").GetComponent<Manager>();
     }
 
     public void pauseSimulation()
@@ -54,16 +55,32 @@ public class StartScenarios : MonoBehaviour
         }
     }
 
-    public void startClimateInParallel(string species)
+    public void startClimateInParallel()
     {
         PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
-        animation.ClimateInParallel(species);
+        if (manager.cipChoice == 0)
+        {
+            manager.cipChoice = 1;
+            animation.ClimateInParallel("resprouter");
+        } else if (manager.cipChoice == 1)
+        {
+            manager.cipChoice = 0;
+            animation.ClimateInParallel("reseeder");
+        }
     }
 
-    public void startPlantsInParallel(string climate)
+    public void startPlantsInParallel()
     {
         PlantAnimation animation = GameObject.Find("Terrain").GetComponent<PlantAnimation>();
-        animation.PlantsInParallel(climate);
+        if (manager.pipChoice == 0)
+        {
+            manager.pipChoice = 1;
+            animation.PlantsInParallel("dry");
+        } else if (manager.pipChoice == 1)
+        {
+            manager.pipChoice = 0;
+            animation.PlantsInParallel("wet");
+        }
         //animation.countPixels();
     }
 
