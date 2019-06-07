@@ -224,6 +224,7 @@ public class PlantAnimation : MonoBehaviour
 
                     addBushToTerrain(x, y, PrototypeIndex, scale);
                     Vector3 bushPosition = Vector3.Scale(myTerrain.terrainData.GetTreeInstance(myTerrain.terrainData.treeInstanceCount - 1).position, myTerrain.terrainData.size) + myTerrain.transform.position;
+                    Vector3 tempPosition = bushPosition;
                     bushPosition.y += (4 / 5) * scale;
                     if (speciesInSeries == "resprouter")
                     {
@@ -232,7 +233,8 @@ public class PlantAnimation : MonoBehaviour
                     }
                     else
                     {
-                        ParticleSystem l = Instantiate(ReseederLeaves, bushPosition, ReseederLeaves.transform.rotation);
+                        tempPosition.y += 2.15f;
+                        ParticleSystem l = Instantiate(ReseederLeaves, tempPosition, ReseederLeaves.transform.rotation);
                         ListOLeaves.Add(l);
                     }
                     count++;

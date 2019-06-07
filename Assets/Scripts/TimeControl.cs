@@ -103,8 +103,8 @@ public class TimeControl : MonoBehaviour
 
 
             }
-            else { tmp.text = "Month: " + Terrain.FindObjectOfType<PlantAnimation>().getCurrentMonth(); }
-
+            else { tmp.text = "Month: " + m; }
+            // Terrain.FindObjectOfType<PlantAnimation>().getCurrentMonth()
             if (Terrain.FindObjectOfType<PlantAnimation>().getIndex() == 4018)
             {
                 isEnabled = false;
