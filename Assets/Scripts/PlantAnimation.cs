@@ -16,6 +16,15 @@ public class PlantAnimation : MonoBehaviour
     public string speciesInSeries = ""; //has to be set when calling function that make plantsInSeries = true
     public string climate; //will be "dry", "wet" or "both"
     Terrain myTerrain;
+
+    public GameObject wetSign;
+    public GameObject drySign;
+    public GameObject pipWetSign;
+    public GameObject pipDrySign;
+    public GameObject cipRespSign;
+    public GameObject cipObsSign;
+    public GameObject bothSign;
+
     public float[] ReseederDryIntervals;
     public float[] ReseederWetIntervals;
     public float[] ResprouterDryIntervals;
@@ -50,9 +59,9 @@ public class PlantAnimation : MonoBehaviour
     public bool bothInParallel = false;
     public bool climateInParallel = false;
     public bool plantsInParallel = false;
-    private bool firstTimeClimateInParallel = true;
+    //private bool firstTimeClimateInParallel = true;
     private int parallelIndex;
-    private Vector3 dividerPos = new Vector3(0,0,23.0f);
+    //private Vector3 dividerPos = new Vector3(0,0,23.0f);
     public string type; //which of the three P's is it    
     private Vector2 location = new Vector2(841, 1631);
 
@@ -351,6 +360,7 @@ public class PlantAnimation : MonoBehaviour
             updatePrefab(wetScale, species, "wet");
             dryScale = manager.ReseederDry[0].bushScale;
             updatePrefab(dryScale, species, "dry");
+            cipRespSign.SetActive(true);
         }
         else
         {
@@ -358,6 +368,7 @@ public class PlantAnimation : MonoBehaviour
             updatePrefab(wetScale, species, "wet");
             dryScale = manager.ResprouterDry[0].bushScale;
             updatePrefab(dryScale, species, "dry");
+            cipObsSign.SetActive(true);
         }
 
 
@@ -365,11 +376,15 @@ public class PlantAnimation : MonoBehaviour
         // dryPrototypeIndex = 0, wetPrototypeIndex = 1;
         parallelIndex = PlaceBushes(location, new Vector2(14,30) , 0, dryScale);
         PlaceBushes(new Vector2(location.x + 16, location.y), new Vector2(14, 30), 1, wetScale);
-        if (firstTimeClimateInParallel)
+        /*if (firstTimeClimateInParallel)
         {
             Instantiate(Divider, dividerPos, Divider.transform.rotation);
+            
             firstTimeClimateInParallel = false;
-        }
+        } */
+        Divider.SetActive(true);
+        wetSign.SetActive(true);
+        drySign.SetActive(true);
         StartGrowth();
     }
 
@@ -397,6 +412,7 @@ public class PlantAnimation : MonoBehaviour
             updatePrefab(initialScale1, "resprouter", "dry");
             initialScale2 = manager.ReseederDry[0].bushScale;
             updatePrefab(initialScale2, "reseeder", "dry");
+            pipDrySign.SetActive(true);
         }
         else
         {
@@ -404,6 +420,7 @@ public class PlantAnimation : MonoBehaviour
             updatePrefab(initialScale1, "resprouter", "wet");
             initialScale2 = manager.ReseederWet[0].bushScale;
             updatePrefab(initialScale2, "reseeder", "wet");
+            pipWetSign.SetActive(true);
         }
 
         //left side of the patch will be dry, right side will be wet
@@ -432,8 +449,11 @@ public class PlantAnimation : MonoBehaviour
         //left side of the patch will be dry, right side will be wet
         parallelIndex = PlaceBushes(location, new Vector2(14, 30), 0, 1, resprouterDryScale, reseederDryScale);
         PlaceBushes(new Vector2(location.x + 16, location.y), new Vector2(14, 30), 2, 3, resprouterWetScale, reseederWetScale);
+        Divider.SetActive(true);
+        bothSign.SetActive(true);
+        wetSign.SetActive(true);
+        drySign.SetActive(true);
         StartGrowth();
-
     } 
 
 
@@ -733,7 +753,6 @@ public class PlantAnimation : MonoBehaviour
             //stop when there are no more Biomasses to read
             if (index >= (maxIndex))
             {
-
                 DestroyBushes();
                 DestroyLeaves();
                 plantsInParallel = false;
@@ -744,6 +763,8 @@ public class PlantAnimation : MonoBehaviour
                 fireOccurred = false;
                 GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
                 GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
+                pipWetSign.SetActive(false);
+                pipDrySign.SetActive(false);
                 GameObject.Find("Terrain").GetComponent<PanelControl>().EnablePanel();
             }
 
@@ -867,7 +888,7 @@ public class PlantAnimation : MonoBehaviour
 
                     fireOccurred = true;
                     StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                    StartHalfRain(new Vector3(11.2f, 20, 15));
+                    StartHalfRain(new Vector3(6, 20, 15));
                     StartFire(fireLength);
                     breakAgain = true;
                     break;
@@ -998,7 +1019,7 @@ public class PlantAnimation : MonoBehaviour
 
                     fireOccurred = true;
                     StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                    StartHalfRain(new Vector3(11.2f, 20, 15));
+                    StartHalfRain(new Vector3(6, 20, 15));
                     StartFire(fireLength);
                     break;
 
@@ -1099,7 +1120,7 @@ public class PlantAnimation : MonoBehaviour
             //stop when there are no more Biomasses to read
             if (index >= maxIndex)
             {
-
+                Divider.SetActive(false);
                 DestroyBushes();
                 DestroyLeaves();
                 climateInParallel = false;
@@ -1111,11 +1132,14 @@ public class PlantAnimation : MonoBehaviour
                 fireOccurred = false;
                 GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
                 GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
+                cipObsSign.SetActive(false);
+                cipRespSign.SetActive(false);
+                wetSign.SetActive(false);
+                drySign.SetActive(false);
                 GameObject.Find("Terrain").GetComponent<PanelControl>().EnablePanel();
             }
-
-
         }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         else if (bothInParallel)
         {
 
@@ -1515,7 +1539,7 @@ public class PlantAnimation : MonoBehaviour
             //stop when there are no more Biomasses to read
             if (index >= maxIndex)
             {
-
+                Divider.SetActive(false);
                 DestroyBushes();
                 DestroyLeaves();
                 bothInParallel = false;
@@ -1525,6 +1549,9 @@ public class PlantAnimation : MonoBehaviour
                 fireOccurred = false;
                 GameObject.Find("myTime").GetComponent<TimeControl>().enabled = false;
                 GameObject.Find("myTime").GetComponent<MeshRenderer>().enabled = false;
+                bothSign.SetActive(false);
+                wetSign.SetActive(false);
+                drySign.SetActive(false);
                 GameObject.Find("Terrain").GetComponent<PanelControl>().EnablePanel();
             }
 
