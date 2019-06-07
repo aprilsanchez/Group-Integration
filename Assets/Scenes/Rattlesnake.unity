@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3500668, g: 0.44915104, b: 0.5880307, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -382,6 +382,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 6307133438309738887, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.166
+      objectReference: {fileID: 0}
     - target: {fileID: 1452102027060594827, guid: 18148f190bff43c4cb70513d80a5077a,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -446,7 +451,17 @@ PrefabInstance:
     - target: {fileID: 6033770702493270201, guid: 18148f190bff43c4cb70513d80a5077a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.395
+      value: 0.385
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033770702493270201, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033770702493270201, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 102806200086780864, guid: 18148f190bff43c4cb70513d80a5077a,
         type: 3}
@@ -462,6 +477,68 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: Climates and Plants in Parallel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618568718307517284, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132050526474507759, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132050526474507759, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1003.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 795161945682762777, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.397
+      objectReference: {fileID: 0}
+    - target: {fileID: 3551804974690252475, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789997292879107605, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_Text
+      value: 'You are about to experience a simulation in which obligate seeders and
+        resprouters grow amongst each other in the same patch of land. On the left
+        side, both plants will experience a "dry" year following the fire. On the
+        right side, both plants will experience a "wet" year.
+
+
+        After this simulation, you will answer the following four questions:
+
+        1. When the climate after the fire is dry, which type of bush grows back faster?
+
+        2. When the climate after the fire is wet, which type of bush grows back faster?
+
+        3. Under which post-fire climate condition does the "resprouter" grow back
+        faster?
+
+        4. Under which post-fire climate condition does the "obligate seeder" grow
+        back faster?
+
+
+        NOTE: In the simulation, the resprouters appear to be a light shade of green
+        and the obligate seeders are a darker shade of green.
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789997292879107605, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789997292879107605, guid: 18148f190bff43c4cb70513d80a5077a,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18148f190bff43c4cb70513d80a5077a, type: 3}
@@ -146386,7 +146463,12 @@ PrefabInstance:
     - target: {fileID: 1132050526474507759, guid: 5c759499daccb404dbba2aa766e10498,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.08
+      value: 0.068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132050526474507759, guid: 5c759499daccb404dbba2aa766e10498,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 6033770702493270201, guid: 5c759499daccb404dbba2aa766e10498,
         type: 3}
@@ -146396,7 +146478,7 @@ PrefabInstance:
     - target: {fileID: 6033770702493270201, guid: 5c759499daccb404dbba2aa766e10498,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.38
+      value: 0.406
       objectReference: {fileID: 0}
     - target: {fileID: 6033770702493270201, guid: 5c759499daccb404dbba2aa766e10498,
         type: 3}
@@ -146416,7 +146498,37 @@ PrefabInstance:
     - target: {fileID: 3618568718307517284, guid: 5c759499daccb404dbba2aa766e10498,
         type: 3}
       propertyPath: m_Text
-      value: Stage 1 - Plants In Parallel
+      value: Plants In Parallel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884396575937190327, guid: 5c759499daccb404dbba2aa766e10498,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 795161945682762777, guid: 5c759499daccb404dbba2aa766e10498,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.386
+      objectReference: {fileID: 0}
+    - target: {fileID: 3551804974690252475, guid: 5c759499daccb404dbba2aa766e10498,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789997292879107605, guid: 5c759499daccb404dbba2aa766e10498,
+        type: 3}
+      propertyPath: m_Text
+      value: "You are about to experience two simulations in which obligate seeders
+        and resprouters grow in the same patch of land (i.e in parallel). In one simulation,
+        the plants experience a \"dry\" year following the fire. In the other simulation,
+        the plants experience a \"wet\" year. \n\nAfter this simulation, you will
+        answer the following four questions:\n1. When the climate after the fire is
+        dry, which type of bush grows back faster?\n2. When the climate after the
+        fire is wet, which type of bush grows back faster?\n3. Under which post-fire
+        climate condition does the \"resprouter\" grow back faster?\n4. Under which
+        post-fire climate condition does the \"obligate seeder\" grow back faster?\n\nNOTE:
+        In the simulation, the resprouters appear to be a light shade of green and
+        the obligate seeders are a darker shade of green.\n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c759499daccb404dbba2aa766e10498, type: 3}
@@ -146817,7 +146929,7 @@ PrefabInstance:
     - target: {fileID: 3396139391262914720, guid: 4e3386a2f1390f348bf209cb07cdfad2,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2335089310971372613, guid: 4e3386a2f1390f348bf209cb07cdfad2,
         type: 3}
@@ -146948,7 +147060,7 @@ PrefabInstance:
     - target: {fileID: 3618568718307517284, guid: 4e3386a2f1390f348bf209cb07cdfad2,
         type: 3}
       propertyPath: m_Text
-      value: Climate In Parallel
+      value: Climates In Parallel
       objectReference: {fileID: 0}
     - target: {fileID: 102806200086780864, guid: 4e3386a2f1390f348bf209cb07cdfad2,
         type: 3}
@@ -146958,20 +147070,41 @@ PrefabInstance:
     - target: {fileID: 1789997292879107605, guid: 4e3386a2f1390f348bf209cb07cdfad2,
         type: 3}
       propertyPath: m_Text
-      value: 'You are about to experience two simulations in which obligate seeders
-        and resprouters are growing within the same 30 x 30 meter patch of land (i.e
-        in parallel). In one simulation, obligate seeders will experience both "dry"
-        and "wet" climate following the fire. The 2 climate condition are separated
-        by green division in between. In the other simulation,obligate seeders will
-        experience both "dry" and "wet" climate following the fire.. Pay close attention
-        to the differences in how the obligate seeders and the respouters grow back
-        post fire under a given climate condition (either wet or dry).
+      value: 'You are about to experience two simulations in which one type of bush
+        grows in a patch of land and simultaneously experiences two different climates
+        conditions (i.e in parallel). In one simulation, OBLIGATE SEEDERS will experience
+        a "dry" climate on the left side and a "wet" climate on the right side. In
+        the other simulation, RESPROUTERS will experience a "dry" climate on the left
+        side and a "wet" climate on the right side.
+
+
+        After this simulation, you will answer the following four questions:
+
+        1. When the climate after the fire is dry, which type of bush grows back faster?
+
+        2. When the climate after the fire is wet, which type of bush grows back faster?
+
+        3. Under which post-fire climate condition does the "resprouter" grow back
+        faster?
+
+        4. Under which post-fire climate condition does the "obligate seeder" grow
+        back faster?
 
 
         NOTE: In the simulation, the resprouters appear to be a light shade of green
         and the obligate seeders are a darker shade of green.
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132050526474507759, guid: 4e3386a2f1390f348bf209cb07cdfad2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.082
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884396575937190327, guid: 4e3386a2f1390f348bf209cb07cdfad2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e3386a2f1390f348bf209cb07cdfad2, type: 3}

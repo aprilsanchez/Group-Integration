@@ -368,7 +368,7 @@ public class PlantAnimation : MonoBehaviour
             updatePrefab(wetScale, species, "wet");
             dryScale = manager.ReseederDry[0].bushScale;
             updatePrefab(dryScale, species, "dry");
-            cipRespSign.SetActive(true);
+            cipObsSign.SetActive(true);
         }
         else
         {
@@ -376,7 +376,7 @@ public class PlantAnimation : MonoBehaviour
             updatePrefab(wetScale, species, "wet");
             dryScale = manager.ResprouterDry[0].bushScale;
             updatePrefab(dryScale, species, "dry");
-            cipObsSign.SetActive(true);
+            cipRespSign.SetActive(true);
         }
 
 
