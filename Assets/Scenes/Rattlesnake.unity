@@ -197,7 +197,7 @@ PrefabInstance:
     - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
         type: 3}
@@ -300,8 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6679e53dba8bb0d47b7f80f5a1539ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipChoice: 0
-  cipChoice: 0
 --- !u!1001 &211689406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145640,7 +145638,7 @@ PrefabInstance:
     - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114718788154663760, guid: 51cc6641d88b49d46bd38572540efe6c,
         type: 3}
@@ -145743,8 +145741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6679e53dba8bb0d47b7f80f5a1539ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipChoice: 0
-  cipChoice: 0
 --- !u!1 &968577286
 GameObject:
   m_ObjectHideFlags: 0
@@ -146121,6 +146117,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452102027060594827, guid: 5c759499daccb404dbba2aa766e10498,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1132050526474507759, guid: 5c759499daccb404dbba2aa766e10498,
         type: 3}
@@ -146673,6 +146674,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1452102027060594827, guid: 4e3386a2f1390f348bf209cb07cdfad2,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1742491637928780670, guid: 4e3386a2f1390f348bf209cb07cdfad2,
         type: 3}
