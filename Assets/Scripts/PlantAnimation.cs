@@ -12,6 +12,12 @@ public class PlantAnimation : MonoBehaviour
     public AnimationCurve ReseederWetCurve;
     public AnimationCurve ResprouterDryCurve;
     public AnimationCurve ResprouterWetCurve;
+
+    public AnimationCurve Med1;
+    public AnimationCurve Fast;
+    public AnimationCurve Med2;
+    public AnimationCurve Slow;
+    
     public int index = 1;
     public string speciesInSeries = ""; //has to be set when calling function that make plantsInSeries = true
     public string climate; //will be "dry", "wet" or "both"
@@ -491,7 +497,16 @@ public class PlantAnimation : MonoBehaviour
         myTerrain = Terrain.activeTerrain;
         
         manager = GameObject.Find("manager").GetComponent<Manager>();
-
+        /*
+        ReseederDryIntervals = makeIntervals(0.5199959f, 2.250004f);   //need to compare actual biomass, not scales
+        ReseederWetIntervals = makeIntervals(0.5199959f, 2.250004f);
+        ResprouterDryIntervals = makeIntervals(0.5199959f, 2.250004f);
+        ResprouterWetIntervals = makeIntervals(0.5199959f, 2.250004f);*/
+        
+        ReseederDryIntervals = makeIntervals(0.5f, 2.7f);   //need to compare actual biomass, not scales
+        ReseederWetIntervals = makeIntervals(0.5f, 2.7f);
+        ResprouterDryIntervals = makeIntervals(0.5f, 2.7f);
+        ResprouterWetIntervals = makeIntervals(0.5f, 2.7f);
         /*
         ReseederDryIntervals = makeIntervals(manager.OMinBioDry, manager.OMaxBioDry);   //need to compare actual biomass, not scales
         ReseederWetIntervals = makeIntervals(manager.OMinBioWet, manager.OMaxBioWet);
@@ -511,7 +526,26 @@ public class PlantAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
+        Fast.AddKey(0, 2);
+        Fast.AddKey(608, 2.2f);
+        Fast.AddKey(609, 0.5f);
+        Fast.AddKey(4000, 2.6f);
 
+        Med1.AddKey(0, 2);
+        Med1.AddKey(608, 2.2f);
+        Med1.AddKey(609, 0.5f);
+        Med1.AddKey(4000, 1.6f);
+
+        Med2.AddKey(0, 2);
+        Med2.AddKey(608, 2.2f);
+        Med2.AddKey(609, 0.5f);
+        Med2.AddKey(4000, 1.6f);
+
+        Slow.AddKey(0, 2);
+        Slow.AddKey(608, 2.2f);
+        Slow.AddKey(609, 0.5f);
+        Slow.AddKey(4000, 1.1f);*/
     }
 
     // Update is called once per frame
@@ -534,8 +568,10 @@ public class PlantAnimation : MonoBehaviour
 
             if (climate == "dry")
             {
-                scale1 = ResprouterDryCurve.Evaluate(index);
-                scale2 = ReseederDryCurve.Evaluate(index);
+                //scale1 = ResprouterDryCurve.Evaluate(index);
+                //scale2 = ReseederDryCurve.Evaluate(index); 
+                scale1 = Med1.Evaluate(index);
+                scale2 = Med2.Evaluate(index);
 
                 RIntervals = ResprouterDryIntervals;
                 OIntervals = ReseederDryIntervals;
@@ -545,8 +581,10 @@ public class PlantAnimation : MonoBehaviour
             }
             else //climate will be wet
             {
-                scale1 = ResprouterWetCurve.Evaluate(index);
-                scale2 = ReseederWetCurve.Evaluate(index);
+                //scale1 = ResprouterWetCurve.Evaluate(index);
+                //scale2 = ReseederWetCurve.Evaluate(index); 
+                scale1 = Fast.Evaluate(index);
+                scale2 = Slow.Evaluate(index); 
 
                 RIntervals = ResprouterWetIntervals;
                 OIntervals = ReseederWetIntervals;
@@ -784,16 +822,20 @@ public class PlantAnimation : MonoBehaviour
 
             if (speciesInSeries == "reseeder")
             {
-                dryScale = ReseederDryCurve.Evaluate(index);
-                wetScale = ReseederWetCurve.Evaluate(index);
+                //dryScale = ReseederDryCurve.Evaluate(index);
+                //wetScale = ReseederWetCurve.Evaluate(index);
+                dryScale = Slow.Evaluate(index);
+                wetScale = Fast.Evaluate(index);
 
                 DryIntervals = ReseederDryIntervals;
                 WetIntervals = ReseederWetIntervals;
             }
             else
             {
-                dryScale = ResprouterDryCurve.Evaluate(index);
-                wetScale = ResprouterWetCurve.Evaluate(index);
+                //dryScale = ResprouterDryCurve.Evaluate(index);
+                //wetScale = ResprouterWetCurve.Evaluate(index);
+                dryScale = Med2.Evaluate(index);
+                wetScale = Med1.Evaluate(index);
 
                 DryIntervals = ResprouterDryIntervals;
                 WetIntervals = ResprouterWetIntervals;
@@ -890,7 +932,7 @@ public class PlantAnimation : MonoBehaviour
 
                     fireOccurred = true;
                     StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                    StartHalfRain(new Vector3(6, 20, 15));
+                    StartHalfRain(new Vector3(9, 20, 15));
                     StartFire(fireLength);
                     breakAgain = true;
                     break;
@@ -1021,7 +1063,7 @@ public class PlantAnimation : MonoBehaviour
 
                     fireOccurred = true;
                     StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                    StartHalfRain(new Vector3(6, 20, 15));
+                    StartHalfRain(new Vector3(9, 20, 15));
                     StartFire(fireLength);
                     break;
 
@@ -1144,11 +1186,15 @@ public class PlantAnimation : MonoBehaviour
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         else if (bothInParallel)
         {
-
+            /*
             float ODryScale = ReseederDryCurve.Evaluate(index);
             float OWetScale = ReseederWetCurve.Evaluate(index);
             float RDryScale = ResprouterDryCurve.Evaluate(index);
-            float RWetScale = ResprouterWetCurve.Evaluate(index);
+            float RWetScale = ResprouterWetCurve.Evaluate(index); */
+            float ODryScale = Fast.Evaluate(index);
+            float OWetScale = Med2.Evaluate(index);
+            float RDryScale = Med1.Evaluate(index);
+            float RWetScale = Slow.Evaluate(index); 
 
             updatePrefab(ODryScale, "reseeder", "dry");
             updatePrefab(OWetScale, "reseeder", "wet");
@@ -1247,7 +1293,7 @@ public class PlantAnimation : MonoBehaviour
                         breakAgain = true;
                         fireOccurred = true;
                         StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                        StartHalfRain(new Vector3(11.2f, 20, 15));
+                        StartHalfRain(new Vector3(9, 20, 15));
                         StartFire(fireLength);
                         break;
                     }
@@ -1325,7 +1371,7 @@ public class PlantAnimation : MonoBehaviour
                         breakAgain = true;
                         fireOccurred = true;
                         StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                        StartHalfRain(new Vector3(11.2f, 20, 15));
+                        StartHalfRain(new Vector3(9, 20, 15));
                         StartFire(fireLength);
                         break;
 
@@ -1415,7 +1461,7 @@ public class PlantAnimation : MonoBehaviour
 
                         fireOccurred = true;
                         StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                        StartHalfRain(new Vector3(11.2f, 20, 15));
+                        StartHalfRain(new Vector3(9, 20, 15));
                         StartFire(fireLength);
                         break;
 
@@ -1488,7 +1534,7 @@ public class PlantAnimation : MonoBehaviour
 
                         fireOccurred = true;
                         StartCoroutine(StartSun(new Vector3(-5, 18, 25)));
-                        StartHalfRain(new Vector3(11.2f, 20, 15));
+                        StartHalfRain(new Vector3(9, 20, 15));
                         StartFire(fireLength);
                         break;
                     }

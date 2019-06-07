@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4377623, g: 0.48566175, b: 0.56593764, a: 1}
+  m_IndirectSpecularColor: {r: 0.3500668, g: 0.44915104, b: 0.5880307, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -36864,7 +36864,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 4014
-      value: 1.3946332
+      value: 1.3953707
       inSlope: -0.00007867813
       outSlope: -0.00007867813
       tangentMode: 0
@@ -145405,6 +145405,210 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  Med1:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0.00032894744
+      outSlope: 0.00032894744
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 608
+      value: 2.2
+      inSlope: 0.00060713256
+      outSlope: 0.00060713256
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18304187
+      outWeight: 1
+    - serializedVersion: 3
+      time: 609
+      value: 0.5
+      inSlope: 0.0008012107
+      outSlope: 0.0008012107
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.041580655
+    - serializedVersion: 3
+      time: 4000
+      value: 1.6
+      inSlope: 0.0003243881
+      outSlope: 0.0003243881
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Fast:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0.00032894744
+      outSlope: 0.00032894744
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 608
+      value: 2.2
+      inSlope: 0.000121986035
+      outSlope: 0.000121986035
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 609
+      value: 0.5
+      inSlope: 0.0011923184
+      outSlope: 0.0011923184
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.05516151
+    - serializedVersion: 3
+      time: 850.10565
+      value: 0.8292555
+      inSlope: 0.0020492328
+      outSlope: 0.0020492328
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1036.0151
+      value: 1.2478688
+      inSlope: 0.0011001825
+      outSlope: 0.0011001825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2846303
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1400.1576
+      value: 1.5909194
+      inSlope: 0.0004560986
+      outSlope: 0.0004560986
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.057382163
+    - serializedVersion: 3
+      time: 4000
+      value: 2.6
+      inSlope: 0.0006192863
+      outSlope: 0.0006192863
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Med2:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0.00032894744
+      outSlope: 0.00032894744
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 608
+      value: 2.2
+      inSlope: 0.000899166
+      outSlope: 0.000899166
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 609
+      value: 0.5
+      inSlope: 0.00097185944
+      outSlope: 0.00097185944
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.09687408
+    - serializedVersion: 3
+      time: 4000
+      value: 1.6
+      inSlope: 0.0003243881
+      outSlope: 0.0003243881
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Slow:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0.00032894744
+      outSlope: 0.00032894744
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 608
+      value: 2.2
+      inSlope: 0.00088141894
+      outSlope: 0.00088141894
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.12893867
+      outWeight: 1
+    - serializedVersion: 3
+      time: 609
+      value: 0.5
+      inSlope: 0.00032111446
+      outSlope: 0.00032111446
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.09008366
+    - serializedVersion: 3
+      time: 1570.3263
+      value: 0.6876291
+      inSlope: 0.0001993166
+      outSlope: 0.0001993166
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4000
+      value: 1.1
+      inSlope: 0.00017693896
+      outSlope: 0.00017693896
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   index: 1
   speciesInSeries: reseeder
   climate: 
@@ -145896,22 +146100,22 @@ PrefabInstance:
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
@@ -145921,17 +146125,17 @@ PrefabInstance:
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
       propertyPath: m_fontColor.r
-      value: 0.5544279
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
       propertyPath: m_fontColor.g
-      value: 0.27416337
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
       propertyPath: m_fontColor.b
-      value: 0.9528302
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155266450190034054, guid: 7be4024ea6f3c694883725053d46be0f,
         type: 3}
