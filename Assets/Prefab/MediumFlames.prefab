@@ -4712,4 +4712,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifeSpan: 60
-  Speed: 90
+  Speed: 66.667

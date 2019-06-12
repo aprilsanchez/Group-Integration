@@ -95,7 +95,7 @@ public class PlantAnimation : MonoBehaviour
     {
         yield return new WaitForSeconds(12);
         currSun = Instantiate(sun, sunPos, sun.transform.rotation);
-        Invoke("StopSun", 30);  // stops sun after 30 seconds
+        Invoke("StopSun", 10);  // stops sun after 30 seconds
     }
 
     private void StopSun()

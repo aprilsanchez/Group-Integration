@@ -749,7 +749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &257061053
 Transform:
   m_ObjectHideFlags: 0
@@ -3605,7 +3605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 543097130, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 392948878, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3667,11 +3667,19 @@ PrefabInstance:
       propertyPath: m_Text
       value: Pilot Study
       objectReference: {fileID: 0}
+    - target: {fileID: 944840464, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1349932062, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
       propertyPath: m_Text
       value: 'Our Goal
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349932062, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1736250034, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
       propertyPath: m_Text
@@ -3766,6 +3774,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: e48b920555144c6da3ee2ab03f0fda88,
         type: 3}
+    - target: {fileID: 863205417, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
 --- !u!1 &1934490768 stripped

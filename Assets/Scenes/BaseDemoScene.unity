@@ -307,6 +307,7 @@ MonoBehaviour:
   - {fileID: 425325260417532159, guid: f9dc630ab5763d24f91aa8599d156e39, type: 3}
   pipChoice: 0
   cipChoice: 0
+  studyChoice: 0
   OMaxBioDry: 0
   OMinBioDry: 0
   OMaxBioWet: 0
