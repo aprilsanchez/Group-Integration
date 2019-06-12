@@ -1895,7 +1895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1044045948, guid: 82bd8c0b35128e74d8e7adca4364bed0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2899998
+      value: 1.29
       objectReference: {fileID: 0}
     - target: {fileID: 1044045948, guid: 82bd8c0b35128e74d8e7adca4364bed0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3695,6 +3695,10 @@ PrefabInstance:
         of which plant type and climate condition you will experience, as well as
         the questions you will be asked to answer afterwards.\n"
       objectReference: {fileID: 0}
+    - target: {fileID: 1736250034, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 792227568, guid: 1f5358d4fdbb08d42ac24921c7a76234, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.155
@@ -3888,12 +3892,12 @@ PrefabInstance:
     - target: {fileID: 2053592435970589037, guid: 1af50ff01d30bee4d8d9293dfa431e33,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.9
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2053592435970589037, guid: 1af50ff01d30bee4d8d9293dfa431e33,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1341450557832411087, guid: 1af50ff01d30bee4d8d9293dfa431e33,
         type: 3}
@@ -4161,7 +4165,7 @@ PrefabInstance:
     - target: {fileID: 5463537060078678107, guid: 69f1e0672537c6e42ac5de591d3d5f78,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.21
+      value: -0.211
       objectReference: {fileID: 0}
     - target: {fileID: 5463537060078678107, guid: 69f1e0672537c6e42ac5de591d3d5f78,
         type: 3}
@@ -4211,12 +4215,12 @@ PrefabInstance:
     - target: {fileID: 5463537060078678107, guid: 69f1e0672537c6e42ac5de591d3d5f78,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.7
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 5463537060078678107, guid: 69f1e0672537c6e42ac5de591d3d5f78,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 622812967141977471, guid: 69f1e0672537c6e42ac5de591d3d5f78,
         type: 3}
